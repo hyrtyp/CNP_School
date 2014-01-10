@@ -2,5 +2,16 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-
+    <dimen name="layout_actionbar_title_text_size">20sp</dimen>
+    <dimen name="layout_actionbar_title_back_marginLeft">24dp</dimen>
+    <dimen name="schoolindex_Spacing_margin">6dp</dimen>
+    <dimen name="schoolindex_text_size">10sp</dimen>
+    <dimen name="schoolindex_text_marginBottom">8dp</dimen>
+    <dimen name="schoolindex_image_size_w_h">25dp</dimen>
+    <dimen name="schoolindex_itemlayout_h">80dp</dimen>
+    <dimen name="sendword_imageview_margin">6dp</dimen>
+    <dimen name="sendword_imageview_w_h">80dp</dimen>
+    <dimen name="sendword_margin">6dp</dimen>
+    <dimen name="sendword_text_margin">3dp</dimen>
+    <dimen name="sendword_text_size">12sp</dimen>
     </resources>

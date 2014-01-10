@@ -3,8 +3,9 @@ package com.hyrt.cnp.school.ui;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.hyrt.cnp.school.api.BaseActivity;
 import com.hyrt.cnp.account.model.School;
+import com.hyrt.cnp.school.R;
+import com.hyrt.cnp.school.api.BaseActivity;
 import com.hyrt.cnp.school.request.SchoolListRequest;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -18,6 +19,7 @@ public class SchoolListActivity extends BaseActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_schoolindex);
     }
 
     @Override

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">24dp</dimen>
+    <dimen name="activity_vertical_margin">24dp</dimen>
+    <dimen name="layout_actionbar_title_text_size">20sp</dimen>
+    <dimen name="layout_actionbar_title_back_marginLeft">24dp</dimen>
+
+    <!---->
+    <dimen name="schoolindex_image_size_w_h">37dp</dimen>
+    <dimen name="cnp_schoolindex_item_height">100dp</dimen>
+    <dimen name="schoolindex_text_marginBottom">10dp</dimen>
+    <dimen name="schoolindex_text_size">15sp</dimen>
+
+
+    <dimen name="cnp_school_layout_margin">9dp</dimen>
+    <dimen name="cnp_school_text_margin">15dp</dimen>
+    <dimen name="cnp_school_text_size_min">15sp</dimen>
+    <dimen name="cnp_school_text_size_max">25sp</dimen>
+    <dimen name="cnp_school_text_margin_min">1dp</dimen>
+    <dimen name="cnp_school_text_margin_max">3dp</dimen>
+    <dimen name="cnp_school_item_text_size">20sp</dimen>
+    <dimen name="cnp_school_image_height_min">100dp</dimen>
+    <dimen name="cnp_school_image_height_max">170dp</dimen>
+    <dimen name="cnp_school_gridview_margin">3dp</dimen>
+
+</resources>

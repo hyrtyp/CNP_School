@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/cnp_school_text_margin">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/cnp_school_text_margin"
+        android:background="@drawable/schoolnotice_right_image"
+        android:id="@+id/item_image_next"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/item_image_next"
+        >
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="记一次班级志愿者活动的体验和感受"
+            android:textColor="@color/sendword_text_color"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/cnp_school_item_text_size" />
+
+        <TextView
+            android:id="@+id/item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="记一次班级志愿者活动的体验和感受"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="@dimen/cnp_school_text_size_min" />
+    </LinearLayout>
+</RelativeLayout>
+

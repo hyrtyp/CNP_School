@@ -1,0 +1,19 @@
+<resources>
+    <color name="base_background_1">#F9F9F9</color>
+    <color name="base_background_2">#fff3f3f3</color>
+    <color name="cnp_background">#fdfcf7</color>
+    <color name="cnp_line_color">#d8d7d3</color>
+    <color name="cnp_text_color_black">#000000</color>
+    <color name="schoolindex_notice">#45d8ec</color>
+    <color name="schoolindex_sendword">#92d603</color>
+    <color name="schoolindex_photo">#f4bf01</color>
+    <color name="schoolindex_starteacher">#ed6d00</color>
+    <color name="schoolindex_starstudent">#f85982</color>
+    <color name="schoolindex_schoolinfo">#84d016</color>
+    <color name="schoolindex_classroom">#c169da</color>
+    <color name="schoolindex_recipe">#ff684b</color>
+    <color name="schoolindex_textcolor">#ffffff</color>
+    <color name="actionbar_title_text">#ffffff</color>
+    <color name="sendword_text_color">#000000</color>
+
+</resources>

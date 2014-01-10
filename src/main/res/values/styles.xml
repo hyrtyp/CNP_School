@@ -4,5 +4,52 @@
     <style name="AppTheme" parent="Theme.AppCompat">
         <!-- Customize your theme here. -->
     </style>
+    <style name="layout_actionbar_title_text">
+        <item name="android:textColor">@color/actionbar_title_text</item>
+        <item name="android:textSize">@dimen/layout_actionbar_title_text_size</item>
+    </style>
+    <style name="layout_actionbar_title_back">
+        <item name="android:layout_marginLeft">@dimen/layout_actionbar_title_back_marginLeft</item>
+    </style>
 
+
+    <style name="schoolindex_text">
+        <item name="android:textColor">@color/schoolindex_textcolor</item>
+        <item name="android:textSize">@dimen/schoolindex_text_size</item>
+        <item name="android:layout_marginBottom">@dimen/schoolindex_text_marginBottom</item>
+    </style>
+
+    <style name="schoolindex_image_size">
+        <item name="android:layout_width">@dimen/schoolindex_image_size_w_h</item>
+        <item name="android:layout_height">@dimen/schoolindex_image_size_w_h</item>
+    </style>
+
+    <style name="schoolindex_itemlayout">
+        <item name="android:layout_height">@dimen/cnp_schoolindex_item_height</item>
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+
+
+    <!---->
+    <style name="cnp_school_layout">
+        <item name="android:layout_marginLeft">@dimen/cnp_school_layout_margin</item>
+        <item name="android:layout_marginRight">@dimen/cnp_school_layout_margin</item>
+        <item name="android:layout_marginTop">@dimen/cnp_school_layout_margin</item>
+    </style>
+    <style name="cnp_school_text_min">
+        <item name="android:layout_marginLeft">@dimen/cnp_school_text_margin</item>
+        <item name="android:layout_marginRight">@dimen/cnp_school_text_margin</item>
+        <item name="android:layout_marginBottom">@dimen/cnp_school_text_margin_min</item>
+        <item name="android:layout_marginTop">@dimen/cnp_school_text_margin_min</item>
+        <item name="android:textSize">@dimen/cnp_school_text_size_min</item>
+        <item name="android:textColor">@color/cnp_text_color_black</item>
+    </style>
+    <style name="cnp_school_text_max">
+        <item name="android:layout_marginLeft">@dimen/cnp_school_text_margin</item>
+        <item name="android:layout_marginRight">@dimen/cnp_school_text_margin</item>
+        <item name="android:layout_marginBottom">@dimen/cnp_school_text_margin_max</item>
+        <item name="android:layout_marginTop">@dimen/cnp_school_text_margin_max</item>
+        <item name="android:textSize">@dimen/cnp_school_text_size_max</item>
+        <item name="android:textColor">@color/cnp_text_color_black</item>
+    </style>
 </resources>

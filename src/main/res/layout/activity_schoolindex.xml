@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/cnp_background">
+    <ImageView
+        android:layout_marginTop="3dp"
+        android:layout_width="fill_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/schoolindex_banner"/>
+    <GridView
+        android:id="@+id/schoolindexlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:verticalSpacing="6dp"
+        android:horizontalSpacing="6dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        style="@style/cnp_school_layout"
+        >
+        </GridView>
+</LinearLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cnp_background">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        style="@style/cnp_school_layout"
+        >
+        <TextView
+            style="@style/cnp_school_text_max"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="元旦放假安排"
+            android:gravity="center"
+            android:id="@+id/schoolnotice_title"/>
+        <TextView
+            style="@style/cnp_school_text_min"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="发布人：叶园长 发布时间：2013-09-10"
+            android:gravity="center"
+            android:id="@+id/schoolnotice_time_name"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="................................................................................................................................................."/>
+        <TextView
+            style="@style/cnp_school_text_min"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="元旦放假通知\n根据上级安排，元旦放假安排如下:\n2014年1月1日放假当天"
+            android:gravity="left"
+            android:id="@+id/schoolnotice_content"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/sendword_text_color"
+        android:layout_marginTop="@dimen/cnp_school_text_margin"/>
+    <include layout="@layout/layout_listview"></include>
+</LinearLayout>
