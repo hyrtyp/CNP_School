@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cnp_background">
+    android:background="@drawable/cnp_bg">
     <include layout="@layout/layout_gridview_image"></include>
 
 </LinearLayout>

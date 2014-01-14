@@ -56,12 +56,16 @@ public class SchoolIndexActivity extends BaseActivity{
                     startActivity(new Intent().setClass(SchoolIndexActivity.this,SendwordActivity.class));
                     break;
                 case 2:
+                    startActivity(new Intent().setClass(SchoolIndexActivity.this,SchoolPhotoActivity.class));
                     break;
                 case 3:
                     startActivity(new Intent().setClass(SchoolIndexActivity.this,StarTeacherActivity.class));
                     break;
                 case 4:
                     startActivity(new Intent().setClass(SchoolIndexActivity.this,StarBabayActivity.class));
+                    break;
+                case 5:
+                    startActivity(new Intent().setClass(SchoolIndexActivity.this,SchoolInfoActivity.class));
                     break;
                 case 6:
                     startActivity(new Intent().setClass(SchoolIndexActivity.this,ClassRoomListActivity.class));

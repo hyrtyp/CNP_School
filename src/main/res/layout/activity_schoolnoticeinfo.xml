@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cnp_background">
+    android:background="@drawable/cnp_bg">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -23,19 +23,21 @@
              />
 
         <TextView
-            style="@style/cnp_school_text_min"
+            style="@style/cnp_school_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="发布人：叶园长 发布时间：2013-09-10"
             android:gravity="center"
-            android:id="@+id/schoolnotice_time_name" />
+            android:id="@+id/schoolnotice_time_name"
+            android:singleLine="true"/>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="1px"
             android:background="#000000"
             style="@style/cnp_school_text_max"
             android:layout_marginTop="@dimen/cnp_school_layout_margin"
-            android:layout_marginBottom="@dimen/cnp_school_layout_margin"/>
+            android:layout_marginBottom="@dimen/cnp_school_layout_margin"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <LinearLayout

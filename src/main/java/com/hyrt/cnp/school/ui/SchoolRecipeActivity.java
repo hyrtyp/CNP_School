@@ -1,5 +1,6 @@
 package com.hyrt.cnp.school.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,5 +69,11 @@ public class SchoolRecipeActivity extends BaseActivity{
                 R.layout.layout_item_text, new String[] { "title", "info" },
                 new int[] { R.id.item_title, R.id.item_time });
         noticelistview.setAdapter(adapter);
+        noticelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                startActivity(new Intent().setClass(SchoolRecipeActivity.this,SchoolRepiceInfoActivity.class));
+            }
+        });
     }
 }

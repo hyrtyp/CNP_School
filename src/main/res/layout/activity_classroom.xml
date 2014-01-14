@@ -3,8 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/cnp_background">
+    android:layout_height="match_parent"
+    android:background="@drawable/cnp_bg">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -12,12 +12,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="小班"
-                style="@style/cnp_school_text_max" />
+                style="@style/cnp_school_text_max"
+                android:layout_marginTop="@dimen/cnp_school_layout_margin"/>
             <com.hyrt.cnp.school.view.MyGridView
                 android:id="@+id/cnp_gridview_small"
                 android:layout_width="match_parent"
@@ -33,7 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="中班"
-                style="@style/cnp_school_text_max" />
+                style="@style/cnp_school_text_max"
+                android:layout_marginTop="@dimen/cnp_school_layout_margin"/>
 
             <com.hyrt.cnp.school.view.MyGridView
                 android:id="@+id/cnp_gridview_mun"
@@ -50,7 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="大班"
-                style="@style/cnp_school_text_max" />
+                style="@style/cnp_school_text_max"
+                android:layout_marginTop="@dimen/cnp_school_layout_margin"/>
 
             <com.hyrt.cnp.school.view.MyGridView
                 android:id="@+id/cnp_gridview_max"

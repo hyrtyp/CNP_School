@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.hyrt.cnp.account.model.Notice;
 import com.hyrt.cnp.account.requestListener.BaseRequestListener;
@@ -16,11 +15,6 @@ import com.hyrt.cnp.school.api.BaseActivity;
 import com.hyrt.cnp.school.request.SchoolNoticeListRequest;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by GYH on 14-1-9.
@@ -44,48 +38,48 @@ public class SchoolNoticeActivity extends BaseActivity{
                 startActivity(new Intent().setClass(SchoolNoticeActivity.this,SchoolNoticeInfoActivity.class));
             }
         });
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("title", "记一次班级志愿者活动的体验和感受");
-        map.put("info", "2014-10-12");
-        list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("title", "记一次班级志愿者活动的体验和感受");
-        map.put("info", "2014-10-12");
-        list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("title", "记一次班级志愿者活动的体验和感受");
-        map.put("info", "2014-10-12");
-        list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("title", "记一次班级志愿者活动的体验和感受");
-        map.put("info", "2014-10-12");
-        list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("title", "记一次班级志愿者活动的体验和感受");
-        map.put("info", "2014-10-12");
-        list.add(map);
-
-        map = new HashMap<String, Object>();
-        map.put("title", "记一次班级志愿者活动的体验和感受");
-        map.put("info", "2014-10-12");
-        list.add(map);
-        SimpleAdapter adapter = new SimpleAdapter(this,list,
-                R.layout.layout_item_text, new String[] { "title", "info" },
-                new int[] { R.id.item_title, R.id.item_time });
-        noticelistview.setAdapter(adapter);
+//        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+//        Map<String, Object> map = new HashMap<String, Object>();
+//        map.put("title", "记一次班级志愿者活动的体验和感受");
+//        map.put("info", "2014-10-12");
+//        list.add(map);
+//
+//        map = new HashMap<String, Object>();
+//        map.put("title", "记一次班级志愿者活动的体验和感受");
+//        map.put("info", "2014-10-12");
+//        list.add(map);
+//
+//        map = new HashMap<String, Object>();
+//        map.put("title", "记一次班级志愿者活动的体验和感受");
+//        map.put("info", "2014-10-12");
+//        list.add(map);
+//
+//        map = new HashMap<String, Object>();
+//        map.put("title", "记一次班级志愿者活动的体验和感受");
+//        map.put("info", "2014-10-12");
+//        list.add(map);
+//
+//        map = new HashMap<String, Object>();
+//        map.put("title", "记一次班级志愿者活动的体验和感受");
+//        map.put("info", "2014-10-12");
+//        list.add(map);
+//
+//        map = new HashMap<String, Object>();
+//        map.put("title", "记一次班级志愿者活动的体验和感受");
+//        map.put("info", "2014-10-12");
+//        list.add(map);
+//        SimpleAdapter adapter = new SimpleAdapter(this,list,
+//                R.layout.layout_item_text, new String[] { "title", "info" },
+//                new int[] { R.id.item_title, R.id.item_time });
+//        noticelistview.setAdapter(adapter);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        if(schoolNoticeAdapter==null){
-//            loadData();
-//        }
+        if(schoolNoticeAdapter==null){
+            loadData();
+        }
     }
 
     private void loadData(){
@@ -119,9 +113,6 @@ public class SchoolNoticeActivity extends BaseActivity{
             if(schoolNoticeAdapter==null){
                 schoolNoticeAdapter = new SchoolNoticeAdapter(SchoolNoticeActivity.this,result);
                 noticelistview.setAdapter(schoolNoticeAdapter);
-            }else{
-                model.getData().addAll(result.getData());
-                schoolNoticeAdapter.notifyDataSetChanged();
             }
         }
     }

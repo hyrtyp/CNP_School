@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hyrt.cnp.school.R;
@@ -14,12 +14,12 @@ import com.hyrt.cnp.school.R;
 /**
  * Created by GYH on 14-1-8.
  */
-public class StarTeacherAdapter extends BaseAdapter{
+public class GridviewImageAdapter extends BaseAdapter{
 
     private String[] text;
     private int[] imageid;
     private Context context;
-    public StarTeacherAdapter(String[] text,int[] imageid,Context context){
+    public GridviewImageAdapter(String[] text, int[] imageid, Context context){
         this.text=text;
         this.imageid=imageid;
         this.context=context;
@@ -45,7 +45,7 @@ public class StarTeacherAdapter extends BaseAdapter{
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.layout_item_gridview_image, null);
         }
-        RelativeLayout list_item = (RelativeLayout)convertView.findViewById(R.id.gridview_item);
+        LinearLayout list_item = (LinearLayout)convertView.findViewById(R.id.gridview_item);
         ImageView imgView = (ImageView) convertView.findViewById(R.id.gridview_image);
         TextView textView = (TextView)convertView.findViewById(R.id.gridview_name);
         imgView.setImageResource(imageid[i]);

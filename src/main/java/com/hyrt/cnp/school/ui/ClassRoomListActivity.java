@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.hyrt.cnp.school.R;
-import com.hyrt.cnp.school.adapter.StarTeacherAdapter;
+import com.hyrt.cnp.school.adapter.GridviewImageAdapter;
 import com.hyrt.cnp.school.api.BaseActivity;
 import com.hyrt.cnp.school.view.MyGridView;
 
@@ -38,9 +38,9 @@ public class ClassRoomListActivity extends BaseActivity{
         imageResIdsmall = new int[] { R.drawable.classroom1,R.drawable.classroom2};
         imageResIdmun = new int[] { R.drawable.classroom3};
         imageResIdmax = new int[] { R.drawable.classroom2};
-        StarTeacherAdapter starTeacherAdaptersmall=new StarTeacherAdapter(Smalltext,imageResIdsmall,this);
-        StarTeacherAdapter starTeacherAdaptermun=new StarTeacherAdapter(Muntext,imageResIdmun,this);
-        StarTeacherAdapter starTeacherAdaptermax=new StarTeacherAdapter(Maxtext,imageResIdmax,this);
+        GridviewImageAdapter starTeacherAdaptersmall=new GridviewImageAdapter(Smalltext,imageResIdsmall,this);
+        GridviewImageAdapter starTeacherAdaptermun=new GridviewImageAdapter(Muntext,imageResIdmun,this);
+        GridviewImageAdapter starTeacherAdaptermax=new GridviewImageAdapter(Maxtext,imageResIdmax,this);
         gridviewsmall.setAdapter(starTeacherAdaptersmall);
         gridviewmun.setAdapter(starTeacherAdaptermun);
         gridviewmax.setAdapter(starTeacherAdaptermax);

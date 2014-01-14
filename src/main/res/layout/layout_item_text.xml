@@ -3,7 +3,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/cnp_school_text_margin">
+    android:paddingLeft="@dimen/cnp_school_text_margin"
+    android:paddingRight="@dimen/cnp_school_text_margin"
+    android:paddingTop="@dimen/cnp_school_layout_margin"
+    android:paddingBottom="@dimen/cnp_school_layout_margin"
+    android:background="#ffffff">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

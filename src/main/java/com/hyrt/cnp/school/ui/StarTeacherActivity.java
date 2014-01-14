@@ -8,7 +8,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.hyrt.cnp.school.R;
-import com.hyrt.cnp.school.adapter.StarTeacherAdapter;
+import com.hyrt.cnp.school.adapter.GridviewImageAdapter;
 import com.hyrt.cnp.school.api.BaseActivity;
 
 /**
@@ -37,7 +37,7 @@ public class StarTeacherActivity extends BaseActivity {
         gridview = (GridView) findViewById(R.id.cnp_gridview);
         imageResId = new int[] { R.drawable.imge_test,R.drawable.image_test2
                 ,R.drawable.image_test3,R.drawable.image_test4};
-        StarTeacherAdapter starTeacherAdapter=new StarTeacherAdapter(text,imageResId,this);
+        GridviewImageAdapter starTeacherAdapter=new GridviewImageAdapter(text,imageResId,this);
         gridview.setAdapter(starTeacherAdapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

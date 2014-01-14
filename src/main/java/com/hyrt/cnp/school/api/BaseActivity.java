@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.inject.Key;
 import com.hyrt.cnp.school.R;
@@ -27,12 +31,15 @@ public class BaseActivity extends ActionBarActivity implements RoboContext {
     private SpiceManager contentManager = new SpiceManager( JacksonSpringAndroidSpiceService.class );
     private BitmapSpiceManager spiceManagerBinary = new BitmapSpiceManager();
     protected View viewTitleBar;
+    protected ActionBar actionBar;
+    protected ImageView backimage;
+    protected TextView titletext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RoboGuice.getInjector(this).injectMembers(this);
-        ActionBar actionBar  = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar  = getSupportActionBar();
+//        actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
         initTitleview();
         getSupportActionBar().setDisplayShowCustomEnabled(true);
@@ -71,6 +78,19 @@ public class BaseActivity extends ActionBarActivity implements RoboContext {
                 ActionBar.LayoutParams.MATCH_PARENT,
                 ActionBar.LayoutParams.MATCH_PARENT, Gravity.CENTER);
         viewTitleBar = getLayoutInflater().inflate(R.layout.layout_actionbar_title, null);
-        getSupportActionBar().setCustomView(viewTitleBar,lp);
+        backimage=(ImageView)viewTitleBar.findViewById(R.id.action_bar_title_back);
+        titletext=(TextView)viewTitleBar.findViewById(R.id.action_bar_title_text);
+        actionBar.setCustomView(viewTitleBar, lp);
+        backimage.setVisibility(View.GONE);
+        actionBar.setIcon(R.drawable.actionbar_title_back);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("abc")
+                .setIcon(R.drawable.actionbar_right)
+                .setShowAsAction(
+                        MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        return true;
     }
 }
