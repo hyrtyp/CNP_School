@@ -12,6 +12,8 @@ import com.hyrt.cnp.school.view.MyGridView;
 import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
+import java.util.ArrayList;
+
 /**
  * Created by GYH on 14-1-10.
  */
@@ -55,9 +57,13 @@ public class ClassRoomListActivity extends BaseActivity {
         imageResIdmax = new int[] { R.drawable.classroom2};
     }
     public void initData(ClassRoom.Model model){
-        starTeacherAdaptersmall=new ClassRoomImageAdapter(model,imageResIdsmall,this);
-        starTeacherAdaptermun=new ClassRoomImageAdapter(model,imageResIdmun,this);
-        starTeacherAdaptermax=new ClassRoomImageAdapter(model,imageResIdmax,this);
+
+        String[] resKeys=new String[]{"getImagepath","getRenname"};
+        int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};
+
+        starTeacherAdaptersmall=new ClassRoomImageAdapter(this,getClassRoommodel(model,"3").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
+        starTeacherAdaptermun=new ClassRoomImageAdapter(this,getClassRoommodel(model,"2").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
+        starTeacherAdaptermax=new ClassRoomImageAdapter(this,getClassRoommodel(model,"1").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
         gridviewsmall.setAdapter(starTeacherAdaptersmall);
         gridviewmun.setAdapter(starTeacherAdaptermun);
         gridviewmax.setAdapter(starTeacherAdaptermax);
@@ -68,5 +74,18 @@ public class ClassRoomListActivity extends BaseActivity {
         ClassRoomListRequest classRoomListRequest=new ClassRoomListRequest(ClassRoom.Model.class,this);
         spiceManager.execute(classRoomListRequest, classRoomListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
+    }
+
+    private ClassRoom.Model getClassRoommodel(ClassRoom.Model model,String grade){
+        ClassRoom.Model m=new ClassRoom.Model();
+        m.setData(new ArrayList<ClassRoom>());
+
+        for (int i=0;i<model.getData().size();i++){
+            if(model.getData().get(i).getGrade().equals(grade)){
+                m.getData().add(model.getData().get(i));
+            }
+        }
+
+        return m;
     }
 }
