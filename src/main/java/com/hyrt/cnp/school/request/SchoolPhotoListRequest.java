@@ -5,31 +5,28 @@ import android.content.Context;
 import com.google.inject.Inject;
 import com.hyrt.cnp.account.model.Base;
 import com.hyrt.cnp.account.request.BaseRequest;
-import com.hyrt.cnp.account.service.SendwordService;
+import com.hyrt.cnp.account.service.PhotoService;
 
 /**
- * Created by GYH on 14-1-8.
+ * Created by GYH on 14-1-3.
  */
-public class SendwordRequest extends BaseRequest {
+public class SchoolPhotoListRequest extends BaseRequest{
 
     @Inject
-    private SendwordService sendwordService;
+    private PhotoService schoolListService;
 
-    public SendwordRequest(Class clazz, Context context) {
+
+    public SchoolPhotoListRequest(Class clazz, Context context) {
         super(clazz, context);
     }
-
     @Override
     public Base run() {
-        return sendwordService.getSendwordData(getRestTemplate());
+        return schoolListService.getphotolistData(getRestTemplate());
     }
+
 
     @Override
     public int compareTo(Object o) {
         return 0;
-    }
-
-    public String getcachekey(){
-        return "Sendword";
     }
 }

@@ -1,6 +1,7 @@
 package com.hyrt.cnp.school.api;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
@@ -34,12 +35,21 @@ public class BaseActivity extends ActionBarActivity implements RoboContext {
     protected ActionBar actionBar;
     protected ImageView backimage;
     protected TextView titletext;
+
+    public Fragment getCurrentFragment() {
+        return currentFragment;
+    }
+
+    public void setCurrentFragment(Fragment currentFragment) {
+        this.currentFragment = currentFragment;
+    }
+
+    protected Fragment currentFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RoboGuice.getInjector(this).injectMembers(this);
         actionBar  = getSupportActionBar();
-//        actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
         initTitleview();
         getSupportActionBar().setDisplayShowCustomEnabled(true);

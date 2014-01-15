@@ -23,6 +23,7 @@
                 android:padding="@dimen/cnp_school_layout_margin"
                 >
                 <ImageView
+                    android:id="@+id/starteacherimageview"
                     android:layout_height="@dimen/cnp_school_image_height_min"
                     android:layout_width="@dimen/cnp_school_image_height_min"
                     android:background="@drawable/imge_test"/>

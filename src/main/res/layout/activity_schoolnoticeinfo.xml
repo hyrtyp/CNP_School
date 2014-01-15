@@ -47,6 +47,7 @@
         style="@style/cnp_school_layout"
         android:background="@drawable/shape_sendword_line">
         <TextView
+            android:id="@+id/notice_context"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="元旦放假通知\n根据上级安排，元旦放假安排如下:\n2014年1月1日放假当天"

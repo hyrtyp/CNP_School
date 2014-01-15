@@ -13,9 +13,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.hyrt.cnp.account.model.RecipeInfo;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.RepiceInfoAdapter;
 import com.hyrt.cnp.school.api.BaseActivity;
+import com.hyrt.cnp.school.request.SchoolRecipeInfoRequest;
+import com.hyrt.cnp.school.requestListener.SchoolRecipeInfoRequestListener;
+import com.octo.android.robospice.persistence.DurationInMillis;
 
 import java.util.ArrayList;
 
@@ -26,36 +30,55 @@ import java.util.ArrayList;
 public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar.TabListener {
 
     private String[] str= new String[]{"星期一","星期二","星期三","星期四","星期五"};
+    private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
+    private ViewPager mViewPager;
 
-    AppSectionsPagerAdapter mAppSectionsPagerAdapter;
-
-    ViewPager mViewPager;
-
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_repiceinfo);
+        initView();
+    }
 
-        mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+    @Override
+    protected void initTitleview() {
+        super.initTitleview();
+        TextView textView = (TextView) viewTitleBar.findViewById(R.id.action_bar_title_text);
+        textView.setText("每周食谱");
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadSendword();
+    }
+
+    private void initView(){
         actionBar.setHomeButtonEnabled(false);
-
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        mViewPager.setAdapter(mAppSectionsPagerAdapter);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
             }
         });
-
         for (int i = 0; i < str.length; i++) {
             ActionBar.Tab tab=actionBar.newTab();
             tab.setText(str[i]);
             tab.setTabListener(this);
             actionBar.addTab(tab);
         }
+    }
+
+    public void initData(RecipeInfo.Model2 model){
+        mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager(),model);
+        mViewPager.setAdapter(mAppSectionsPagerAdapter);
+    }
+    private void loadSendword(){
+        SchoolRecipeInfoRequestListener sendwordRequestListener = new SchoolRecipeInfoRequestListener(this);
+        SchoolRecipeInfoRequest schoolRecipeInfoRequest= new SchoolRecipeInfoRequest(RecipeInfo.Model2.class, this);
+        getSpiceManager().execute(schoolRecipeInfoRequest,schoolRecipeInfoRequest.getcachekey() , DurationInMillis.ONE_SECOND*10,sendwordRequestListener.start());
     }
 
     @Override
@@ -74,24 +97,39 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
     }
 
 
-    public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
-        public AppSectionsPagerAdapter(FragmentManager fm) {
+    public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
+        private RecipeInfo.Model2 model;
+        private ArrayList<Fragmentrecipe> pages=new ArrayList<Fragmentrecipe>();
+        public AppSectionsPagerAdapter(FragmentManager fm,RecipeInfo.Model2 model) {
             super(fm);
+            this.model=model;
         }
         @Override
-        public Fragment getItem(int i) {
-            switch (i) {
-                case 0:
-                    return new Fragmentrecipe("2013-12-10 食谱");
-                case 1:
-                    return new Fragmentrecipe("2013-12-11 食谱");
-                case 2:
-                    return new Fragmentrecipe("2013-12-12 食谱");
-                case 3:
-                    return new Fragmentrecipe("2013-12-13 食谱");
-                default:
-                    return new Fragmentrecipe("2013-12-14 食谱");
+        public Fragment getItem(int position) {
+            Fragmentrecipe page = null;
+            if (pages.size() > position) {
+                page = pages.get(position);
+            }else{
+                if(model.getData().size()==0){
+                    RecipeInfo model=new RecipeInfo();
+                    model.setBreakfast("null");
+                    model.setB_ingredients("null");
+                    model.setAddfood("null");
+                    model.setLunch("null");
+                    model.setL_ingredients("null");
+                    model.setLunchsnacks("null");
+                    model.setDinner("null");
+                    model.setD_ingredients("null");
+                    model.setLevel("null");
+                    model.setFooder("null");
+                    model.setRecipeDate("null");
+                    page=new Fragmentrecipe(model);
+                }else{
+                    page=new Fragmentrecipe(model.getData().get(0));
+                }
+                pages.add(page);
             }
+            return page;
         }
 
         @Override
@@ -106,28 +144,28 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
     }
 
 
+
+
     /**
      * A dummy fragment representing a section of the app, but that simply displays dummy
      text.
      */
     public static class Fragmentrecipe extends Fragment {
-
-
-        String foottime;
         ArrayList<String> foot=new ArrayList<String>();
+        private String foottime;
         String[] footstime=new String[] {"早餐","早餐配料","加餐","午餐","午餐配料","午点","晚餐","晚餐配料","日营养量","负责人"};
-        public Fragmentrecipe(String foottime){
-            this.foottime=foottime;
-            foot.add("蜂蜜蛋糕、豆奶");
-            foot.add("蜂蜜、面粉、豆奶");
-            foot.add("三元酸奶、玻璃海苔");
-            foot.add("米饭、红烧肉、番茄炒鸡蛋、菠菜鸡蛋汤");
-            foot.add("大米、排骨、番茄、鸡蛋、菠菜");
-            foot.add("苹果");
-            foot.add("开花奶馒头、酱香茄子");
-            foot.add("面粉、茄子、杂豆");
-            foot.add("650");
-            foot.add("陈晴");
+        public Fragmentrecipe(RecipeInfo model){
+            foot.add(model.getBreakfast());
+            foot.add(model.getB_ingredients());
+            foot.add(model.getAddfood());
+            foot.add(model.getLunch());
+            foot.add(model.getL_ingredients());
+            foot.add(model.getLunchsnacks());
+            foot.add(model.getDinner());
+            foot.add(model.getD_ingredients());
+            foot.add(model.getLevel());
+            foot.add(model.getFooder());
+            foottime=model.getRecipeDate();
         }
 
         @Override

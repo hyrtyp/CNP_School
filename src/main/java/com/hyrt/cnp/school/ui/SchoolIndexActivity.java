@@ -8,12 +8,12 @@ import android.widget.GridView;
 
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolIndexAdapter;
-import com.hyrt.cnp.school.api.BaseActivity;
+import com.jingdong.common.frame.BaseActivity;
 
 /**
  * Created by GYH on 14-1-8.
  */
-public class SchoolIndexActivity extends BaseActivity{
+public class SchoolIndexActivity extends BaseActivity {
 
     private GridView gridView;
     private int[] imageResId;

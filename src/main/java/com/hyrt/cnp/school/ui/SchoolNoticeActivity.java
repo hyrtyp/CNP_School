@@ -1,6 +1,5 @@
 package com.hyrt.cnp.school.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,13 +7,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.hyrt.cnp.account.model.Notice;
-import com.hyrt.cnp.account.requestListener.BaseRequestListener;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolNoticeAdapter;
 import com.hyrt.cnp.school.api.BaseActivity;
 import com.hyrt.cnp.school.request.SchoolNoticeListRequest;
+import com.hyrt.cnp.school.requestListener.SchoolNoticeRequestListener;
 import com.octo.android.robospice.persistence.DurationInMillis;
-import com.octo.android.robospice.persistence.exception.SpiceException;
 
 /**
  * Created by GYH on 14-1-9.
@@ -35,7 +33,10 @@ public class SchoolNoticeActivity extends BaseActivity{
         noticelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent().setClass(SchoolNoticeActivity.this,SchoolNoticeInfoActivity.class));
+                Intent intent =new Intent();
+                intent.setClass(SchoolNoticeActivity.this,SchoolNoticeInfoActivity.class);
+                intent.putExtra("notice", model.getData().get(i));
+                startActivity(intent);
             }
         });
 //        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -83,37 +84,15 @@ public class SchoolNoticeActivity extends BaseActivity{
     }
 
     private void loadData(){
-        SchoolNotcielistRequestListener schoolNoticelistRequestListener = new SchoolNotcielistRequestListener(this);
-        getSpiceManager().execute(new SchoolNoticeListRequest(Notice.Model.class, this), "github", DurationInMillis.ONE_SECOND * 10,
+        SchoolNoticeRequestListener schoolNoticelistRequestListener = new SchoolNoticeRequestListener(this);
+        SchoolNoticeListRequest schoolNoticeListRequest= new SchoolNoticeListRequest(Notice.Model.class, this);
+        getSpiceManager().execute(schoolNoticeListRequest,schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 schoolNoticelistRequestListener.start());
     }
 
-    class SchoolNotcielistRequestListener extends BaseRequestListener {
-
-        protected SchoolNotcielistRequestListener(Activity context) {
-            super(context);
-        }
-
-        @Override
-        public BaseRequestListener start() {
-            showIndeterminate("加载...");
-            return this;
-        }
-
-        @Override
-        public void onRequestFailure(SpiceException e) {
-            super.onRequestFailure(e);
-        }
-
-        @Override
-        public void onRequestSuccess(Object data) {
-            super.onRequestSuccess(data);
-            Notice.Model result= (Notice.Model)data;
-            //model.getData().addAll(result.getData());
-            if(schoolNoticeAdapter==null){
-                schoolNoticeAdapter = new SchoolNoticeAdapter(SchoolNoticeActivity.this,result);
-                noticelistview.setAdapter(schoolNoticeAdapter);
-            }
-        }
+    public void initData(Notice.Model model){
+        this.model=model;
+        schoolNoticeAdapter = new SchoolNoticeAdapter(SchoolNoticeActivity.this,model);
+        noticelistview.setAdapter(schoolNoticeAdapter);
     }
 }

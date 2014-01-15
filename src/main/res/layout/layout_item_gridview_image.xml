@@ -12,7 +12,8 @@
         android:layout_width="@dimen/cnp_school_image_height_max"
         android:layout_height="@dimen/cnp_school_image_height_max"
         android:layout_margin="@dimen/cnp_school_gridview_margin"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/image_test4"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

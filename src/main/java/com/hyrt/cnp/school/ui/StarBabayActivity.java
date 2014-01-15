@@ -10,9 +10,13 @@ import android.widget.GridView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.hyrt.cnp.account.model.StarBabay;
 import com.hyrt.cnp.school.R;
-import com.hyrt.cnp.school.adapter.GridviewImageAdapter;
-import com.hyrt.cnp.school.api.BaseActivity;
+import com.hyrt.cnp.school.adapter.StarBabayImageAdapter;
+import com.hyrt.cnp.school.request.StarBabayRequest;
+import com.hyrt.cnp.school.requestListener.StarBabayRequestListener;
+import com.jingdong.common.frame.BaseActivity;
+import com.octo.android.robospice.persistence.DurationInMillis;
 
 /**
  * Created by GYH on 14-1-10.
@@ -21,6 +25,8 @@ public class StarBabayActivity extends BaseActivity {
     private GridView gridview;
     private int[] imageResId;
     private String[] text={"andy丽丽","许安安","甄炎","燕燕"};
+    private StarBabayImageAdapter starTeacherAdapter;
+    private StarBabayImageAdapter starTeacherImageAdapter=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +41,18 @@ public class StarBabayActivity extends BaseActivity {
         textView.setText("明星宝宝");
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(starTeacherImageAdapter==null){
+            loadStarteacehr();
+        }
+    }
+
     private void initView() {
         gridview = (GridView) findViewById(R.id.cnp_gridview);
         imageResId = new int[] { R.drawable.babay1,R.drawable.babay2
                 ,R.drawable.babay3,R.drawable.babay4};
-        GridviewImageAdapter starTeacherAdapter=new GridviewImageAdapter(text,imageResId,this);
-        gridview.setAdapter(starTeacherAdapter);
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -48,6 +60,23 @@ public class StarBabayActivity extends BaseActivity {
             }
         });
     }
+
+    public void initData(StarBabay.Model model){
+//        starTeacherAdapter=new StarBabayImageAdapter(model,imageResId,this);
+        String[] resKeys=new String[]{"getImagepath","getRenname"};
+        int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};
+       starTeacherImageAdapter = new StarBabayImageAdapter
+                (this,model.getData(),R.layout.layout_item_gridview_image,resKeys,reses);
+        gridview.setAdapter(starTeacherImageAdapter);
+    }
+
+    private void loadStarteacehr(){
+        StarBabayRequestListener sendwordRequestListener = new StarBabayRequestListener(this);
+        StarBabayRequest starBabayRequest=new StarBabayRequest(StarBabay.Model.class, this);
+        spiceManager.execute(starBabayRequest,starBabayRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+                sendwordRequestListener.start());
+    }
+
 
     private PopupWindow popWin;
     public  void ShowPop(View view) {

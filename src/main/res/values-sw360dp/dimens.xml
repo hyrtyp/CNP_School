@@ -20,7 +20,7 @@
     <dimen name="cnp_school_text_margin_min">1dp</dimen>
     <dimen name="cnp_school_text_margin_max">3dp</dimen>
     <dimen name="cnp_school_item_text_size">20sp</dimen>
-    <dimen name="cnp_school_image_height_min">100dp</dimen>
+    <dimen name="cnp_school_image_height_min">110dp</dimen>
     <dimen name="cnp_school_image_height_max">170dp</dimen>
     <dimen name="cnp_school_image_height_bar">200dp</dimen>
     <dimen name="cnp_school_gridview_margin">3dp</dimen>

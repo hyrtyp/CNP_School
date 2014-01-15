@@ -5,22 +5,23 @@ import android.content.Context;
 import com.google.inject.Inject;
 import com.hyrt.cnp.account.model.Base;
 import com.hyrt.cnp.account.request.BaseRequest;
-import com.hyrt.cnp.account.service.SchoolNoticeService;
+import com.hyrt.cnp.account.service.TeacherService;
 
 /**
- * Created by GYH on 14-1-9.
+ * Created by GYH on 14-1-14.
  */
-public class SchoolNoticeListRequest extends BaseRequest {
+public class StarTeacherInfoRequest extends BaseRequest {
 
     @Inject
-    private SchoolNoticeService schoolNoticeService;
-    public SchoolNoticeListRequest(Class clazz, Context context) {
+    private TeacherService teacherService;
+
+    public StarTeacherInfoRequest(Class clazz, Context context) {
         super(clazz, context);
     }
 
     @Override
     public Base run() {
-        return schoolNoticeService.getNoticelistData(getRestTemplate());
+        return teacherService.getStarteacherinfoData(getRestTemplate());
     }
 
     @Override
@@ -28,6 +29,6 @@ public class SchoolNoticeListRequest extends BaseRequest {
         return 0;
     }
     public String getcachekey(){
-        return "Noticelist";
+        return "Starteacherinfo";
     }
 }

@@ -9,34 +9,31 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hyrt.cnp.account.model.Base;
-import com.hyrt.cnp.account.model.StarBabay;
-import com.hyrt.cnp.account.model.Teacher;
+import com.hyrt.cnp.account.model.ClassRoom;
 import com.hyrt.cnp.school.R;
 
 /**
  * Created by GYH on 14-1-8.
  */
-public class GridviewImageAdapter extends BaseAdapter{
+public class ClassRoomImageAdapter extends BaseAdapter{
 
-    private String[] text;
     private int[] imageid;
     private Context context;
-    private Base base;
-    public GridviewImageAdapter(String[] text, int[] imageid, Context context){
-        this.text=text;
+    private ClassRoom.Model model;
+    public ClassRoomImageAdapter(ClassRoom.Model model, int[] imageid, Context context){
+        this.model=model;
         this.imageid=imageid;
         this.context=context;
     }
 
     @Override
     public int getCount() {
-        return text.length;
+        return model.getData().size();
     }
 
     @Override
     public Object getItem(int i) {
-        return text[i];
+        return model.getData().get(i);
     }
 
     @Override
@@ -53,14 +50,8 @@ public class GridviewImageAdapter extends BaseAdapter{
         LinearLayout list_item = (LinearLayout)convertView.findViewById(R.id.gridview_item);
         ImageView imgView = (ImageView) convertView.findViewById(R.id.gridview_image);
         TextView textView = (TextView)convertView.findViewById(R.id.gridview_name);
-
-        if(base instanceof Teacher.Model){
-            Teacher.Model model = (Teacher.Model)base;
-            imgView.setImageResource(imageid[i]);
+//            imgView.setImageResource(imageid[i]);
             textView.setText(model.getData().get(i).getRenname());
-        }else if(base instanceof StarBabay.Model){
-
-        }
         return convertView;
     }
 }
