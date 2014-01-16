@@ -10,7 +10,7 @@ import android.support.v7.app.ActionBar;
 import android.widget.TextView;
 
 import com.hyrt.cnp.school.R;
-import com.hyrt.cnp.school.fragement.Fragmentphoto;
+import com.hyrt.cnp.school.fragment.Fragmentphoto;
 import com.jingdong.common.frame.BaseActivity;
 
 import java.util.ArrayList;

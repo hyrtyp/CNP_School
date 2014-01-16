@@ -1,4 +1,4 @@
-package com.hyrt.cnp.school.fragement;
+package com.hyrt.cnp.school.fragment;
 
 /**
  * Created by GYH on 14-1-12.

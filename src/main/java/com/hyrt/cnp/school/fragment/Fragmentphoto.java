@@ -1,4 +1,4 @@
-package com.hyrt.cnp.school.fragement;
+package com.hyrt.cnp.school.fragment;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
