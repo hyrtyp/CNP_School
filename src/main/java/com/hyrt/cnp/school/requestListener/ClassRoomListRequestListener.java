@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.hyrt.cnp.account.model.ClassRoom;
 import com.hyrt.cnp.account.requestListener.BaseRequestListener;
+import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.ClassRoomListActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
@@ -18,11 +19,11 @@ public class ClassRoomListRequestListener extends BaseRequestListener {
      */
     public ClassRoomListRequestListener(Activity context) {
         super(context);
-        RoboGuice.getInjector(context).injectMembers(this);
     }
 
     @Override
     public void onRequestFailure(SpiceException e) {
+        showMessage(R.string.nodata_title,R.string.nodata_content);
         super.onRequestFailure(e);
     }
 

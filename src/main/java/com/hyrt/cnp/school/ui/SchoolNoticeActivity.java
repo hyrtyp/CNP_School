@@ -9,18 +9,20 @@ import android.widget.ListView;
 import com.hyrt.cnp.account.model.Notice;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolNoticeAdapter;
-import com.hyrt.cnp.school.api.BaseActivity;
 import com.hyrt.cnp.school.request.SchoolNoticeListRequest;
 import com.hyrt.cnp.school.requestListener.SchoolNoticeRequestListener;
+import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 /**
  * Created by GYH on 14-1-9.
  */
-public class SchoolNoticeActivity extends BaseActivity{
+public class SchoolNoticeActivity extends BaseActivity {
+
     private ListView noticelistview;
     private SchoolNoticeAdapter schoolNoticeAdapter=null;
     private Notice.Model model;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +88,7 @@ public class SchoolNoticeActivity extends BaseActivity{
     private void loadData(){
         SchoolNoticeRequestListener schoolNoticelistRequestListener = new SchoolNoticeRequestListener(this);
         SchoolNoticeListRequest schoolNoticeListRequest= new SchoolNoticeListRequest(Notice.Model.class, this);
-        getSpiceManager().execute(schoolNoticeListRequest,schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+        spiceManager.execute(schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 schoolNoticelistRequestListener.start());
     }
 

@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.hyrt.cnp.account.model.School;
 import com.hyrt.cnp.account.requestListener.BaseRequestListener;
+import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.SchoolInfoActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
@@ -18,25 +19,29 @@ public class SchoolinfoRequestListener extends BaseRequestListener {
      */
     public SchoolinfoRequestListener(Activity context) {
         super(context);
-        RoboGuice.getInjector(context).injectMembers(this);
     }
 
     @Override
     public void onRequestFailure(SpiceException e) {
         super.onRequestFailure(e);
+        showMessage(R.string.nodata_title, R.string.nodata_content);
     }
 
     @Override
     public void onRequestSuccess(Object data) {
         super.onRequestSuccess(data);
-        SchoolInfoActivity activity = (SchoolInfoActivity)context.get();
-        School.Model2 result= (School.Model2)data;
-        activity.initData(result);
+        if(data != null){
+            SchoolInfoActivity activity = (SchoolInfoActivity)context.get();
+            School.Model2 result= (School.Model2)data;
+            activity.initData(result);
+        }else{
+            showMessage(R.string.nodata_title, R.string.nodata_content);
+        }
     }
 
     @Override
     public SchoolinfoRequestListener start() {
-        showIndeterminate("加载中...");
+        showIndeterminate(R.string.schoolinfo_pg);
         return this;
     }
 }

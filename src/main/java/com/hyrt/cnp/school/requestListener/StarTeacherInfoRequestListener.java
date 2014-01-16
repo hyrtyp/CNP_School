@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.hyrt.cnp.account.model.Teacher;
 import com.hyrt.cnp.account.requestListener.BaseRequestListener;
+import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.StarTeacherInfoActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
@@ -18,25 +19,29 @@ public class StarTeacherInfoRequestListener extends BaseRequestListener {
      */
     public StarTeacherInfoRequestListener(Activity context) {
         super(context);
-        RoboGuice.getInjector(context).injectMembers(this);
     }
 
     @Override
     public void onRequestFailure(SpiceException e) {
         super.onRequestFailure(e);
+        showMessage(R.string.nodata_title,R.string.nodata_content);
     }
 
     @Override
     public void onRequestSuccess(Object data) {
         super.onRequestSuccess(data);
-        StarTeacherInfoActivity activity = (StarTeacherInfoActivity)context.get();
-        Teacher.Model2 result= (Teacher.Model2)data;
-        activity.initData(result);
+        if(data != null){
+            StarTeacherInfoActivity activity = (StarTeacherInfoActivity)context.get();
+            Teacher.Model2 result= (Teacher.Model2)data;
+            activity.updateUI(result);
+        }else{
+            showMessage(R.string.nodata_title,R.string.nodata_content);
+        }
     }
 
     @Override
     public StarTeacherInfoRequestListener start() {
-        showIndeterminate("加载中...");
+        showIndeterminate(R.string.starteacher_pg);
         return this;
     }
 }

@@ -5,8 +5,8 @@ import android.widget.Toast;
 
 import com.hyrt.cnp.account.model.School;
 import com.hyrt.cnp.school.R;
-import com.hyrt.cnp.school.api.BaseActivity;
 import com.hyrt.cnp.school.request.SchoolListRequest;
+import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 import com.octo.android.robospice.request.listener.RequestListener;
@@ -14,7 +14,7 @@ import com.octo.android.robospice.request.listener.RequestListener;
 /**
  * Created by GYH on 14-1-3.
  */
-public class SchoolListActivity extends BaseActivity{
+public class SchoolListActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class SchoolListActivity extends BaseActivity{
 
     public void loadhomedynamic() {
         setProgressBarIndeterminateVisibility(true);
-        getSpiceManager().execute(new SchoolListRequest(School.Model.class,this), "github", DurationInMillis.ONE_SECOND * 10,
+        spiceManager.execute(new SchoolListRequest(School.Model.class,this), "github", DurationInMillis.ONE_SECOND * 10,
                 new HomedynamicRequestListener());
     }
 

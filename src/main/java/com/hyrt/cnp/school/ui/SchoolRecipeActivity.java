@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import com.hyrt.cnp.account.model.Recipe;
 import com.hyrt.cnp.school.R;
-import com.hyrt.cnp.school.api.BaseActivity;
 import com.hyrt.cnp.school.request.SchoolRecipeRequest;
 import com.hyrt.cnp.school.requestListener.SchoolRecipeRequestListener;
+import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 import java.util.ArrayList;
@@ -23,9 +23,11 @@ import java.util.Map;
 /**
  * Created by GYH on 14-1-9.
  */
-public class SchoolRecipeActivity extends BaseActivity{
+public class SchoolRecipeActivity extends BaseActivity {
+
     private ListView noticelistview;
     private SimpleAdapter adapter=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,7 @@ public class SchoolRecipeActivity extends BaseActivity{
         });
     }
 
-    public void initData(Recipe.Model model){
+    public void updateUI(Recipe.Model model){
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
         for (int i=0;i<model.getData().size();i++){
@@ -76,7 +78,7 @@ public class SchoolRecipeActivity extends BaseActivity{
     private void loadSendword(){
         SchoolRecipeRequestListener sendwordRequestListener = new SchoolRecipeRequestListener(this);
         SchoolRecipeRequest schoolRecipeRequest=new SchoolRecipeRequest(Recipe.Model.class,this);
-        getSpiceManager().execute(schoolRecipeRequest,schoolRecipeRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+        spiceManager.execute(schoolRecipeRequest, schoolRecipeRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }
 }

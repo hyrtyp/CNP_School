@@ -6,12 +6,12 @@ import android.widget.TextView;
 
 import com.hyrt.cnp.account.model.Notice;
 import com.hyrt.cnp.school.R;
-import com.hyrt.cnp.school.api.BaseActivity;
+import com.jingdong.common.frame.BaseActivity;
 
 /**
  * Created by GYH on 14-1-9.
  */
-public class SchoolNoticeInfoActivity extends BaseActivity{
+public class SchoolNoticeInfoActivity extends BaseActivity {
 
     private TextView Noticetitle;
     private TextView Noticetime;

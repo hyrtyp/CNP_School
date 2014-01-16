@@ -16,9 +16,9 @@ import android.widget.TextView;
 import com.hyrt.cnp.account.model.RecipeInfo;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.RepiceInfoAdapter;
-import com.hyrt.cnp.school.api.BaseActivity;
 import com.hyrt.cnp.school.request.SchoolRecipeInfoRequest;
 import com.hyrt.cnp.school.requestListener.SchoolRecipeInfoRequestListener;
+import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 import java.util.ArrayList;
@@ -41,20 +41,12 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
     }
 
     @Override
-    protected void initTitleview() {
-        super.initTitleview();
-        TextView textView = (TextView) viewTitleBar.findViewById(R.id.action_bar_title_text);
-        textView.setText("每周食谱");
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
         loadSendword();
     }
 
     private void initView(){
-        actionBar.setHomeButtonEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -78,7 +70,7 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
     private void loadSendword(){
         SchoolRecipeInfoRequestListener sendwordRequestListener = new SchoolRecipeInfoRequestListener(this);
         SchoolRecipeInfoRequest schoolRecipeInfoRequest= new SchoolRecipeInfoRequest(RecipeInfo.Model2.class, this);
-        getSpiceManager().execute(schoolRecipeInfoRequest,schoolRecipeInfoRequest.getcachekey() , DurationInMillis.ONE_SECOND*10,sendwordRequestListener.start());
+        spiceManager.execute(schoolRecipeInfoRequest,schoolRecipeInfoRequest.getcachekey() , DurationInMillis.ONE_SECOND*10,sendwordRequestListener.start());
     }
 
     @Override

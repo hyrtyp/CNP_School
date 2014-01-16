@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.hyrt.cnp.account.model.StarBabay;
 import com.hyrt.cnp.account.requestListener.BaseRequestListener;
+import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.StarBabayActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
@@ -18,25 +19,29 @@ public class StarBabayRequestListener extends BaseRequestListener {
      */
     public StarBabayRequestListener(Activity context) {
         super(context);
-        RoboGuice.getInjector(context).injectMembers(this);
     }
 
     @Override
     public void onRequestFailure(SpiceException e) {
         super.onRequestFailure(e);
+        showMessage(R.string.nodata_title,R.string.nodata_content);
     }
 
     @Override
     public void onRequestSuccess(Object data) {
         super.onRequestSuccess(data);
-        StarBabayActivity activity = (StarBabayActivity)context.get();
-        StarBabay.Model result= (StarBabay.Model)data;
-        activity.initData(result);
+        if(data != null){
+            StarBabayActivity activity = (StarBabayActivity)context.get();
+            StarBabay.Model result= (StarBabay.Model)data;
+            activity.initData(result);
+        }else{
+            showMessage(R.string.nodata_title,R.string.nodata_content);
+        }
     }
 
     @Override
     public StarBabayRequestListener start() {
-        showIndeterminate("加载中...");
+        showIndeterminate(R.string.starbaby_pg);
         return this;
     }
 }

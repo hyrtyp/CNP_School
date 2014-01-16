@@ -79,7 +79,7 @@
                 style="@style/cnp_school_layout"
                 >
                 <TextView
-                    android:id="@+id/sendword_text2"
+                    android:id="@+id/sendword_text_msg"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="竭诚为幼儿园服务，减轻幼儿园教职工工作负担。我们以最专业最全面的服务学前教育出一份力。竭诚为幼儿园服务，减轻幼儿园教职工工作负担。我们以最专业最全面的服务学前教育出一份力。vav竭诚为幼儿园服务，减轻幼儿园教职工工作负担。我们以最专业最全面的服务学前教育出一份力。vav竭诚为幼儿园服务，减轻幼儿园教职工工作负担。我们以最专业最全面的服务学前教育出一份力"

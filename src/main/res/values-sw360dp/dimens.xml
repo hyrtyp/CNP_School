@@ -12,7 +12,7 @@
     <dimen name="schoolindex_text_size">15sp</dimen>
 
 
-    <dimen name="cnp_school_layout_margin">9dp</dimen>
+
     <dimen name="cnp_school_text_margin">15dp</dimen>
     <dimen name="cnp_school_text_size">15sp</dimen>
     <dimen name="cnp_school_text_size_min">18sp</dimen>
@@ -24,5 +24,5 @@
     <dimen name="cnp_school_image_height_max">170dp</dimen>
     <dimen name="cnp_school_image_height_bar">200dp</dimen>
     <dimen name="cnp_school_gridview_margin">3dp</dimen>
-    <dimen name="cnp_school_pop_img_height">230dp</dimen>
+
 </resources>
