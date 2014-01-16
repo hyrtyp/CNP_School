@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.hyrt.cnp.account.model.RecipeInfo;
 import com.hyrt.cnp.account.requestListener.BaseRequestListener;
+import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.SchoolRepiceInfoActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
@@ -18,25 +19,29 @@ public class SchoolRecipeInfoRequestListener extends BaseRequestListener {
      */
     public SchoolRecipeInfoRequestListener(Activity context) {
         super(context);
-        RoboGuice.getInjector(context).injectMembers(this);
     }
 
     @Override
     public void onRequestFailure(SpiceException e) {
         super.onRequestFailure(e);
+        showMessage(R.string.nodata_title,R.string.nodata_content);
     }
 
     @Override
     public void onRequestSuccess(Object data) {
         super.onRequestSuccess(data);
-        SchoolRepiceInfoActivity activity = (SchoolRepiceInfoActivity)context.get();
-        RecipeInfo.Model2 result= (RecipeInfo.Model2)data;
-        activity.initData(result);
+        if(data != null){
+            SchoolRepiceInfoActivity activity = (SchoolRepiceInfoActivity)context.get();
+            RecipeInfo.Model2 result= (RecipeInfo.Model2)data;
+            activity.initData(result);
+        }else{
+            showMessage(R.string.nodata_title,R.string.nodata_content);
+        }
     }
 
     @Override
     public SchoolRecipeInfoRequestListener start() {
-        showIndeterminate("加载中...");
+        showIndeterminate(R.string.schoolrecipe_pg);
         return this;
     }
 }

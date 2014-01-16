@@ -4,12 +4,14 @@ import android.app.Activity;
 
 import com.hyrt.cnp.account.model.SendWord;
 import com.hyrt.cnp.account.requestListener.BaseRequestListener;
+import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.SendwordActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
 import roboguice.RoboGuice;
 
 /**
+ * 其他人员个人资料监听
  * Created by GYH on 14-1-14.
  */
 public class SendWordRequestListener extends BaseRequestListener {
@@ -18,25 +20,29 @@ public class SendWordRequestListener extends BaseRequestListener {
      */
     public SendWordRequestListener(Activity context) {
         super(context);
-        RoboGuice.getInjector(context).injectMembers(this);
     }
 
     @Override
     public void onRequestFailure(SpiceException e) {
         super.onRequestFailure(e);
+        showMessage(R.string.nodata_title, R.string.nodata_content);
     }
 
     @Override
     public void onRequestSuccess(Object data) {
         super.onRequestSuccess(data);
-        SendwordActivity activity = (SendwordActivity)context.get();
-        SendWord.Model result= (SendWord.Model)data;
-        activity.initData(result);
+        if(data != null){
+            SendwordActivity activity = (SendwordActivity)context.get();
+            SendWord.Model result= (SendWord.Model)data;
+            activity.initData(result);
+        }else{
+            showMessage(R.string.nodata_title, R.string.nodata_content);
+        }
     }
 
     @Override
     public SendWordRequestListener start() {
-        showIndeterminate("加载中...");
+        showIndeterminate(R.string.personinfo_pg);
         return this;
     }
 }

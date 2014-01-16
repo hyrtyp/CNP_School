@@ -19,6 +19,7 @@ import com.hyrt.cnp.school.adapter.PhotoImageAdapter;
 import com.hyrt.cnp.school.request.SchoolPhotoListRequest;
 import com.hyrt.cnp.school.requestListener.SchoolPhotoListRequestListener;
 import com.hyrt.cnp.school.ui.SchoolPhotoActivity;
+import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 /**
@@ -34,6 +35,8 @@ public  class Fragmentphoto extends Fragment {
     private SchoolPhotoActivity activity;
     private int id;
     private Photo.Model model;
+
+
     public Fragmentphoto (String [] text,int[] imageResId,int id){
         this.text=text;
         this.imageResId=imageResId;
@@ -52,15 +55,10 @@ public  class Fragmentphoto extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ShowPop(gridview);
+                ((BaseActivity)getActivity()).ShowPop(gridview,((Photo)(photoImageAdapter.getItem(i))).getImagepics());
             }
         });
         return rootView;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     @Override

@@ -23,19 +23,12 @@ public class StarTeacherActivity extends BaseActivity {
     private GridView gridview;
     private int[] imageResId;
     private String[] text={"付晓宁","李妍熙","任静","闫薇薇"};
-    private StarTeacherImageAdapter  starTeacherImageAdapter;
+    private StarTeacherImageAdapter starTeacherImageAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starteacher);
         initView();
-    }
-
-    @Override
-    protected void initTitleview() {
-        super.initTitleview();
-        TextView textView = (TextView) viewTitleBar.findViewById(R.id.action_bar_title_text);
-        textView.setText("明星教师");
     }
 
     @Override
@@ -53,7 +46,9 @@ public class StarTeacherActivity extends BaseActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent().setClass(StarTeacherActivity.this,StarTeacherInfoActivity.class));
+                Intent intent = new Intent(StarTeacherActivity.this,StarTeacherInfoActivity.class);
+                intent.putExtra("vo",(Teacher)(starTeacherImageAdapter.getItem(i)));
+                startActivity(intent);
             }
         });
     }

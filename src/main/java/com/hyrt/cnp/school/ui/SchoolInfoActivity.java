@@ -7,15 +7,15 @@ import android.widget.TextView;
 import com.hyrt.cnp.account.model.School;
 import com.hyrt.cnp.account.utils.UITextUtils;
 import com.hyrt.cnp.school.R;
-import com.hyrt.cnp.school.api.BaseActivity;
 import com.hyrt.cnp.school.request.SchoolinfoRequest;
 import com.hyrt.cnp.school.requestListener.SchoolinfoRequestListener;
+import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 /**
  * Created by GYH on 14-1-13.
  */
-public class SchoolInfoActivity extends BaseActivity{
+public class SchoolInfoActivity extends BaseActivity {
 
     private TextView schoolintro;
     private ImageView schoolmap;
@@ -24,13 +24,6 @@ public class SchoolInfoActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolinfo);
         initView();
-    }
-
-    @Override
-    protected void initTitleview() {
-        super.initTitleview();
-        TextView textView = (TextView) viewTitleBar.findViewById(R.id.action_bar_title_text);
-        textView.setText("园所介绍");
     }
 
     @Override
@@ -51,7 +44,7 @@ public class SchoolInfoActivity extends BaseActivity{
     private void loadSendword(){
         SchoolinfoRequestListener sendwordRequestListener = new SchoolinfoRequestListener(this);
         SchoolinfoRequest schoolinfoRequest= new SchoolinfoRequest(School.Model2.class,this);
-        getSpiceManager().execute(schoolinfoRequest,schoolinfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+        spiceManager.execute(schoolinfoRequest,schoolinfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }
 }

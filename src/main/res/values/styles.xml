@@ -31,11 +31,7 @@
 
 
     <!---->
-    <style name="cnp_school_layout">
-        <item name="android:layout_marginLeft">@dimen/cnp_school_layout_margin</item>
-        <item name="android:layout_marginRight">@dimen/cnp_school_layout_margin</item>
-        <item name="android:layout_marginTop">@dimen/cnp_school_layout_margin</item>
-    </style>
+
     <style name="cnp_school_text_min">
         <item name="android:layout_marginLeft">@dimen/cnp_school_text_margin</item>
         <item name="android:layout_marginRight">@dimen/cnp_school_text_margin</item>

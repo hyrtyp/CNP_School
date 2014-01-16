@@ -34,8 +34,6 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
 
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
-        actionBar.setHomeButtonEnabled(false);
-
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
@@ -104,7 +102,7 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
             if (pages.size() > position) {
                 page = pages.get(position);
             }else{
-                page=new Fragmentphoto(textphoto, imageResId1,position);
+                page = new Fragmentphoto(textphoto, imageResId1,position);
                 pages.add(page);
             }
             return page;
