@@ -19,7 +19,7 @@ public class SchoolIndexActivity extends BaseActivity {
     private int[] imageResId;
     private String[] text={"通知公告","园长寄语","活动剪辑","明星教师","明星宝宝","园所介绍","班级设置","每周食谱"};
     private int[] bg;
-
+    private Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +50,10 @@ public class SchoolIndexActivity extends BaseActivity {
             int i = arg2;
             switch (i){
                 case 0:
-                    startActivity(new Intent().setClass(SchoolIndexActivity.this,SchoolNoticeActivity.class));
+                    intent=new Intent();
+                    intent.setClass(SchoolIndexActivity.this,SchoolNoticeActivity.class);
+                    intent.putExtra("data","school");
+                    startActivity(intent);
                     break;
                 case 1:
                     startActivity(new Intent().setClass(SchoolIndexActivity.this,SendwordActivity.class));

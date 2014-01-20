@@ -22,12 +22,29 @@ public class SchoolNoticeActivity extends BaseActivity {
     private ListView noticelistview;
     private SchoolNoticeAdapter schoolNoticeAdapter=null;
     private Notice.Model model;
-
+    private String data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolnotice);
+
+
+
         initView();
+    }
+
+    @Override
+    protected void initTitleview() {
+        super.initTitleview();
+        Intent intent = getIntent();
+        data=intent.getStringExtra("data");
+        if(data.equals("school")){
+            loadSchoolNoticeData();
+            titletext.setText("通知公告");
+        }else if(data.equals("classroom")){
+            loadClassroomNoticeData();
+            titletext.setText("班级公告");
+        }
     }
 
     private void initView(){
@@ -38,56 +55,27 @@ public class SchoolNoticeActivity extends BaseActivity {
                 Intent intent =new Intent();
                 intent.setClass(SchoolNoticeActivity.this,SchoolNoticeInfoActivity.class);
                 intent.putExtra("notice", model.getData().get(i));
+                intent.putExtra("data",data);
                 startActivity(intent);
             }
         });
-//        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-//        Map<String, Object> map = new HashMap<String, Object>();
-//        map.put("title", "记一次班级志愿者活动的体验和感受");
-//        map.put("info", "2014-10-12");
-//        list.add(map);
-//
-//        map = new HashMap<String, Object>();
-//        map.put("title", "记一次班级志愿者活动的体验和感受");
-//        map.put("info", "2014-10-12");
-//        list.add(map);
-//
-//        map = new HashMap<String, Object>();
-//        map.put("title", "记一次班级志愿者活动的体验和感受");
-//        map.put("info", "2014-10-12");
-//        list.add(map);
-//
-//        map = new HashMap<String, Object>();
-//        map.put("title", "记一次班级志愿者活动的体验和感受");
-//        map.put("info", "2014-10-12");
-//        list.add(map);
-//
-//        map = new HashMap<String, Object>();
-//        map.put("title", "记一次班级志愿者活动的体验和感受");
-//        map.put("info", "2014-10-12");
-//        list.add(map);
-//
-//        map = new HashMap<String, Object>();
-//        map.put("title", "记一次班级志愿者活动的体验和感受");
-//        map.put("info", "2014-10-12");
-//        list.add(map);
-//        SimpleAdapter adapter = new SimpleAdapter(this,list,
-//                R.layout.layout_item_text, new String[] { "title", "info" },
-//                new int[] { R.id.item_title, R.id.item_time });
-//        noticelistview.setAdapter(adapter);
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(schoolNoticeAdapter==null){
-            loadData();
-        }
     }
 
-    private void loadData(){
+    private void loadSchoolNoticeData(){
         SchoolNoticeRequestListener schoolNoticelistRequestListener = new SchoolNoticeRequestListener(this);
-        SchoolNoticeListRequest schoolNoticeListRequest= new SchoolNoticeListRequest(Notice.Model.class, this);
+        SchoolNoticeListRequest schoolNoticeListRequest= new SchoolNoticeListRequest(Notice.Model.class, this,"school");
+        spiceManager.execute(schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+                schoolNoticelistRequestListener.start());
+    }
+    private void loadClassroomNoticeData(){
+        SchoolNoticeRequestListener schoolNoticelistRequestListener = new SchoolNoticeRequestListener(this);
+        SchoolNoticeListRequest schoolNoticeListRequest= new SchoolNoticeListRequest(Notice.Model.class, this,"classroom");
         spiceManager.execute(schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 schoolNoticelistRequestListener.start());
     }

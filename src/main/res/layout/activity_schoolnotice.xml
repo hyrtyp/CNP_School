@@ -35,7 +35,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:visibility="invisible"
                 android:text="................................................................................................................................................."/>
             <TextView
                 style="@style/cnp_school_text_min"
