@@ -62,7 +62,7 @@ public class StarTeacherInfoActivity extends BaseActivity {
         UITextUtils.setTextWithSelection(sendtextpol,model.getData().getRoomName());
         UITextUtils.setTextWithSelection(sendtextintr,model.getData().getNurseryName());
         UITextUtils.setTextWithSelection(sendtextmsg,model.getData().getIntro());
-        showDetailImage(model.getData().getUser_id(),R.id.starteacherimageview);
+        showDetailImage(FaceUtils.getAvatar(model.getData().getUser_id(),FaceUtils.FACE_MIDDLE),(ImageView)findViewById(R.id.starteacherimageview),false);
 
     }
 
