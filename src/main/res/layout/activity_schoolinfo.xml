@@ -10,11 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/cnp_school_text_max"
-        android:text="幼儿园介绍"
+        android:text="@string/school_into_text"
         />
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/cnp_school_intro_layoutheight"
         android:orientation="vertical"
         android:background="@drawable/shape_sendword_line"
         style="@style/cnp_school_layout"
@@ -23,7 +23,7 @@
             android:id="@+id/schoolintro"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="竭诚为幼儿园服务，减轻幼儿园教职工工作负担。我们以最专业最全面的服务学前教育出一份力。竭诚为幼儿园服务，减轻幼儿园教职工工作负担。我们以最专业最全面的服务学前教育出一份力。vav竭诚为幼儿园服务，减轻幼儿园教职工工作负担。我们以最专业最全面的服务学前教育出一份力。vav竭诚为幼儿园服务，减轻幼儿园教职工工作负担。我们以最专业最全面的服务学前教育出一份力"
+            android:text=""
             style="@style/cnp_school_text_min"
             android:layout_marginTop="@dimen/cnp_school_text_margin"
             android:layout_marginBottom="@dimen/cnp_school_text_margin"
@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/cnp_school_text_max"
-        android:text="地理位置"/>
+        android:text="@string/earth_text"/>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
