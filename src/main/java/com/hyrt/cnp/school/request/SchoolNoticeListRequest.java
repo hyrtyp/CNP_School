@@ -12,15 +12,22 @@ import com.hyrt.cnp.account.service.SchoolNoticeService;
  */
 public class SchoolNoticeListRequest extends BaseRequest {
 
+    private String data;
+
     @Inject
     private SchoolNoticeService schoolNoticeService;
-    public SchoolNoticeListRequest(Class clazz, Context context) {
+    public SchoolNoticeListRequest(Class clazz, Context context,String data) {
         super(clazz, context);
+        this.data=data;
     }
 
     @Override
     public Base run() {
-        return schoolNoticeService.getNoticelistData(getRestTemplate());
+        if(data.equals("school")){
+            return schoolNoticeService.getNoticelistData(getRestTemplate());
+        }else{
+            return schoolNoticeService.getClassroomNoticelistData(getRestTemplate());
+        }
     }
 
     @Override
@@ -28,6 +35,6 @@ public class SchoolNoticeListRequest extends BaseRequest {
         return 0;
     }
     public String getcachekey(){
-        return "Noticelist";
+        return "Noticelist"+data;
     }
 }

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="CNP" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+
+<module external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
+
   <component name="FacetManager">
     <facet type="android" name="Android">
       <configuration>
@@ -74,6 +78,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="robospice-ui-spicelist-1.4.5" level="project" />
     <orderEntry type="library" exported="" name="commons-codec-1.2" level="project" />
+
     <orderEntry type="library" exported="" name="robospice-spring-android-1.4.9" level="project" />
     <orderEntry type="library" exported="" name="org.eclipse.egit.github.core-2.1.4" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.2" level="project" />
@@ -85,6 +90,19 @@
     <orderEntry type="library" exported="" name="robospice-1.4.9" level="project" />
     <orderEntry type="library" exported="" name="robospice-cache-1.4.9" level="project" />
     <orderEntry type="library" exported="" name="cglib-2.2.1-v20090111" level="project" />
+
+    <orderEntry type="library" exported="" name="org.eclipse.egit.github.core-2.1.4" level="project" />
+    <orderEntry type="library" exported="" name="robospice-spring-android-1.4.9" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.2.2" level="project" />
+    <orderEntry type="library" exported="" name="aopalliance-1.0" level="project" />
+    <orderEntry type="module" module-name="CNP_Base" exported="" />
+    <orderEntry type="library" exported="" name="support-v4-19.0.1" level="project" />
+    <orderEntry type="library" exported="" name="spring-android-rest-template-1.0.1.RELEASE" level="project" />
+    <orderEntry type="library" exported="" name="asm-3.1" level="project" />
+    <orderEntry type="library" exported="" name="robospice-1.4.9" level="project" />
+    <orderEntry type="library" exported="" name="cglib-2.2.1-v20090111" level="project" />
+    <orderEntry type="library" exported="" name="robospice-cache-1.4.9" level="project" />
+
     <orderEntry type="library" exported="" name="jackson-core-asl-1.9.11" level="project" />
     <orderEntry type="library" exported="" name="roboguice-2.0" level="project" />
     <orderEntry type="library" exported="" name="guice-3.0-no_aop" level="project" />

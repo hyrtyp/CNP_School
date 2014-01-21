@@ -16,13 +16,25 @@ public class SchoolNoticeInfoActivity extends BaseActivity {
     private TextView Noticetitle;
     private TextView Noticetime;
     private TextView Noticecontext;
-
+    private String data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolnoticeinfo);
         initView();
         initData();
+    }
+
+    @Override
+    protected void initTitleview() {
+        super.initTitleview();
+        Intent intent = getIntent();
+        data=intent.getStringExtra("data");
+        if(data.equals("school")){
+            titletext.setText("通知公告");
+        }else if(data.equals("classroom")){
+            titletext.setText("班级公告");
+        }
     }
 
     private void initView(){
