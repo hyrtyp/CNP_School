@@ -31,13 +31,17 @@
                 android:text="发布人：叶园长 发布时间：2013-09-10"
                 android:gravity="center"
                 android:id="@+id/schoolnotice_time_name"/>
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/cnp_school_text_margin"
                 android:layout_marginRight="@dimen/cnp_school_text_margin"
-                android:text="................................................................................................................................................."/>
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/new_line"
+                />
             <TextView
                 style="@style/cnp_school_text_min"
                 android:layout_width="fill_parent"

@@ -56,4 +56,5 @@
         <item name="android:textSize">@dimen/cnp_school_text_size</item>
         <item name="android:textColor">@color/cnp_text_color</item>
     </style>
+
 </resources>
