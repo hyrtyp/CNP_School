@@ -1,11 +1,8 @@
 package com.hyrt.cnp.school.fragment;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +32,7 @@ public  class Fragmentphoto extends Fragment {
     private SchoolPhotoActivity activity;
     private int id;
     private Photo.Model model;
+    private String pkind;
 
 
     public Fragmentphoto (String [] text,int[] imageResId,int id){
@@ -72,10 +70,11 @@ public  class Fragmentphoto extends Fragment {
     }
 
     private void loadphotoysfc() {
+        pkind=(id+1)+"";
         activity = (SchoolPhotoActivity)getActivity();
         SchoolPhotoListRequestListener sendwordRequestListener
                 = new SchoolPhotoListRequestListener(getActivity(),id);
-        activity.spiceManager.execute(new SchoolPhotoListRequest(Photo.Model.class, activity), "frag", DurationInMillis.ONE_SECOND * 10,
+        activity.spiceManager.execute(new SchoolPhotoListRequest(Photo.Model.class, activity,pkind), "frag", DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }
 
@@ -85,26 +84,5 @@ public  class Fragmentphoto extends Fragment {
         int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};
         photoImageAdapter=new PhotoImageAdapter(activity,model.getData(),R.layout.layout_item_gridview_image,resKeys,reses);
         gridview.setAdapter(photoImageAdapter);
-    }
-
-    private  void ShowPop(View view) {
-        View popView = this.getActivity().getLayoutInflater().inflate(
-                R.layout.layout_popwindwos, null);
-        popWin = new PopupWindow(popView, ViewPager.LayoutParams.FILL_PARENT,
-                ViewPager.LayoutParams.FILL_PARENT);
-        popView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popWin.dismiss();
-            }
-        });
-        // 需要设置一下此参数，点击外边可消失
-        popWin.setBackgroundDrawable(new BitmapDrawable());
-        //设置点击窗口外边窗口消失
-        popWin.setOutsideTouchable(true);
-        // 设置此参数获得焦点，否则无法点击
-        popWin.setFocusable(true);
-        popWin.showAtLocation(view,
-                Gravity.CENTER, 0, 0);
     }
 }

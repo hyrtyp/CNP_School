@@ -20,6 +20,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created by GYH on 14-1-8.
+ * 园长寄语
  */
 public class SendwordActivity extends BaseActivity {
 

@@ -31,8 +31,6 @@ import java.lang.ref.WeakReference;
 public class StarBabayActivity extends BaseActivity {
 
     private GridView gridview;
-    private int[] imageResId;
-    private String[] text={"andy丽丽","许安安","甄炎","燕燕"};
     private StarBabayImageAdapter starTeacherImageAdapter;
 
     @Override
@@ -59,8 +57,6 @@ public class StarBabayActivity extends BaseActivity {
 
     private void initView() {
         gridview = (GridView) findViewById(R.id.cnp_gridview);
-        imageResId = new int[] { R.drawable.babay1,R.drawable.babay2
-                ,R.drawable.babay3,R.drawable.babay4};
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -70,7 +66,6 @@ public class StarBabayActivity extends BaseActivity {
     }
 
     public void initData(StarBabay.Model model){
-//        starTeacherAdapter=new StarBabayImageAdapter(model,imageResId,this);
         String[] resKeys=new String[]{"getImagepath","getRenname"};
         int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};
        starTeacherImageAdapter = new StarBabayImageAdapter

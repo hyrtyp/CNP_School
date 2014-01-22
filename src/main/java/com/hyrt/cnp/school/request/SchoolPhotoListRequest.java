@@ -15,13 +15,15 @@ public class SchoolPhotoListRequest extends BaseRequest{
     @Inject
     private PhotoService schoolListService;
 
+    private String pkind;
 
-    public SchoolPhotoListRequest(Class clazz, Context context) {
+    public SchoolPhotoListRequest(Class clazz, Context context,String pkind) {
         super(clazz, context);
+        this.pkind=pkind;
     }
     @Override
     public Base run() {
-        return schoolListService.getphotolistData(getRestTemplate());
+        return schoolListService.getphotolistData(getRestTemplate(),pkind);
     }
 
 

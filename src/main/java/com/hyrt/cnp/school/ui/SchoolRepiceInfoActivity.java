@@ -1,6 +1,7 @@
 package com.hyrt.cnp.school.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.hyrt.cnp.account.model.Recipe;
 import com.hyrt.cnp.account.model.RecipeInfo;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.RepiceInfoAdapter;
@@ -68,8 +70,10 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
         mViewPager.setAdapter(mAppSectionsPagerAdapter);
     }
     private void loadSendword(){
+        Intent intent =getIntent();
+        Recipe recipe = (Recipe)intent.getSerializableExtra("vo");
         SchoolRecipeInfoRequestListener sendwordRequestListener = new SchoolRecipeInfoRequestListener(this);
-        SchoolRecipeInfoRequest schoolRecipeInfoRequest= new SchoolRecipeInfoRequest(RecipeInfo.Model2.class, this);
+        SchoolRecipeInfoRequest schoolRecipeInfoRequest= new SchoolRecipeInfoRequest(RecipeInfo.Model2.class, this,recipe);
         spiceManager.execute(schoolRecipeInfoRequest,schoolRecipeInfoRequest.getcachekey() , DurationInMillis.ONE_SECOND*10,sendwordRequestListener.start());
     }
 

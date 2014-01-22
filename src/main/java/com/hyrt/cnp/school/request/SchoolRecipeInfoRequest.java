@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.inject.Inject;
 import com.hyrt.cnp.account.model.Base;
+import com.hyrt.cnp.account.model.Recipe;
 import com.hyrt.cnp.account.request.BaseRequest;
 import com.hyrt.cnp.account.service.RecipeInfoService;
 
@@ -14,14 +15,15 @@ public class SchoolRecipeInfoRequest extends BaseRequest{
 
     @Inject
     private RecipeInfoService schoolListService;
+    private Recipe recipe;
 
-
-    public SchoolRecipeInfoRequest(Class clazz, Context context) {
+    public SchoolRecipeInfoRequest(Class clazz, Context context,Recipe recipe) {
         super(clazz, context);
+        this.recipe=recipe;
     }
     @Override
     public Base run() {
-        return schoolListService.getRecipeWeekData(getRestTemplate());
+        return schoolListService.getRecipeWeekData(getRestTemplate(),recipe);
     }
 
 

@@ -27,7 +27,7 @@ public class SchoolRecipeActivity extends BaseActivity {
 
     private ListView noticelistview;
     private SimpleAdapter adapter=null;
-
+    private Recipe.Model model=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +55,16 @@ public class SchoolRecipeActivity extends BaseActivity {
         noticelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startActivity(new Intent().setClass(SchoolRecipeActivity.this,SchoolRepiceInfoActivity.class));
+                Intent intent = new Intent();
+                intent.setClass(SchoolRecipeActivity.this,SchoolRepiceInfoActivity.class);
+                intent.putExtra("vo",model.getData().get(i));
+                startActivity(intent);
             }
         });
     }
 
     public void updateUI(Recipe.Model model){
+        this.model=model;
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
         for (int i=0;i<model.getData().size();i++){

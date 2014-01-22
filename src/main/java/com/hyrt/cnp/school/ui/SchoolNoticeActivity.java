@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hyrt.cnp.account.model.Notice;
 import com.hyrt.cnp.school.R;
@@ -23,13 +24,11 @@ public class SchoolNoticeActivity extends BaseActivity {
     private SchoolNoticeAdapter schoolNoticeAdapter=null;
     private Notice.Model model;
     private String data;
+    private TextView schoolnotice_title,schoolnotice_time_name,schoolnotice_content;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolnotice);
-
-
-
         initView();
     }
 
@@ -48,6 +47,10 @@ public class SchoolNoticeActivity extends BaseActivity {
     }
 
     private void initView(){
+        schoolnotice_title=(TextView)findViewById(R.id.schoolnotice_title);
+        schoolnotice_time_name=(TextView)findViewById(R.id.schoolnotice_time_name);
+        schoolnotice_content=(TextView)findViewById(R.id.schoolnotice_content);
+
         noticelistview=(ListView)findViewById(R.id.schoolnotice_listview);
         noticelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -82,6 +85,10 @@ public class SchoolNoticeActivity extends BaseActivity {
 
     public void initData(Notice.Model model){
         this.model=model;
+        schoolnotice_title.setText(model.getData().get(0).getTitle());
+        schoolnotice_time_name.setText("发布人:"+model.getData().get(0).getRenname()+"    发布时间:"+model.getData().get(0).getPosttime());
+        schoolnotice_content.setText(model.getData().get(0).getContent());
+        model.getData().remove(0);
         schoolNoticeAdapter = new SchoolNoticeAdapter(SchoolNoticeActivity.this,model);
         noticelistview.setAdapter(schoolNoticeAdapter);
     }

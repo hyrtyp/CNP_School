@@ -14,6 +14,7 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 
 /**
  * Created by GYH on 14-1-13.
+ * 园所介绍
  */
 public class SchoolInfoActivity extends BaseActivity {
 
