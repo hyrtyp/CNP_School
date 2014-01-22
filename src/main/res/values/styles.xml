@@ -45,7 +45,6 @@
         <item name="android:layout_marginRight">@dimen/cnp_school_text_margin</item>
         <item name="android:layout_marginBottom">@dimen/cnp_school_text_margin_bottom</item>
         <item name="android:layout_marginTop">@dimen/cnp_school_text_margin_max</item>
-        <item name="android:textSize">@dimen/cnp_school_text_size_max</item>
         <item name="android:textColor">@color/cnp_text_color</item>
     </style>
     <style name="cnp_school_text">

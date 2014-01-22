@@ -10,11 +10,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        style="@style/cnp_school_layout"
+        style="@style/container_view"
         android:background="@drawable/shape_sendword_no_top_line">
 
         <TextView
-            style="@style/cnp_school_text_max"
+            style="@style/large_tv"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="元旦放假安排"
@@ -23,28 +23,22 @@
              />
 
         <TextView
-            style="@style/cnp_school_text"
+            style="@style/small_tv"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="发布人：叶园长 发布时间：2013-09-10"
             android:gravity="center"
             android:id="@+id/schoolnotice_time_name"
             android:singleLine="true"/>
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:background="#000000"
-            style="@style/cnp_school_text_max"
-            android:layout_marginTop="@dimen/cnp_school_layout_margin"
-            android:layout_marginBottom="@dimen/cnp_school_layout_margin"
-            android:visibility="invisible"/>
+
+        <include layout="@layout/vitrual_line"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        style="@style/cnp_school_layout"
+        style="@style/container_view"
         android:background="@drawable/shape_sendword_line">
         <TextView
             android:id="@+id/notice_context"
@@ -52,9 +46,9 @@
             android:layout_height="wrap_content"
             android:text="元旦放假通知\n根据上级安排，元旦放假安排如下:\n2014年1月1日放假当天"
             android:textColor="@color/sendword_text_color"
-            style="@style/cnp_school_text_min"
-            android:layout_marginTop="@dimen/cnp_school_text_margin"
-            android:layout_marginBottom="@dimen/cnp_school_text_margin"/>
+            style="@style/medium_tv"
+            android:layout_marginRight="0dp"
+            android:layout_marginLeft="0dp"/>
     </LinearLayout>
 
 </LinearLayout>

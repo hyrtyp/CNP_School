@@ -15,46 +15,39 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            style="@style/cnp_school_layout"
+            style="@style/container_view"
             >
             <TextView
-                style="@style/cnp_school_text_max"
+                style="@style/large_tv"
                 android:layout_width="fill_parent"
+                android:gravity="center"
                 android:layout_height="wrap_content"
                 android:text="元旦放假安排"
-                android:gravity="center"
                 android:id="@+id/schoolnotice_title"/>
             <TextView
-                style="@style/cnp_school_text"
+                style="@style/small_tv"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="发布人：叶园长 发布时间：2013-09-10"
                 android:gravity="center"
                 android:id="@+id/schoolnotice_time_name"/>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/cnp_school_text_margin"
-                android:layout_marginRight="@dimen/cnp_school_text_margin"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:src="@drawable/new_line"
-                />
+           <include layout="@layout/vitrual_line"/>
+
             <TextView
-                style="@style/cnp_school_text_min"
+                style="@style/small_tv_1"
+                android:layout_marginTop="0dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="元旦放假通知\n根据上级安排，元旦放假安排如下:\n2014年1月1日放假当天"
                 android:gravity="left"
                 android:id="@+id/schoolnotice_content"/>
         </LinearLayout>
-        <TextView
+        <ImageView
             android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:background="@color/sendword_text_color"
-            android:layout_marginTop="@dimen/cnp_school_text_margin"/>
+            android:layout_height="1dp"
+            android:background="@color/cnp_line_color"/>
     </LinearLayout>
+
     <include layout="@layout/layout_listview"></include>
 </LinearLayout>

@@ -6,12 +6,12 @@
     android:orientation="vertical"
     android:background="@drawable/shape_sendword_line"
     android:id="@+id/gridview_item"
-    android:padding="@dimen/cnp_school_gridview_margin">
+    android:padding="@dimen/view_margin_smallest">
     <ImageView
         android:id="@+id/gridview_image"
         android:layout_width="@dimen/cnp_school_image_height_max"
         android:layout_height="@dimen/cnp_school_image_height_max"
-        android:layout_margin="@dimen/cnp_school_gridview_margin"
+        android:layout_margin="@dimen/view_margin_smallest"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/image_test4"/>
     <LinearLayout
@@ -25,8 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="福小牛"
-            style="@style/cnp_school_text_min"
-            android:layout_marginLeft="@dimen/cnp_school_layout_margin"
+            style="@style/medium_tv"
             />
     </LinearLayout>
 
