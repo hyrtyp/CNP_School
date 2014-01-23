@@ -9,8 +9,8 @@
     android:padding="@dimen/view_margin_smallest">
     <ImageView
         android:id="@+id/gridview_image"
-        android:layout_width="@dimen/cnp_school_image_height_max"
-        android:layout_height="@dimen/cnp_school_image_height_max"
+        android:layout_width="@dimen/imageview_big"
+        android:layout_height="@dimen/imageview_big"
         android:layout_margin="@dimen/view_margin_smallest"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/image_test4"/>
