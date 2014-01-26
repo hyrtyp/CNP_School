@@ -86,7 +86,15 @@ public class SchoolNoticeActivity extends BaseActivity {
     public void initData(Notice.Model model){
         this.model=model;
         schoolnotice_title.setText(model.getData().get(0).getTitle());
-        schoolnotice_time_name.setText("发布人:"+model.getData().get(0).getRenname()+"    发布时间:"+model.getData().get(0).getPosttime());
+        // TODO modify date
+        schoolnotice_time_name.setText("发布人:"+model.getData().get(0).getRenname()+
+                    "    发布时间:"+ model.getData().get(0).getPosttime());
+//        try {
+//            schoolnotice_time_name.setText("发布人:"+model.getData().get(0).getRenname()+
+//                    "    发布时间:"+ StringUtils.StimeForday(String.valueOf(model.getData().get(0).getPosttime())));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         schoolnotice_content.setText(model.getData().get(0).getContent());
         model.getData().remove(0);
         schoolNoticeAdapter = new SchoolNoticeAdapter(SchoolNoticeActivity.this,model);

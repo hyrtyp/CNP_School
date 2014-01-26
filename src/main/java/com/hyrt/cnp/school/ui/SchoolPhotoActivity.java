@@ -102,7 +102,7 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
             if (pages.size() > position) {
                 page = pages.get(position);
             }else{
-                page = new Fragmentphoto(textphoto, imageResId1,position);
+                page = new Fragmentphoto(position);
                 pages.add(page);
             }
             return page;

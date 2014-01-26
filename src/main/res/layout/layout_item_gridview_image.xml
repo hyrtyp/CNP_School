@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:text="福小牛"
             style="@style/medium_tv"
+            android:layout_margin="@dimen/view_margin_smallest"
             />
     </LinearLayout>
 

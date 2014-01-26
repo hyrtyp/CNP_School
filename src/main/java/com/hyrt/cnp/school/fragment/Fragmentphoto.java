@@ -21,11 +21,10 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 
 /**
  * Created by GYH on 14-1-14.
+ * 活动剪影
  */
 public  class Fragmentphoto extends Fragment {
     private GridView gridview;
-    private int[] imageResId;
-    private String[] text;
     private Context context;
     private PopupWindow popWin;
     private PhotoImageAdapter photoImageAdapter=null;
@@ -35,9 +34,7 @@ public  class Fragmentphoto extends Fragment {
     private String pkind;
 
 
-    public Fragmentphoto (String [] text,int[] imageResId,int id){
-        this.text=text;
-        this.imageResId=imageResId;
+    public Fragmentphoto (int id){
         this.context=getActivity();
         this.id=id;
     }
@@ -48,8 +45,7 @@ public  class Fragmentphoto extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.layout_fragment_schoolphoto, container, false);
         gridview = (GridView)rootView.findViewById(R.id.cnp_gridview);
-        imageResId = new int[] { R.drawable.schoolphoto1,R.drawable.schoolphoto2
-                ,R.drawable.schoolphoto3,R.drawable.schoolphoto4};
+
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -74,7 +70,9 @@ public  class Fragmentphoto extends Fragment {
         activity = (SchoolPhotoActivity)getActivity();
         SchoolPhotoListRequestListener sendwordRequestListener
                 = new SchoolPhotoListRequestListener(getActivity(),id);
-        activity.spiceManager.execute(new SchoolPhotoListRequest(Photo.Model.class, activity,pkind), "frag", DurationInMillis.ONE_SECOND * 10,
+        SchoolPhotoListRequest schoolPhotoListRequest =new SchoolPhotoListRequest(Photo.Model.class, activity,pkind);
+        activity.spiceManager.execute(schoolPhotoListRequest,schoolPhotoListRequest.getcachekey(),
+                DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }
 

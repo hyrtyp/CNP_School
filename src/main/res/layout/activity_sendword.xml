@@ -5,79 +5,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cnp_bg">
-
-    <ScrollView
+    <LinearLayout
+        style="@style/container_view"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_sendword_no_top_line"
+        >
+        <ImageView
+            android:id="@+id/imageview"
+            style="@style/face_iv"/>
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:orientation="vertical"
             >
-            <LinearLayout
-                style="@style/container_view"
-                android:layout_width="fill_parent"
+            <TextView
+                android:id="@+id/sendword_text_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/shape_sendword_no_top_line"
-                >
-                <ImageView
-                    android:id="@+id/imageview"
-                    style="@style/face_iv"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    >
-                    <TextView
-                        android:id="@+id/sendword_text_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="首都师范大学信息化师范园"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        style="@style/medium_tv"
-                        android:layout_marginTop="@dimen/view_margin_smallest"
-                        />
-                    <TextView
-                        android:id="@+id/sendword_text_rename"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="叶园长"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        style="@style/medium_tv"
-                        android:layout_marginTop="@dimen/view_margin_smallest"
-                        />
-                    <TextView
-                        android:id="@+id/sendword_text_pol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="34岁 党员"
-                        android:singleLine="true"
-                        style="@style/medium_tv"
-                        android:layout_marginTop="@dimen/view_margin_smallest"
-                        />
-                    <TextView
-                        android:id="@+id/sendword_text_intro"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="原安徽省副省长何闽旭于2006年6月23日被中纪委“双规”，在此之前，中纪委等有关部门已调查证实何闽旭利用职务便利收受王某60万元人民币的问题。"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        style="@style/medium_tv"
-                        android:layout_marginTop="@dimen/view_margin_smallest"
-                        />
-                </LinearLayout>
-            </LinearLayout>
+                android:text="首都师范大学信息化师范园"
+                android:ellipsize="end"
+                android:singleLine="true"
+                style="@style/medium_tv"
+                android:layout_marginTop="@dimen/view_margin_smallest"
+                />
+            <TextView
+                android:id="@+id/sendword_text_rename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="叶园长"
+                android:ellipsize="end"
+                android:singleLine="true"
+                style="@style/medium_tv"
+                android:layout_marginTop="@dimen/view_margin_smallest"
+                />
+            <TextView
+                android:id="@+id/sendword_text_pol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="34岁 党员"
+                android:singleLine="true"
+                style="@style/medium_tv"
+                android:layout_marginTop="@dimen/view_margin_smallest"
+                />
+            <TextView
+                android:id="@+id/sendword_text_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="原安徽省副省长何闽旭于2006年6月23日被中纪委“双规”，在此之前，中纪委等有关部门已调查证实何闽旭利用职务便利收受王某60万元人民币的问题。"
+                android:ellipsize="end"
+                android:maxLines="2"
+                style="@style/medium_tv"
+                android:layout_marginTop="@dimen/view_margin_smallest"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        style="@style/container_view"
+        android:background="@drawable/shape_sendword_line">
+
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:orientation="vertical"
-                android:background="@drawable/shape_sendword_line"
-                style="@style/container_view"
+
                 >
                 <TextView
                     android:id="@+id/sendword_text_msg"
@@ -87,8 +83,8 @@
                     style="@style/medium_tv"
                     android:layout_marginRight="0dp"
                     android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
                     />
             </LinearLayout>
-        </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -9,6 +9,7 @@ import com.hyrt.cnp.account.service.StarBabayService;
 
 /**
  * Created by GYH on 14-1-14.
+ * 明星宝宝
  */
 public class StarBabayRequest extends BaseRequest {
 

@@ -34,12 +34,16 @@
         <include layout="@layout/vitrual_line"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
         style="@style/container_view"
         android:background="@drawable/shape_sendword_line">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
         <TextView
             android:id="@+id/notice_context"
             android:layout_width="fill_parent"
@@ -48,7 +52,8 @@
             android:textColor="@color/sendword_text_color"
             style="@style/medium_tv"
             android:layout_marginRight="0dp"
-            android:layout_marginLeft="0dp"/>
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"/>
     </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

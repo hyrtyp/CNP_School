@@ -31,4 +31,8 @@ public class SchoolPhotoListRequest extends BaseRequest{
     public int compareTo(Object o) {
         return 0;
     }
+
+    public String getcachekey(){
+        return "Schoolphotolist"+pkind;
+    }
 }

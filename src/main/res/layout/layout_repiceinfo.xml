@@ -16,15 +16,18 @@
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        style="@style/cnp_school_layout"
-        android:background="@color/cnp_line_color"/>
+        android:background="@color/cnp_line_color"
+        android:layout_marginTop="@dimen/view_margin"
+        android:layout_marginLeft="@dimen/view_margin_small"
+        android:layout_marginRight="@dimen/view_margin_small"
+        />
 
     <ListView
         android:id="@+id/schoolnotice_listview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:dividerHeight="1px"
-        style="@style/cnp_school_layout"
-        android:layout_marginTop="0dp"
+        android:layout_marginLeft="@dimen/view_margin_small"
+        android:layout_marginRight="@dimen/view_margin_small"
         />
 </LinearLayout>

@@ -18,8 +18,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="小班"
-                style="@style/cnp_school_text_max"
-                android:layout_marginTop="@dimen/cnp_school_layout_margin"/>
+                style="@style/large_tv"
+                android:layout_marginTop="@dimen/view_margin_small"/>
             <com.hyrt.cnp.school.view.MyGridView
                 android:id="@+id/cnp_gridview_small"
                 android:layout_width="match_parent"
@@ -29,14 +29,14 @@
                 android:horizontalSpacing="6dp"
                 android:stretchMode="columnWidth"
                 android:gravity="center"
-                style="@style/cnp_school_layout" />
+                android:layout_margin="@dimen/view_margin_small"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="中班"
-                style="@style/cnp_school_text_max"
-                android:layout_marginTop="@dimen/cnp_school_layout_margin"/>
+                style="@style/large_tv"
+                android:layout_marginTop="@dimen/view_margin_small"/>
 
             <com.hyrt.cnp.school.view.MyGridView
                 android:id="@+id/cnp_gridview_mun"
@@ -47,14 +47,14 @@
                 android:horizontalSpacing="6dp"
                 android:stretchMode="columnWidth"
                 android:gravity="center"
-                style="@style/cnp_school_layout" />
+                android:layout_margin="@dimen/view_margin_small" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="大班"
-                style="@style/cnp_school_text_max"
-                android:layout_marginTop="@dimen/cnp_school_layout_margin"/>
+                style="@style/large_tv"
+                android:layout_marginTop="@dimen/view_margin_small"/>
 
             <com.hyrt.cnp.school.view.MyGridView
                 android:id="@+id/cnp_gridview_max"
@@ -65,7 +65,7 @@
                 android:horizontalSpacing="6dp"
                 android:stretchMode="columnWidth"
                 android:gravity="center"
-                style="@style/cnp_school_layout" />
+                android:layout_margin="@dimen/view_margin_small" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
