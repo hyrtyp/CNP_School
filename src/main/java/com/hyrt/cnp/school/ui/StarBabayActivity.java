@@ -60,7 +60,7 @@ public class StarBabayActivity extends BaseActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ShowPop(gridview,((StarBabay)starTeacherImageAdapter.getItem(i)).getImagepath());
+                showPop(gridview,((StarBabay)starTeacherImageAdapter.getItem(i)).getImagepath());
             }
         });
     }
