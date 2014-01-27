@@ -25,6 +25,7 @@ public class SchoolNoticeActivity extends BaseActivity {
     private SchoolNoticeAdapter schoolNoticeAdapter = null;
     private Notice.Model model;
     private String data;
+    private Notice notice;
     private TextView schoolnotice_title, schoolnotice_time_name, schoolnotice_content;
     private LinearLayout noticefirst;
 
@@ -107,6 +108,7 @@ public class SchoolNoticeActivity extends BaseActivity {
      * */
     public void initData(final Notice.Model model) {
         this.model = model;
+        notice=model.getData().get(0);
         schoolnotice_title.setText(model.getData().get(0).getTitle());
 
         schoolnotice_time_name.setText("发布人:" + model.getData().get(0).getRenname() +
@@ -118,7 +120,7 @@ public class SchoolNoticeActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent();
                 intent.setClass(SchoolNoticeActivity.this, SchoolNoticeInfoActivity.class);
-                intent.putExtra("notice", SchoolNoticeActivity.this.model.getData().get(0));
+                intent.putExtra("notice", notice);
                 intent.putExtra("data", data);
                 startActivity(intent);
             }

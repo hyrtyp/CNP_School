@@ -13,7 +13,6 @@
         android:layout_height="@dimen/imageview_big"
         android:layout_margin="@dimen/view_margin_smallest"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/cnp_spinner_inner"
         />
     <LinearLayout
         android:layout_width="match_parent"
