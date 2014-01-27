@@ -66,7 +66,10 @@ public class SendwordActivity extends BaseActivity {
         sendtextpol.setText(model.getData().getPolitical());
         sendtextintr.setText(model.getData().getIntro());
         sendtextmsg.setText(model.getData().getMessage());
-        setImage(model.getData().getUser_id());
+        //setImage(model.getData().getUser_id());
+        String facePath = FaceUtils.getAvatar(model.getData().getUser_id(), FaceUtils.FACE_BIG);
+        ImageView imageView = (ImageView)findViewById(R.id.imageview);
+        showDetailImage(facePath,imageView,false);
     }
 
     private void loadSendword(){
@@ -76,44 +79,5 @@ public class SendwordActivity extends BaseActivity {
                 sendwordRequestListener.start());
     }
 
-    private void setImage(int user_id){
-        String facePath = FaceUtils.getAvatar(user_id, FaceUtils.FACE_BIG);
-        ImageView imageView = (ImageView)findViewById(R.id.imageview);
-        weakImageView = new WeakReference<ImageView>(imageView);
-        HandlerRecycleBitmapDrawable localHandlerRecycleBitmapDrawable = new HandlerRecycleBitmapDrawable(null, this);
-        imageView.setImageDrawable(localHandlerRecycleBitmapDrawable);
-        GlobalImageCache.BitmapDigest localBitmapDigest = new GlobalImageCache.BitmapDigest(facePath);
-        localBitmapDigest.setWidth(imageView.getWidth());
-        localBitmapDigest.setHeight(imageView.getHeight());
-        Bitmap localBitmap = InflateUtil.loadImageWithCache(localBitmapDigest);
-        if (localBitmap == null) {
-            HandlerRecycleBitmapDrawable localHandlerRecycleBitmapDrawable2 = (HandlerRecycleBitmapDrawable) imageView.getDrawable();
-            localHandlerRecycleBitmapDrawable2.setBitmap(null);
-            localHandlerRecycleBitmapDrawable.invalidateSelf();
-            InflateUtil.loadImageWithUrl(getHttpGroupaAsynPool(), localBitmapDigest,false, new InflateUtil.ImageLoadListener() {
-                public void onError(GlobalImageCache.BitmapDigest paramAnonymousBitmapDigest) {
-                }
 
-                public void onProgress(GlobalImageCache.BitmapDigest paramAnonymousBitmapDigest, int paramAnonymousInt1, int paramAnonymousInt2) {
-                }
-
-                public void onStart(GlobalImageCache.BitmapDigest paramAnonymousBitmapDigest) {
-                }
-
-                public void onSuccess(GlobalImageCache.BitmapDigest paramAnonymousBitmapDigest, Bitmap paramAnonymousBitmap) {
-                    if (weakImageView != null) {
-                        ImageView targetIv = weakImageView.get();
-                        if (targetIv != null) {
-                            HandlerRecycleBitmapDrawable localHandlerRecycleBitmapDrawable = (HandlerRecycleBitmapDrawable) targetIv.getDrawable();
-                            localHandlerRecycleBitmapDrawable.setBitmap(paramAnonymousBitmap);
-                            localHandlerRecycleBitmapDrawable.invalidateSelf();
-                        }
-                    }
-                }
-            });
-        } else {
-            localHandlerRecycleBitmapDrawable.setBitmap(localBitmap);
-            localHandlerRecycleBitmapDrawable.invalidateSelf();
-        }
-    }
 }
