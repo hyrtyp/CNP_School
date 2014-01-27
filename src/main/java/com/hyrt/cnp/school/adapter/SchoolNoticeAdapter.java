@@ -52,7 +52,7 @@ public class SchoolNoticeAdapter extends BaseAdapter{
         }
 
         holder.title.setText(model.getData().get(i).getTitle());
-        holder.text.setText(model.getData().get(i).getPosttime()+"");
+        holder.text.setText(model.getData().get(i).getPosttime2());
         return convertView;
     }
 

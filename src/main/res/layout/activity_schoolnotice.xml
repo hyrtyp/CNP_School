@@ -12,6 +12,7 @@
         android:orientation="vertical"
         android:background="#ffffff">
         <LinearLayout
+            android:id="@+id/notice_first"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -22,15 +23,17 @@
                 android:layout_width="fill_parent"
                 android:gravity="center"
                 android:layout_height="wrap_content"
-                android:text="元旦放假安排"
-                android:id="@+id/schoolnotice_title"/>
+                android:text=""
+                android:id="@+id/schoolnotice_title"
+                android:lines="1"/>
             <TextView
                 style="@style/small_tv"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="发布人：叶园长 发布时间：2013-09-10"
+                android:text=""
                 android:gravity="center"
-                android:id="@+id/schoolnotice_time_name"/>
+                android:id="@+id/schoolnotice_time_name"
+                android:lines="1"/>
 
            <include layout="@layout/vitrual_line"/>
 
@@ -39,9 +42,10 @@
                 android:layout_marginTop="0dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="元旦放假通知\n根据上级安排，元旦放假安排如下:\n2014年1月1日放假当天"
+                android:text=""
                 android:gravity="left"
-                android:id="@+id/schoolnotice_content"/>
+                android:id="@+id/schoolnotice_content"
+                android:lines="4"/>
         </LinearLayout>
         <ImageView
             android:layout_width="fill_parent"

@@ -47,7 +47,7 @@ public class SchoolNoticeInfoActivity extends BaseActivity {
         Intent intent = getIntent();
         Notice notice = (Notice)intent.getSerializableExtra("notice");
         Noticetitle.setText(notice.getTitle());
-        Noticetime.setText("发布人："+notice.getRenname()+" 发布时间："+notice.getPosttime());
+        Noticetime.setText("发布人："+notice.getRenname()+" 发布时间："+notice.getPosttime2());
         Noticecontext.setText(notice.getContent());
     }
 }

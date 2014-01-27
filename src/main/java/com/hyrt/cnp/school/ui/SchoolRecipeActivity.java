@@ -49,7 +49,9 @@ public class SchoolRecipeActivity extends BaseActivity {
             loadSendword();
         }
     }
-
+    /**
+     * 界面初始化方法
+     * */
     private void initView(){
         noticelistview=(ListView)findViewById(R.id.schoolnotice_listview);
         noticelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -62,7 +64,9 @@ public class SchoolRecipeActivity extends BaseActivity {
             }
         });
     }
-
+    /**
+     * 监听请求返回更新UI界面的方法
+     * */
     public void updateUI(Recipe.Model model){
         this.model=model;
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -70,7 +74,7 @@ public class SchoolRecipeActivity extends BaseActivity {
         for (int i=0;i<model.getData().size();i++){
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("title",model.getData().get(i).getStarttime()+"-"+model.getData().get(i).getEndtime()+"食谱");
-            map.put("info",model.getData().get(i).getPosttime());
+            map.put("info",model.getData().get(i).getPosttime2());
             list.add(map);
         }
         adapter = new SimpleAdapter(this,list,
@@ -79,6 +83,9 @@ public class SchoolRecipeActivity extends BaseActivity {
         noticelistview.setAdapter(adapter);
     }
 
+    /**
+     * 每周食谱请求方法
+     * */
     private void loadSendword(){
         SchoolRecipeRequestListener sendwordRequestListener = new SchoolRecipeRequestListener(this);
         SchoolRecipeRequest schoolRecipeRequest=new SchoolRecipeRequest(Recipe.Model.class,this);

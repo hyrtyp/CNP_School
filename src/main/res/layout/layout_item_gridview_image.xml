@@ -13,7 +13,8 @@
         android:layout_height="@dimen/imageview_big"
         android:layout_margin="@dimen/view_margin_smallest"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/image_test4"/>
+        android:background="@drawable/cnp_spinner_inner"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +25,7 @@
             android:id="@+id/gridview_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="福小牛"
+            android:text=""
             style="@style/medium_tv"
             android:layout_margin="@dimen/view_margin_smallest"
             />

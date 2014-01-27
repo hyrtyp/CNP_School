@@ -161,7 +161,7 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
             foot.add(model.getD_ingredients());
             foot.add(model.getLevel());
             foot.add(model.getFooder());
-            foottime=model.getRecipeDate();
+            foottime=model.getRecipeDate2();
         }
 
         @Override
