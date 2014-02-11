@@ -5,10 +5,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.hyrt.cnp.account.model.School;
+import com.hyrt.cnp.account.utils.FaceUtils;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolIndexAdapter;
+import com.hyrt.cnp.school.request.SchoolinfoRequest;
+import com.hyrt.cnp.school.requestListener.SchoolindexRequestListener;
 import com.jingdong.common.frame.BaseActivity;
+import com.octo.android.robospice.persistence.DurationInMillis;
 
 /**
  * Created by GYH on 14-1-8.
@@ -20,16 +27,31 @@ public class SchoolIndexActivity extends BaseActivity {
     private String[] text={"通知公告","园长寄语","活动剪辑","明星教师","明星宝宝","园所介绍","班级设置","每周食谱"};
     private int[] bg;
     private Intent intent;
+    private ImageView schoolimage;
+    private TextView schoolinfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolindex);
         initView();
+        loadSendword();
     }
 
+    private void loadSendword(){
+        SchoolindexRequestListener sendwordRequestListener = new SchoolindexRequestListener(this);
+        SchoolinfoRequest schoolinfoRequest= new SchoolinfoRequest(School.Model2.class,this);
+        spiceManager.execute(schoolinfoRequest,schoolinfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+                sendwordRequestListener.start());
+    }
 
+    public void UPdataUI(School.Model2 model2){
+        showDetailImage(FaceUtils.getSchoolImage(model2.getData().getNursery_id(),FaceUtils.FACE_BIG),schoolimage,false);
+        schoolinfo.setText(model2.getData().getAddress()+"      电话："+model2.getData().getTel());
+    }
 
     private void initView(){
+        schoolinfo=(TextView)findViewById(R.id.schoolintro);
+        schoolimage=(ImageView)findViewById(R.id.schoolimage);
         imageResId = new int[] { R.drawable.schoolindex_notice, R.drawable.schoolindex_sendwend,
                 R.drawable.schoolindex_photo,
                 R.drawable.schoolindex_starteacher, R.drawable.schoolindex_starbabay,

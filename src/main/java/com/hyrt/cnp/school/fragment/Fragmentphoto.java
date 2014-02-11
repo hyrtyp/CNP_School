@@ -49,7 +49,7 @@ public  class Fragmentphoto extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ((BaseActivity)getActivity()).ShowPop(gridview,((Photo)(photoImageAdapter.getItem(i))).getImagepics());
+                ((BaseActivity)getActivity()).showPop(gridview,((Photo)(photoImageAdapter.getItem(i))).getImagepics());
             }
         });
         return rootView;
