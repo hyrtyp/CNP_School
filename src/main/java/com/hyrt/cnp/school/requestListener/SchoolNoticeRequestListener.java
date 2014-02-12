@@ -8,8 +8,6 @@ import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.SchoolNoticeActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
-import roboguice.RoboGuice;
-
 /**
  * Created by GYH on 14-1-14.
  */
@@ -24,7 +22,9 @@ public class SchoolNoticeRequestListener extends BaseRequestListener{
     @Override
     public void onRequestFailure(SpiceException e) {
         super.onRequestFailure(e);
-        showMessage(R.string.nodata_title,R.string.nodata_content);
+        SchoolNoticeActivity activity = (SchoolNoticeActivity)context.get();
+        activity.initData(null);
+//        showMessage(R.string.nodata_title,R.string.nodata_content);
     }
 
     @Override
@@ -35,7 +35,9 @@ public class SchoolNoticeRequestListener extends BaseRequestListener{
             Notice.Model result= (Notice.Model)data;
             activity.initData(result);
         }else{
-            showMessage(R.string.nodata_title,R.string.nodata_content);
+            SchoolNoticeActivity activity = (SchoolNoticeActivity)context.get();
+            activity.initData(null);
+//            showMessage(R.string.nodata_title,R.string.nodata_content);
         }
     }
 

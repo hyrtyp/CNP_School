@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -68,19 +69,26 @@ public class SchoolRecipeActivity extends BaseActivity {
      * 监听请求返回更新UI界面的方法
      * */
     public void updateUI(Recipe.Model model){
-        this.model=model;
-        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        if(model==null){
+            LinearLayout linearLayout =(LinearLayout)findViewById(R.id.layout_bottom);
+            linearLayout.setVisibility(View.VISIBLE);
+            TextView bottom_num = (TextView)findViewById(R.id.bottom_num);
+            bottom_num.setText("暂无信息");
+        }else{
+            this.model=model;
+            List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
-        for (int i=0;i<model.getData().size();i++){
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("title",model.getData().get(i).getStarttime()+"-"+model.getData().get(i).getEndtime()+"食谱");
-            map.put("info",model.getData().get(i).getPosttime2());
-            list.add(map);
+            for (int i=0;i<model.getData().size();i++){
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("title",model.getData().get(i).getStarttime()+"-"+model.getData().get(i).getEndtime()+"食谱");
+                map.put("info",model.getData().get(i).getPosttime2());
+                list.add(map);
+            }
+            adapter = new SimpleAdapter(this,list,
+                    R.layout.layout_item_text, new String[] { "title", "info" },
+                    new int[] { R.id.item_title, R.id.item_time });
+            noticelistview.setAdapter(adapter);
         }
-        adapter = new SimpleAdapter(this,list,
-                R.layout.layout_item_text, new String[] { "title", "info" },
-                new int[] { R.id.item_title, R.id.item_time });
-        noticelistview.setAdapter(adapter);
     }
 
     /**

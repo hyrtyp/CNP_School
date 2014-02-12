@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hyrt.cnp.account.model.Teacher;
 import com.hyrt.cnp.school.R;
@@ -49,12 +51,22 @@ public class StarTeacherActivity extends BaseActivity {
         });
     }
 
+    /**
+     * 更新ui界面
+     * */
     public void initData(Teacher.Model model){
-        String[] resKeys=new String[]{"getImagepath","getRenname"};
-        int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};
-        starTeacherImageAdapter = new StarTeacherImageAdapter
-                (this,model.getData(),R.layout.layout_item_gridview_image,resKeys,reses);
-        gridview.setAdapter(starTeacherImageAdapter);
+        if(model==null){
+            LinearLayout linearLayout =(LinearLayout)findViewById(R.id.layout_bottom);
+            linearLayout.setVisibility(View.VISIBLE);
+            TextView bottom_num = (TextView)findViewById(R.id.bottom_num);
+            bottom_num.setText("暂无信息");
+        }else{
+            String[] resKeys=new String[]{"getImagepath","getRenname"};
+            int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};
+            starTeacherImageAdapter = new StarTeacherImageAdapter
+                    (this,model.getData(),R.layout.layout_item_gridview_image,resKeys,reses);
+            gridview.setAdapter(starTeacherImageAdapter);
+        }
     }
 
     private void loadStarteacehr(){

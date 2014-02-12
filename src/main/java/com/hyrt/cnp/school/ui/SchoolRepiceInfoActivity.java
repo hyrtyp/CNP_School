@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -66,8 +67,16 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
     }
 
     public void initData(RecipeInfo.Model2 model){
-        mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager(),model);
-        mViewPager.setAdapter(mAppSectionsPagerAdapter);
+        if(model==null){
+            LinearLayout linearLayout =(LinearLayout)findViewById(R.id.layout_bottom);
+            linearLayout.setVisibility(View.VISIBLE);
+            TextView bottom_num = (TextView)findViewById(R.id.bottom_num);
+            bottom_num.setText("暂无信息");
+        }else{
+            mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager(),model);
+            mViewPager.setAdapter(mAppSectionsPagerAdapter);
+        }
+
     }
     private void loadSendword(){
         Intent intent =getIntent();

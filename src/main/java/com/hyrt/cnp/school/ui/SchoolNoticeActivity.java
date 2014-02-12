@@ -107,26 +107,33 @@ public class SchoolNoticeActivity extends BaseActivity {
      * 监听更新ui界面数据
      * */
     public void initData(final Notice.Model model) {
-        this.model = model;
-        notice=model.getData().get(0);
-        schoolnotice_title.setText(model.getData().get(0).getTitle());
+        if(model==null){
+            LinearLayout linearLayout =(LinearLayout)findViewById(R.id.layout_bottom);
+            linearLayout.setVisibility(View.VISIBLE);
+            TextView bottom_num = (TextView)findViewById(R.id.bottom_num);
+            bottom_num.setText("暂无信息");
+        }else{
+            this.model = model;
+            notice=model.getData().get(0);
+            schoolnotice_title.setText(model.getData().get(0).getTitle());
 
-        schoolnotice_time_name.setText("发布人:" + model.getData().get(0).getRenname() +
-                "    发布时间:" + model.getData().get(0).getPosttime2());
+            schoolnotice_time_name.setText("发布人:" + model.getData().get(0).getRenname() +
+                    "    发布时间:" + model.getData().get(0).getPosttime2());
 
-        schoolnotice_content.setText(model.getData().get(0).getContent());
-        noticefirst.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setClass(SchoolNoticeActivity.this, SchoolNoticeInfoActivity.class);
-                intent.putExtra("notice", notice);
-                intent.putExtra("data", data);
-                startActivity(intent);
-            }
-        });
-        model.getData().remove(0);
-        schoolNoticeAdapter = new SchoolNoticeAdapter(SchoolNoticeActivity.this, model);
-        noticelistview.setAdapter(schoolNoticeAdapter);
+            schoolnotice_content.setText(model.getData().get(0).getContent());
+            noticefirst.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setClass(SchoolNoticeActivity.this, SchoolNoticeInfoActivity.class);
+                    intent.putExtra("notice", notice);
+                    intent.putExtra("data", data);
+                    startActivity(intent);
+                }
+            });
+            model.getData().remove(0);
+            schoolNoticeAdapter = new SchoolNoticeAdapter(SchoolNoticeActivity.this, model);
+            noticelistview.setAdapter(schoolNoticeAdapter);
+        }
     }
 }

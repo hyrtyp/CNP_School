@@ -1,6 +1,8 @@
 package com.hyrt.cnp.school.ui;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hyrt.cnp.account.model.ClassRoom;
@@ -56,17 +58,27 @@ public class ClassRoomListActivity extends BaseActivity {
         imageResIdmun = new int[] { R.drawable.classroom3};
         imageResIdmax = new int[] { R.drawable.classroom2};
     }
+
+    /**
+     * 更新ui界面
+     * */
     public void initData(ClassRoom.Model model){
 
-        String[] resKeys=new String[]{"getImagepath","getRenname"};
-        int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};
-
-        starTeacherAdaptersmall=new ClassRoomImageAdapter(this,getClassRoommodel(model,"3").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
-        starTeacherAdaptermun=new ClassRoomImageAdapter(this,getClassRoommodel(model,"2").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
-        starTeacherAdaptermax=new ClassRoomImageAdapter(this,getClassRoommodel(model,"1").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
-        gridviewsmall.setAdapter(starTeacherAdaptersmall);
-        gridviewmun.setAdapter(starTeacherAdaptermun);
-        gridviewmax.setAdapter(starTeacherAdaptermax);
+        if(model==null){
+            LinearLayout linearLayout =(LinearLayout)findViewById(R.id.layout_bottom);
+            linearLayout.setVisibility(View.VISIBLE);
+            TextView bottom_num = (TextView)findViewById(R.id.bottom_num);
+            bottom_num.setText("暂无信息");
+        }else{
+            String[] resKeys=new String[]{"getImagepath","getRenname"};
+            int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};
+            starTeacherAdaptersmall=new ClassRoomImageAdapter(this,getClassRoommodel(model,"3").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
+            starTeacherAdaptermun=new ClassRoomImageAdapter(this,getClassRoommodel(model,"2").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
+            starTeacherAdaptermax=new ClassRoomImageAdapter(this,getClassRoommodel(model,"1").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
+            gridviewsmall.setAdapter(starTeacherAdaptersmall);
+            gridviewmun.setAdapter(starTeacherAdaptermun);
+            gridviewmax.setAdapter(starTeacherAdaptermax);
+        }
     }
 
     private void loadSendword(){

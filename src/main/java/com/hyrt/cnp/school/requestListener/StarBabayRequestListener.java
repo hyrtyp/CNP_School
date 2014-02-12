@@ -8,8 +8,6 @@ import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.StarBabayActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
-import roboguice.RoboGuice;
-
 /**
  * Created by GYH on 14-1-14.
  */
@@ -24,7 +22,9 @@ public class StarBabayRequestListener extends BaseRequestListener {
     @Override
     public void onRequestFailure(SpiceException e) {
         super.onRequestFailure(e);
-        showMessage(R.string.nodata_title,R.string.nodata_content);
+//        showMessage(R.string.nodata_title,R.string.nodata_content);
+        StarBabayActivity activity = (StarBabayActivity)context.get();
+        activity.initData(null);
     }
 
     @Override
@@ -35,7 +35,9 @@ public class StarBabayRequestListener extends BaseRequestListener {
             StarBabay.Model result= (StarBabay.Model)data;
             activity.initData(result);
         }else{
-            showMessage(R.string.nodata_title,R.string.nodata_content);
+            StarBabayActivity activity = (StarBabayActivity)context.get();
+            activity.initData(null);
+//            showMessage(R.string.nodata_title,R.string.nodata_content);
         }
     }
 
