@@ -14,7 +14,7 @@
         android:layout_marginBottom="@dimen/view_bottom_margin">
         <include layout="@layout/layout_bottom_num"></include>
     </LinearLayout>
-    <ScrollView
+    <com.hyrt.cnp.view.MtScrollView
         android:layout_above="@id/layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="100dp">
+            >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,5 +76,5 @@
                 android:gravity="center"
                 android:layout_margin="@dimen/view_margin_small" />
         </LinearLayout>
-    </ScrollView>
+    </com.hyrt.cnp.view.MtScrollView>
 </RelativeLayout>
