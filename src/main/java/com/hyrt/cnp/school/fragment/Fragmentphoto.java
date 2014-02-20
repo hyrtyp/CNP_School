@@ -19,6 +19,8 @@ import com.hyrt.cnp.school.ui.SchoolPhotoActivity;
 import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
+import java.util.ArrayList;
+
 /**
  * Created by GYH on 14-1-14.
  * 活动剪影
@@ -32,6 +34,7 @@ public  class Fragmentphoto extends Fragment {
     private int id;
     private Photo.Model model;
     private String pkind;
+    private ArrayList<String> imageurls=new ArrayList<String>();
 
 
     public Fragmentphoto (int id){
@@ -49,7 +52,8 @@ public  class Fragmentphoto extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ((BaseActivity)getActivity()).showPop(gridview,((Photo)(photoImageAdapter.getItem(i))).getImagepics());
+//                ((BaseActivity)getActivity()).showPop(gridview,((Photo)(photoImageAdapter.getItem(i))).getImagepics());
+                ((BaseActivity)getActivity()).showPop2(gridview,imageurls,i,getActivity());
             }
         });
         return rootView;
@@ -82,5 +86,8 @@ public  class Fragmentphoto extends Fragment {
         int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};
         photoImageAdapter=new PhotoImageAdapter(activity,model.getData(),R.layout.layout_item_gridview_image,resKeys,reses);
         gridview.setAdapter(photoImageAdapter);
+        for(int i=0;i<model.getData().size();i++){
+            imageurls.add(model.getData().get(i).getImagepics());
+        }
     }
 }

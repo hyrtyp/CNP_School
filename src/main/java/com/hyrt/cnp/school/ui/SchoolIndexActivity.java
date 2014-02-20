@@ -45,7 +45,7 @@ public class SchoolIndexActivity extends BaseActivity {
     }
 
     public void UPdataUI(School.Model2 model2){
-        showDetailImage(FaceUtils.getSchoolImage(model2.getData().getNursery_id(),FaceUtils.FACE_BIG),schoolimage,false);
+        showDetailImage(FaceUtils.getSchoolImage(model2.getData().getNursery_id(), FaceUtils.FACE_SMALL),schoolimage,false);
         schoolinfo.setText(model2.getData().getAddress()+"      电话："+model2.getData().getTel());
     }
 

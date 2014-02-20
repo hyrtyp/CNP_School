@@ -13,7 +13,8 @@
             android:id="@+id/schoolimage"
             android:layout_marginTop="@dimen/cnp_school_layout_margin"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/banner_h_w"
+            android:layout_height="match_parent"
+            android:background="@drawable/banner_school"
             />
         <TextView
             android:id="@+id/schoolintro"
@@ -21,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:padding="@dimen/view_margin_small"
-            android:background="#50ffffff"
+            android:background="#a0ffffff"
             android:textColor="@color/cnp_text_color"
             android:layout_alignParentBottom="true"
             android:singleLine="true"/>
