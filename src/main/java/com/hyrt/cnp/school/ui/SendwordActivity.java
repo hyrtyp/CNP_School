@@ -1,6 +1,5 @@
 package com.hyrt.cnp.school.ui;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,10 +9,7 @@ import com.hyrt.cnp.account.utils.FaceUtils;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.request.SendwordRequest;
 import com.hyrt.cnp.school.requestListener.SendWordRequestListener;
-import com.jingdong.app.pad.product.drawable.HandlerRecycleBitmapDrawable;
-import com.jingdong.app.pad.utils.InflateUtil;
 import com.jingdong.common.frame.BaseActivity;
-import com.jingdong.common.utils.cache.GlobalImageCache;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 import java.lang.ref.WeakReference;

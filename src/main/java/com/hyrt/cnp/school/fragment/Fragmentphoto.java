@@ -52,8 +52,8 @@ public  class Fragmentphoto extends Fragment {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                ((BaseActivity)getActivity()).showPop(gridview,((Photo)(photoImageAdapter.getItem(i))).getImagepics());
-                ((BaseActivity)getActivity()).showPop2(gridview,imageurls,i,getActivity());
+                ((BaseActivity)getActivity()).showPop(gridview,((Photo)(photoImageAdapter.getItem(i))).getImagepics());
+//                ((BaseActivity)getActivity()).showPop2(gridview,imageurls,i,getActivity());
             }
         });
         return rootView;
