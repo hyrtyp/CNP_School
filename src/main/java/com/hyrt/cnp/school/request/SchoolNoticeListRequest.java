@@ -13,20 +13,30 @@ import com.hyrt.cnp.account.service.SchoolNoticeService;
 public class SchoolNoticeListRequest extends BaseRequest {
 
     private String data;
+    private String more;
 
     @Inject
     private SchoolNoticeService schoolNoticeService;
-    public SchoolNoticeListRequest(Class clazz, Context context,String data) {
+    public SchoolNoticeListRequest(Class clazz, Context context,String data,String more) {
         super(clazz, context);
         this.data=data;
+        this.more=more;
     }
 
     @Override
     public Base run() {
         if(data.equals("school")){
-            return schoolNoticeService.getNoticelistData(getRestTemplate());
+            if(more.equals("1")){
+                return schoolNoticeService.getNoticelistData(getRestTemplate());
+            }else{
+                return schoolNoticeService.getNoticelistDatamore(getRestTemplate(), more);
+            } 
         }else{
-            return schoolNoticeService.getClassroomNoticelistData(getRestTemplate());
+            if(more.equals("1")){
+                return schoolNoticeService.getClassroomNoticelistData(getRestTemplate());
+            }else{
+                return schoolNoticeService.getClassroomNoticelistDatamore(getRestTemplate(), more);
+            } 
         }
     }
 

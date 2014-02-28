@@ -27,6 +27,7 @@ public class SendwordActivity extends BaseActivity {
     private TextView sendtextpol;
     private TextView sendtextmsg;
     private WeakReference<ImageView> weakImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,16 +48,16 @@ public class SendwordActivity extends BaseActivity {
         textView.setText("园长寄语");
     }
 
-    private void initView(){
-        sendtexttitle =(TextView)findViewById(R.id.sendword_text_title);
-        sendtextintr=(TextView)findViewById(R.id.sendword_text_intro);
-        sendtextname=(TextView)findViewById(R.id.sendword_text_rename);
-        sendtextpol=(TextView)findViewById(R.id.sendword_text_pol);
-        sendtextmsg=(TextView)findViewById(R.id.sendword_text_msg);
+    private void initView() {
+        sendtexttitle = (TextView) findViewById(R.id.sendword_text_title);
+        sendtextintr = (TextView) findViewById(R.id.sendword_text_intro);
+        sendtextname = (TextView) findViewById(R.id.sendword_text_rename);
+        sendtextpol = (TextView) findViewById(R.id.sendword_text_pol);
+        sendtextmsg = (TextView) findViewById(R.id.sendword_text_msg);
 
     }
 
-    public void initData(SendWord.Model model){
+    public void initData(SendWord.Model model) {
         sendtexttitle.setText(model.getData().getnName());
         sendtextname.setText(model.getData().getRenname());
         sendtextpol.setText(model.getData().getPolitical());
@@ -64,14 +65,14 @@ public class SendwordActivity extends BaseActivity {
         sendtextmsg.setText(model.getData().getMessage());
         //setImage(model.getData().getUser_id());
         String facePath = FaceUtils.getAvatar(model.getData().getUser_id(), FaceUtils.FACE_BIG);
-        ImageView imageView = (ImageView)findViewById(R.id.imageview);
-        showDetailImage(facePath,imageView,false);
+        ImageView imageView = (ImageView) findViewById(R.id.imageview);
+        showDetailImage(facePath, imageView, false);
     }
 
-    private void loadSendword(){
+    private void loadSendword() {
         SendWordRequestListener sendwordRequestListener = new SendWordRequestListener(this);
-        SendwordRequest sendwordRequest =new SendwordRequest(SendWord.Model.class,this);
-        spiceManager.execute(sendwordRequest,sendwordRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+        SendwordRequest sendwordRequest = new SendwordRequest(SendWord.Model.class, this);
+        spiceManager.execute(sendwordRequest, sendwordRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }
 

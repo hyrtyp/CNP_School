@@ -10,27 +10,29 @@ import android.widget.TextView;
 import com.hyrt.cnp.account.model.Notice;
 import com.hyrt.cnp.school.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by GYH on 14-1-9.
  */
 public class SchoolNoticeAdapter extends BaseAdapter{
 
     private Context context;
-    private Notice.Model model;
-    public SchoolNoticeAdapter(Context context,Notice.Model model){
+    private ArrayList<Notice> notices;
+    public SchoolNoticeAdapter(Context context,ArrayList<Notice> notices){
         this.context=context;
-        this.model=model;
+        this.notices=notices;
 
     }
 
     @Override
     public int getCount() {
-        return model.getData().size();
+        return notices.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return model.getData().get(i);
+        return notices.get(i);
     }
 
     @Override
@@ -51,8 +53,8 @@ public class SchoolNoticeAdapter extends BaseAdapter{
             holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
         }
 
-        holder.title.setText(model.getData().get(i).getTitle());
-        holder.text.setText(model.getData().get(i).getPosttime2());
+        holder.title.setText(notices.get(i).getTitle());
+        holder.text.setText(notices.get(i).getPosttime2());
         return convertView;
     }
 

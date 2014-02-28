@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.hyrt.cnp.account.model.Recipe;
 import com.hyrt.cnp.account.model.RecipeInfo;
+import com.hyrt.cnp.account.utils.StringUtils;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.RepiceInfoAdapter;
 import com.hyrt.cnp.school.request.SchoolRecipeInfoRequest;
@@ -30,9 +31,9 @@ import java.util.ArrayList;
  * Created by GYH on 14-1-10.
  */
 
-public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar.TabListener {
+public class SchoolRepiceInfoActivity extends BaseActivity implements ActionBar.TabListener {
 
-    private String[] str= new String[]{"星期一","星期二","星期三","星期四","星期五"};
+    private static int num = 0;
     private AppSectionsPagerAdapter mAppSectionsPagerAdapter;
     private ViewPager mViewPager;
 
@@ -49,7 +50,7 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
         loadSendword();
     }
 
-    private void initView(){
+    private void initView() {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -58,32 +59,40 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
                 actionBar.setSelectedNavigationItem(position);
             }
         });
-        for (int i = 0; i < str.length; i++) {
-            ActionBar.Tab tab=actionBar.newTab();
-            tab.setText(str[i]);
-            tab.setTabListener(this);
-            actionBar.addTab(tab);
-        }
+
     }
 
-    public void initData(RecipeInfo.Model2 model){
-        if(model==null){
-            LinearLayout linearLayout =(LinearLayout)findViewById(R.id.layout_bottom);
+    public void initData(RecipeInfo.Model2 model) {
+        if (model == null) {
+            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layout_bottom);
             linearLayout.setVisibility(View.VISIBLE);
-            TextView bottom_num = (TextView)findViewById(R.id.bottom_num);
+            TextView bottom_num = (TextView) findViewById(R.id.bottom_num);
             bottom_num.setText("暂无信息");
-        }else{
-            mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager(),model);
+        } else {
+            actionBar.removeAllTabs();
+            num = model.getData().size();
+            for (int i = 0; i < model.getData().size(); i++) {
+                ActionBar.Tab tab = actionBar.newTab();
+                try {
+                    tab.setText(StringUtils.getWeekOfDate(model.getData().get(i).getRecipeDate2()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                tab.setTabListener(this);
+                actionBar.addTab(tab);
+            }
+            mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager(), model);
             mViewPager.setAdapter(mAppSectionsPagerAdapter);
         }
 
     }
-    private void loadSendword(){
-        Intent intent =getIntent();
-        Recipe recipe = (Recipe)intent.getSerializableExtra("vo");
+
+    private void loadSendword() {
+        Intent intent = getIntent();
+        Recipe recipe = (Recipe) intent.getSerializableExtra("vo");
         SchoolRecipeInfoRequestListener sendwordRequestListener = new SchoolRecipeInfoRequestListener(this);
-        SchoolRecipeInfoRequest schoolRecipeInfoRequest= new SchoolRecipeInfoRequest(RecipeInfo.Model2.class, this,recipe);
-        spiceManager.execute(schoolRecipeInfoRequest,schoolRecipeInfoRequest.getcachekey() , DurationInMillis.ONE_SECOND*10,sendwordRequestListener.start());
+        SchoolRecipeInfoRequest schoolRecipeInfoRequest = new SchoolRecipeInfoRequest(RecipeInfo.Model2.class, this, recipe);
+        spiceManager.execute(schoolRecipeInfoRequest, schoolRecipeInfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10, sendwordRequestListener.start());
     }
 
     @Override
@@ -104,34 +113,20 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
 
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
         private RecipeInfo.Model2 model;
-        private ArrayList<Fragmentrecipe> pages=new ArrayList<Fragmentrecipe>();
-        public AppSectionsPagerAdapter(FragmentManager fm,RecipeInfo.Model2 model) {
+        private ArrayList<Fragmentrecipe> pages = new ArrayList<Fragmentrecipe>();
+
+        public AppSectionsPagerAdapter(FragmentManager fm, RecipeInfo.Model2 model) {
             super(fm);
-            this.model=model;
+            this.model = model;
         }
+
         @Override
         public Fragment getItem(int position) {
             Fragmentrecipe page = null;
             if (pages.size() > position) {
                 page = pages.get(position);
-            }else{
-                if(model.getData().size()==0){
-                    RecipeInfo model=new RecipeInfo();
-                    model.setBreakfast("null");
-                    model.setB_ingredients("null");
-                    model.setAddfood("null");
-                    model.setLunch("null");
-                    model.setL_ingredients("null");
-                    model.setLunchsnacks("null");
-                    model.setDinner("null");
-                    model.setD_ingredients("null");
-                    model.setLevel("null");
-                    model.setFooder("null");
-                    model.setRecipeDate("null");
-                    page=new Fragmentrecipe(model);
-                }else{
-                    page=new Fragmentrecipe(model.getData().get(0));
-                }
+            } else {
+                page = new Fragmentrecipe(model.getData().get(position));
                 pages.add(page);
             }
             return page;
@@ -139,7 +134,7 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
 
         @Override
         public int getCount() {
-            return 5;
+            return num;
         }
 
         @Override
@@ -149,17 +144,16 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
     }
 
 
-
-
     /**
      * A dummy fragment representing a section of the app, but that simply displays dummy
-     text.
+     * text.
      */
     public static class Fragmentrecipe extends Fragment {
-        ArrayList<String> foot=new ArrayList<String>();
+        ArrayList<String> foot = new ArrayList<String>();
         private String foottime;
-        String[] footstime=new String[] {"早餐","早餐配料","加餐","午餐","午餐配料","午点","晚餐","晚餐配料","日营养量","负责人"};
-        public Fragmentrecipe(RecipeInfo model){
+        String[] footstime = new String[]{"早餐", "早餐配料", "加餐", "午餐", "午餐配料", "午点", "晚餐", "晚餐配料", "日营养量", "负责人"};
+
+        public Fragmentrecipe(RecipeInfo model) {
             foot.add(model.getBreakfast());
             foot.add(model.getB_ingredients());
             foot.add(model.getAddfood());
@@ -170,7 +164,7 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
             foot.add(model.getD_ingredients());
             foot.add(model.getLevel());
             foot.add(model.getFooder());
-            foottime=model.getRecipeDate2();
+            foottime = model.getRecipeDate2();
         }
 
         @Override
@@ -178,12 +172,12 @@ public class SchoolRepiceInfoActivity  extends BaseActivity implements ActionBar
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.layout_repiceinfo, container,
                     false);
-            TextView textView=(TextView)rootView.findViewById(R.id.foottimetext);
+            TextView textView = (TextView) rootView.findViewById(R.id.foottimetext);
             textView.setText(foottime);
-            ListView listView = (ListView)rootView.findViewById
+            ListView listView = (ListView) rootView.findViewById
                     (R.id.schoolnotice_listview);
             RepiceInfoAdapter repiceInfoAdapter = new RepiceInfoAdapter(this.getActivity
-                    (),footstime,foot);
+                    (), footstime, foot);
             listView.setAdapter(repiceInfoAdapter);
             return rootView;
         }

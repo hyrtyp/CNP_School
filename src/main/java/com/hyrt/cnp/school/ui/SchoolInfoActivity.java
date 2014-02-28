@@ -20,6 +20,7 @@ public class SchoolInfoActivity extends BaseActivity {
 
     private TextView schoolintro;
     private ImageView schoolmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +34,19 @@ public class SchoolInfoActivity extends BaseActivity {
         loadSendword();
     }
 
-    private void initView(){
-        schoolintro=(TextView)findViewById(R.id.schoolintro);
-        schoolmap=(ImageView)findViewById(R.id.schoolmap);
+    private void initView() {
+        schoolintro = (TextView) findViewById(R.id.schoolintro);
+        schoolmap = (ImageView) findViewById(R.id.schoolmap);
     }
 
-    public void initData(School.Model2 model2){
-        UITextUtils.setTextWithSelection(schoolintro,model2.getData().getIntro());
+    public void initData(School.Model2 model2) {
+        UITextUtils.setTextWithSelection(schoolintro, model2.getData().getIntro());
     }
 
-    private void loadSendword(){
+    private void loadSendword() {
         SchoolinfoRequestListener sendwordRequestListener = new SchoolinfoRequestListener(this);
-        SchoolinfoRequest schoolinfoRequest= new SchoolinfoRequest(School.Model2.class,this);
-        spiceManager.execute(schoolinfoRequest,schoolinfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+        SchoolinfoRequest schoolinfoRequest = new SchoolinfoRequest(School.Model2.class, this);
+        spiceManager.execute(schoolinfoRequest, schoolinfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }
 }

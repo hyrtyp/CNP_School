@@ -35,7 +35,7 @@ public class SchoolListActivity extends BaseActivity {
 
     public void loadhomedynamic() {
         setProgressBarIndeterminateVisibility(true);
-        spiceManager.execute(new SchoolListRequest(School.Model.class,this), "github", DurationInMillis.ONE_SECOND * 10,
+        spiceManager.execute(new SchoolListRequest(School.Model.class, this), "github", DurationInMillis.ONE_SECOND * 10,
                 new HomedynamicRequestListener());
     }
 
@@ -50,10 +50,10 @@ public class SchoolListActivity extends BaseActivity {
         @Override
         public void onRequestSuccess(School.Model result) {
             setProgressBarIndeterminateVisibility(false);
-            if(result==null){
+            if (result == null) {
                 Toast.makeText(SchoolListActivity.this, "is null", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(SchoolListActivity.this,"city==="+result.getData().get(0).getCity(),Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(SchoolListActivity.this, "city===" + result.getData().get(0).getCity(), Toast.LENGTH_SHORT).show();
             }
 
         }

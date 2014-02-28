@@ -20,14 +20,15 @@ import java.util.ArrayList;
  * Created by GYH on 14-1-10.
  */
 public class ClassRoomListActivity extends BaseActivity {
-    private MyGridView gridviewsmall,gridviewmun,gridviewmax;
-    private int[] imageResIdsmall,imageResIdmun,imageResIdmax;
-    private String[] Smalltext={"小三班\n班主任：苏菲菲","小三班\n班主任：苏菲菲"};
-    private String[] Muntext={"付晓宁\n班主任：苏菲菲"};
-    private String[] Maxtext={"付晓宁\n班主任：苏菲菲"};
-    private ClassRoomImageAdapter starTeacherAdaptersmall=null;
-    private ClassRoomImageAdapter starTeacherAdaptermun=null;
-    private ClassRoomImageAdapter starTeacherAdaptermax=null;
+    private MyGridView gridviewsmall, gridviewmun, gridviewmax;
+    private int[] imageResIdsmall, imageResIdmun, imageResIdmax;
+    private String[] Smalltext = {"小三班\n班主任：苏菲菲", "小三班\n班主任：苏菲菲"};
+    private String[] Muntext = {"付晓宁\n班主任：苏菲菲"};
+    private String[] Maxtext = {"付晓宁\n班主任：苏菲菲"};
+    private ClassRoomImageAdapter starTeacherAdaptersmall = null;
+    private ClassRoomImageAdapter starTeacherAdaptermun = null;
+    private ClassRoomImageAdapter starTeacherAdaptermax = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +46,7 @@ public class ClassRoomListActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(starTeacherAdaptersmall==null){
+        if (starTeacherAdaptersmall == null) {
             loadSendword();
         }
     }
@@ -54,46 +55,46 @@ public class ClassRoomListActivity extends BaseActivity {
         gridviewsmall = (MyGridView) findViewById(R.id.cnp_gridview_small);
         gridviewmun = (MyGridView) findViewById(R.id.cnp_gridview_mun);
         gridviewmax = (MyGridView) findViewById(R.id.cnp_gridview_max);
-        imageResIdsmall = new int[] { R.drawable.classroom1,R.drawable.classroom2};
-        imageResIdmun = new int[] { R.drawable.classroom3};
-        imageResIdmax = new int[] { R.drawable.classroom2};
+        imageResIdsmall = new int[]{R.drawable.classroom1, R.drawable.classroom2};
+        imageResIdmun = new int[]{R.drawable.classroom3};
+        imageResIdmax = new int[]{R.drawable.classroom2};
     }
 
     /**
      * 更新ui界面
-     * */
-    public void initData(ClassRoom.Model model){
+     */
+    public void initData(ClassRoom.Model model) {
 
-        if(model==null){
-            LinearLayout linearLayout =(LinearLayout)findViewById(R.id.layout_bottom);
+        if (model == null) {
+            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.layout_bottom);
             linearLayout.setVisibility(View.VISIBLE);
-            TextView bottom_num = (TextView)findViewById(R.id.bottom_num);
+            TextView bottom_num = (TextView) findViewById(R.id.bottom_num);
             bottom_num.setText("暂无信息");
-        }else{
-            String[] resKeys=new String[]{"getImagepath","getRenname"};
-            int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};
-            starTeacherAdaptersmall=new ClassRoomImageAdapter(this,getClassRoommodel(model,"3").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
-            starTeacherAdaptermun=new ClassRoomImageAdapter(this,getClassRoommodel(model,"2").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
-            starTeacherAdaptermax=new ClassRoomImageAdapter(this,getClassRoommodel(model,"1").getData(),R.layout.layout_item_gridview_image,resKeys,reses);
+        } else {
+            String[] resKeys = new String[]{"getImagepath", "getRenname","getRoomname"};
+            int[] reses = new int[]{R.id.gridview_image, R.id.gridview_renname,R.id.gridview_classroomname};
+            starTeacherAdaptersmall = new ClassRoomImageAdapter(this, getClassRoommodel(model, "3").getData(), R.layout.layout_item_gridview_image_classroomlist, resKeys, reses);
+            starTeacherAdaptermun = new ClassRoomImageAdapter(this, getClassRoommodel(model, "2").getData(), R.layout.layout_item_gridview_image_classroomlist, resKeys, reses);
+            starTeacherAdaptermax = new ClassRoomImageAdapter(this, getClassRoommodel(model, "1").getData(), R.layout.layout_item_gridview_image_classroomlist, resKeys, reses);
             gridviewsmall.setAdapter(starTeacherAdaptersmall);
             gridviewmun.setAdapter(starTeacherAdaptermun);
             gridviewmax.setAdapter(starTeacherAdaptermax);
         }
     }
 
-    private void loadSendword(){
+    private void loadSendword() {
         ClassRoomListRequestListener sendwordRequestListener = new ClassRoomListRequestListener(this);
-        ClassRoomListRequest classRoomListRequest=new ClassRoomListRequest(ClassRoom.Model.class,this);
+        ClassRoomListRequest classRoomListRequest = new ClassRoomListRequest(ClassRoom.Model.class, this);
         spiceManager.execute(classRoomListRequest, classRoomListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }
 
-    private ClassRoom.Model getClassRoommodel(ClassRoom.Model model,String grade){
-        ClassRoom.Model m=new ClassRoom.Model();
+    private ClassRoom.Model getClassRoommodel(ClassRoom.Model model, String grade) {
+        ClassRoom.Model m = new ClassRoom.Model();
         m.setData(new ArrayList<ClassRoom>());
 
-        for (int i=0;i<model.getData().size();i++){
-            if(model.getData().get(i).getGrade().equals(grade)){
+        for (int i = 0; i < model.getData().size(); i++) {
+            if (model.getData().get(i).getGrade().equals(grade)) {
                 m.getData().add(model.getData().get(i));
             }
         }
