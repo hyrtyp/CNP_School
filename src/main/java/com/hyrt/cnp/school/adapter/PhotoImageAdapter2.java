@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hyrt.cnp.account.model.Photo;
+import com.hyrt.cnp.base.account.model.Photo;
 import com.hyrt.cnp.school.R;
 
 /**

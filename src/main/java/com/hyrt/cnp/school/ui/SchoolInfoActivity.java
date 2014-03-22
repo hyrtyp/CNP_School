@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hyrt.cnp.account.model.School;
-import com.hyrt.cnp.account.utils.UITextUtils;
+import com.hyrt.cnp.base.account.model.School;
+import com.hyrt.cnp.base.account.utils.UITextUtils;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.request.SchoolinfoRequest;
 import com.hyrt.cnp.school.requestListener.SchoolinfoRequestListener;

@@ -8,7 +8,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hyrt.cnp.account.model.Teacher;
+import com.hyrt.cnp.base.account.model.Teacher;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.StarTeacherImageAdapter;
 import com.hyrt.cnp.school.request.StarTeacherRequest;

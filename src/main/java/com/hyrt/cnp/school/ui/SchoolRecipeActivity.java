@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.hyrt.cnp.account.model.Recipe;
+import com.hyrt.cnp.base.account.model.Recipe;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.request.SchoolRecipeRequest;
 import com.hyrt.cnp.school.requestListener.SchoolRecipeRequestListener;

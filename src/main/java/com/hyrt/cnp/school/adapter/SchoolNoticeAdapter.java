@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.hyrt.cnp.account.model.Notice;
+import com.hyrt.cnp.base.account.model.Notice;
 import com.hyrt.cnp.school.R;
 
 import java.util.ArrayList;

@@ -8,12 +8,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hyrt.cnp.account.model.Notice;
+import com.hyrt.cnp.base.account.model.Notice;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolNoticeAdapter;
 import com.hyrt.cnp.school.request.SchoolNoticeListRequest;
 import com.hyrt.cnp.school.requestListener.SchoolNoticeRequestListener;
-import com.hyrt.cnp.view.XListView;
+import com.hyrt.cnp.base.view.XListView;
 import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 

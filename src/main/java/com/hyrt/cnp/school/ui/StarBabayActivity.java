@@ -7,7 +7,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hyrt.cnp.account.model.StarBabay;
+import com.hyrt.cnp.base.account.model.StarBabay;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.StarBabayImageAdapter;
 import com.hyrt.cnp.school.request.StarBabayRequest;

@@ -3,9 +3,9 @@ package com.hyrt.cnp.school.request;
 import android.content.Context;
 
 import com.google.inject.Inject;
-import com.hyrt.cnp.account.model.Base;
-import com.hyrt.cnp.account.request.BaseRequest;
-import com.hyrt.cnp.account.service.SchoolService;
+import com.hyrt.cnp.base.account.model.Base;
+import com.hyrt.cnp.base.account.request.BaseRequest;
+import com.hyrt.cnp.base.account.service.SchoolService;
 
 /**
  * Created by GYH on 14-1-3.

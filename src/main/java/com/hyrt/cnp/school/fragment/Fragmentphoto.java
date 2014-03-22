@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.PopupWindow;
 
-import com.hyrt.cnp.account.model.Photo;
+import com.hyrt.cnp.base.account.model.Photo;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.PhotoImageAdapter;
 import com.hyrt.cnp.school.request.SchoolPhotoListRequest;

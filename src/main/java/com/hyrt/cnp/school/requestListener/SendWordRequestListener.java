@@ -2,13 +2,11 @@ package com.hyrt.cnp.school.requestListener;
 
 import android.app.Activity;
 
-import com.hyrt.cnp.account.model.SendWord;
-import com.hyrt.cnp.account.requestListener.BaseRequestListener;
+import com.hyrt.cnp.base.account.model.SendWord;
+import com.hyrt.cnp.base.account.requestListener.BaseRequestListener;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.SendwordActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
-
-import roboguice.RoboGuice;
 
 /**
  * 其他人员个人资料监听

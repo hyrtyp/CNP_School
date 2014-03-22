@@ -3,7 +3,7 @@ package com.hyrt.cnp.school.ui;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.hyrt.cnp.account.model.School;
+import com.hyrt.cnp.base.account.model.School;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.request.SchoolListRequest;
 import com.jingdong.common.frame.BaseActivity;

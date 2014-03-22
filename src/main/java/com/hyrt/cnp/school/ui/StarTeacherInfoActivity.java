@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.hyrt.cnp.account.model.Teacher;
-import com.hyrt.cnp.account.utils.FaceUtils;
-import com.hyrt.cnp.account.utils.UITextUtils;
+import com.hyrt.cnp.base.account.model.Teacher;
+import com.hyrt.cnp.base.account.utils.FaceUtils;
+import com.hyrt.cnp.base.account.utils.UITextUtils;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.request.StarTeacherInfoRequest;
 import com.hyrt.cnp.school.requestListener.StarTeacherInfoRequestListener;

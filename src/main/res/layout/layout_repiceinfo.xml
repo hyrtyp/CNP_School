@@ -22,7 +22,7 @@
         android:layout_marginRight="@dimen/view_margin_small"
         />
 
-    <com.hyrt.cnp.view.BounceListView
+    <com.hyrt.cnp.base.view.BounceListView
         android:id="@+id/schoolnotice_listview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

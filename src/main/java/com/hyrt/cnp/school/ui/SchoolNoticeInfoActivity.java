@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.hyrt.cnp.account.model.Notice;
+import com.hyrt.cnp.base.account.model.Notice;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.request.NoticeInfoRequest;
 import com.hyrt.cnp.school.requestListener.NoticeInfoRequestListener;
