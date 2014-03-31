@@ -26,7 +26,7 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
     private AppSectionsPagerAdapter mAppSectionsPagerAdapter = null;
 
     private ViewPager mViewPager;
-    public static ArrayList<Fragmentphoto> pages=new ArrayList<Fragmentphoto>();
+    public static ArrayList<Fragmentphoto> pages = new ArrayList<Fragmentphoto>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +38,7 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mAppSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(0);
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -101,8 +102,8 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
             Fragmentphoto page = null;
             if (pages.size() > position) {
                 page = pages.get(position);
-            }else{
-                page = new Fragmentphoto(textphoto, imageResId1,position);
+            } else {
+                page = new Fragmentphoto(position);
                 pages.add(page);
             }
             return page;
@@ -112,7 +113,6 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
         public int getCount() {
             return 3;
         }
-
 
 
         @Override

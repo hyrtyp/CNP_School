@@ -1,25 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/cnp_bg">
-
-    <ScrollView
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/layout_bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/view_bottom_margin">
+        <include layout="@layout/layout_bottom_num"></include>
+    </LinearLayout>
+    <com.hyrt.cnp.base.view.MtScrollView
+        android:layout_above="@id/layout_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="100dp">
+            >
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="小班"
-                style="@style/cnp_school_text_max"
-                android:layout_marginTop="@dimen/cnp_school_layout_margin"/>
+                style="@style/large_tv"
+                android:layout_marginTop="@dimen/view_margin_small"/>
             <com.hyrt.cnp.school.view.MyGridView
                 android:id="@+id/cnp_gridview_small"
                 android:layout_width="match_parent"
@@ -29,14 +38,14 @@
                 android:horizontalSpacing="6dp"
                 android:stretchMode="columnWidth"
                 android:gravity="center"
-                style="@style/cnp_school_layout" />
+                android:layout_margin="@dimen/view_margin_small"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="中班"
-                style="@style/cnp_school_text_max"
-                android:layout_marginTop="@dimen/cnp_school_layout_margin"/>
+                style="@style/large_tv"
+                android:layout_marginTop="@dimen/view_margin_small"/>
 
             <com.hyrt.cnp.school.view.MyGridView
                 android:id="@+id/cnp_gridview_mun"
@@ -47,14 +56,14 @@
                 android:horizontalSpacing="6dp"
                 android:stretchMode="columnWidth"
                 android:gravity="center"
-                style="@style/cnp_school_layout" />
+                android:layout_margin="@dimen/view_margin_small" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="大班"
-                style="@style/cnp_school_text_max"
-                android:layout_marginTop="@dimen/cnp_school_layout_margin"/>
+                style="@style/large_tv"
+                android:layout_marginTop="@dimen/view_margin_small"/>
 
             <com.hyrt.cnp.school.view.MyGridView
                 android:id="@+id/cnp_gridview_max"
@@ -65,7 +74,7 @@
                 android:horizontalSpacing="6dp"
                 android:stretchMode="columnWidth"
                 android:gravity="center"
-                style="@style/cnp_school_layout" />
+                android:layout_margin="@dimen/view_margin_small" />
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </com.hyrt.cnp.base.view.MtScrollView>
+</RelativeLayout>

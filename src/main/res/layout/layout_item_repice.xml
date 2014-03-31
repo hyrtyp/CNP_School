@@ -10,12 +10,11 @@
         android:id="@+id/item_foottime"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        style="@style/cnp_school_text_min"
+        style="@style/medium_tv"
+        android:layout_marginBottom="@dimen/view_margin"
         android:text="早餐"
         android:singleLine="true"
         android:minWidth="100dp"
-        android:paddingTop="@dimen/cnp_school_layout_margin"
-        android:paddingBottom="@dimen/cnp_school_layout_margin"
         />
     <TextView
         android:layout_width="1px"
@@ -25,10 +24,9 @@
         android:id="@+id/item_footcont"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        style="@style/cnp_school_text_min"
         android:layout_weight="1"
         android:text="fjldjfdlkjj"
-        android:paddingTop="@dimen/cnp_school_layout_margin"
-        android:paddingBottom="@dimen/cnp_school_layout_margin"
+        style="@style/medium_tv"
+        android:layout_marginBottom="@dimen/view_margin"
         />
 </LinearLayout>

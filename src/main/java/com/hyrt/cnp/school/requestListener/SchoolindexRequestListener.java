@@ -2,21 +2,20 @@ package com.hyrt.cnp.school.requestListener;
 
 import android.app.Activity;
 
-import com.hyrt.cnp.base.account.model.SendWord;
+import com.hyrt.cnp.base.account.model.School;
 import com.hyrt.cnp.base.account.requestListener.BaseRequestListener;
 import com.hyrt.cnp.school.R;
-import com.hyrt.cnp.school.ui.SendwordActivity;
+import com.hyrt.cnp.school.ui.SchoolIndexActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
 /**
- * 其他人员个人资料监听
  * Created by GYH on 14-1-14.
  */
-public class SendWordRequestListener extends BaseRequestListener {
+public class SchoolindexRequestListener extends BaseRequestListener {
     /**
      * @param context
      */
-    public SendWordRequestListener(Activity context) {
+    public SchoolindexRequestListener(Activity context) {
         super(context);
     }
 
@@ -30,17 +29,17 @@ public class SendWordRequestListener extends BaseRequestListener {
     public void onRequestSuccess(Object data) {
         super.onRequestSuccess(data);
         if(data != null){
-            SendwordActivity activity = (SendwordActivity)context.get();
-            SendWord.Model result= (SendWord.Model)data;
-            activity.initData(result);
+            SchoolIndexActivity activity = (SchoolIndexActivity)context.get();
+            School.Model2 result= (School.Model2)data;
+            activity.UPdataUI(result);
         }else{
             showMessage(R.string.nodata_title, R.string.nodata_content);
         }
     }
 
     @Override
-    public SendWordRequestListener start() {
-        showIndeterminate(R.string.personinfo_pg);
+    public SchoolindexRequestListener start() {
+        showIndeterminate(R.string.schoolinfo_pg);
         return this;
     }
 }

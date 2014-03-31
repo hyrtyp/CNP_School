@@ -2,13 +2,11 @@ package com.hyrt.cnp.school.requestListener;
 
 import android.app.Activity;
 
-import com.hyrt.cnp.account.model.Photo;
-import com.hyrt.cnp.account.requestListener.BaseRequestListener;
+import com.hyrt.cnp.base.account.model.Photo;
+import com.hyrt.cnp.base.account.requestListener.BaseRequestListener;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.SchoolPhotoActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
-
-import roboguice.RoboGuice;
 
 /**
  * Created by GYH on 14-1-14.

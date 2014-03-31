@@ -6,14 +6,15 @@
     android:orientation="vertical"
     android:background="@drawable/shape_sendword_line"
     android:id="@+id/gridview_item"
-    android:padding="@dimen/cnp_school_gridview_margin">
+    android:padding="@dimen/view_margin_smallest">
     <ImageView
         android:id="@+id/gridview_image"
-        android:layout_width="@dimen/cnp_school_image_height_max"
-        android:layout_height="@dimen/cnp_school_image_height_max"
-        android:layout_margin="@dimen/cnp_school_gridview_margin"
+        android:layout_width="@dimen/imageview_big"
+        android:layout_height="@dimen/imageview_big"
+        android:layout_margin="@dimen/view_margin_smallest"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/image_test4"/>
+        android:scaleType="centerCrop"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,9 +25,10 @@
             android:id="@+id/gridview_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="福小牛"
-            style="@style/cnp_school_text_min"
-            android:layout_marginLeft="@dimen/cnp_school_layout_margin"
+            android:text=""
+            style="@style/medium_tv"
+            android:layout_margin="@dimen/view_margin_smallest"
+            android:singleLine="true"
             />
     </LinearLayout>
 

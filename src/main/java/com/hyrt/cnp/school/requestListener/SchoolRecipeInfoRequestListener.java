@@ -2,13 +2,11 @@ package com.hyrt.cnp.school.requestListener;
 
 import android.app.Activity;
 
-import com.hyrt.cnp.account.model.RecipeInfo;
-import com.hyrt.cnp.account.requestListener.BaseRequestListener;
+import com.hyrt.cnp.base.account.model.RecipeInfo;
+import com.hyrt.cnp.base.account.requestListener.BaseRequestListener;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.SchoolRepiceInfoActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
-
-import roboguice.RoboGuice;
 
 /**
  * Created by GYH on 14-1-14.
@@ -24,7 +22,9 @@ public class SchoolRecipeInfoRequestListener extends BaseRequestListener {
     @Override
     public void onRequestFailure(SpiceException e) {
         super.onRequestFailure(e);
-        showMessage(R.string.nodata_title,R.string.nodata_content);
+        SchoolRepiceInfoActivity activity = (SchoolRepiceInfoActivity)context.get();
+        activity.initData(null);
+//        showMessage(R.string.nodata_title,R.string.nodata_content);
     }
 
     @Override
@@ -35,7 +35,9 @@ public class SchoolRecipeInfoRequestListener extends BaseRequestListener {
             RecipeInfo.Model2 result= (RecipeInfo.Model2)data;
             activity.initData(result);
         }else{
-            showMessage(R.string.nodata_title,R.string.nodata_content);
+            SchoolRepiceInfoActivity activity = (SchoolRepiceInfoActivity)context.get();
+            activity.initData(null);
+//            showMessage(R.string.nodata_title,R.string.nodata_content);
         }
     }
 

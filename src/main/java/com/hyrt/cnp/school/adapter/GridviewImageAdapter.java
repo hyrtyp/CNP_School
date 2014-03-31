@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hyrt.cnp.account.model.Base;
-import com.hyrt.cnp.account.model.StarBabay;
-import com.hyrt.cnp.account.model.Teacher;
+import com.hyrt.cnp.base.account.model.Base;
+import com.hyrt.cnp.base.account.model.StarBabay;
+import com.hyrt.cnp.base.account.model.Teacher;
 import com.hyrt.cnp.school.R;
 
 /**

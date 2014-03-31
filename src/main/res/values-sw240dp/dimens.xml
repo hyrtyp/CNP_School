@@ -3,7 +3,6 @@
     <dimen name="activity_horizontal_margin">24dp</dimen>
     <dimen name="activity_vertical_margin">24dp</dimen>
 
-
     <dimen name="cnp_school_text_margin">15dp</dimen>
     <dimen name="cnp_school_text_size">15sp</dimen>
     <dimen name="cnp_school_text_size_min">18sp</dimen>

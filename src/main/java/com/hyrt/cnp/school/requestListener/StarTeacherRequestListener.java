@@ -1,7 +1,7 @@
 package com.hyrt.cnp.school.requestListener;
 import android.app.Activity;
-import com.hyrt.cnp.account.model.Teacher;
-import com.hyrt.cnp.account.requestListener.BaseRequestListener;
+import com.hyrt.cnp.base.account.model.Teacher;
+import com.hyrt.cnp.base.account.requestListener.BaseRequestListener;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.ui.StarTeacherActivity;
 import com.octo.android.robospice.persistence.exception.SpiceException;
@@ -20,7 +20,9 @@ public class StarTeacherRequestListener extends BaseRequestListener {
     @Override
     public void onRequestFailure(SpiceException e) {
         super.onRequestFailure(e);
-        showMessage(R.string.nodata_title, R.string.nodata_content);
+//        showMessage(R.string.nodata_title, R.string.nodata_content);
+        StarTeacherActivity activity = (StarTeacherActivity)context.get();
+        activity.initData(null);
     }
 
     @Override
@@ -31,7 +33,9 @@ public class StarTeacherRequestListener extends BaseRequestListener {
             Teacher.Model result= (Teacher.Model)data;
             activity.initData(result);
         }else{
-            showMessage(R.string.nodata_title,R.string.nodata_content);
+            StarTeacherActivity activity = (StarTeacherActivity)context.get();
+            activity.initData(null);
+//            showMessage(R.string.nodata_title,R.string.nodata_content);
         }
     }
 
