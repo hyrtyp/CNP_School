@@ -15,5 +15,12 @@
     <color name="schoolindex_textcolor">#ffffff</color>
     <color name="actionbar_title_text">#ffffff</color>
     <color name="sendword_text_color">#000000</color>
+    <color name="search_result_item_range_color">#91bbc1</color>
+    <color name="search_result_item_gray">#b0aeae</color>
+    <color name="search_result_item_content_color">#717070</color>
+    <color name="search_result_item_title_color">#3f3f3f</color>
+    <color name="search_result_item_line_color">#dfdfdf</color>
+    <color name="search_result_spinner_item_text">#767676</color>
+    <color name="search_result_spinner_cur_line">#c8c8c8</color>
 
 </resources>

@@ -14,4 +14,12 @@
     <dimen name="sendword_margin">6dp</dimen>
     <dimen name="sendword_text_margin">3dp</dimen>
     <dimen name="sendword_text_size">12sp</dimen>
+
+    <dimen name="cnp_school_search_result_bar_hegiht">58dp</dimen>
+    <dimen name="search_result_spinner_cur_line_height">23dp</dimen>
+    <dimen name="search_result_spinner_offsetY">-16dp</dimen>
+    <dimen name="search_result_spinner_width">122dp</dimen>
+    <dimen name="search_result_spinner_focus_width">113dp</dimen>
+    <dimen name="search_result_spinner_height">38dp</dimen>
+    <dimen name="search_result_spinner_bottom_height">17dp</dimen>
     </resources>

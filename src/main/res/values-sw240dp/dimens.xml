@@ -18,6 +18,7 @@
     <dimen name="cnp_school_intro_layoutheight">210dp</dimen>
     <dimen name="cnp_school_text_margin_bottom">1dp</dimen>
 
-
+    <dimen name="cnp_school_search_result_bar_hegiht">58dp</dimen>
+    <dimen name="search_result_spinner_cur_line_height">23dp</dimen>
 
 </resources>

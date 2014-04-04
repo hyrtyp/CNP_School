@@ -25,6 +25,9 @@
     <string name="school_into_text">幼儿园介绍</string>
     <string name="earth_text">地理位置</string>
 
+    <string name="search_hint">输入搜索内容.....</string>
+    <string name="search_btn_text">搜索</string>
+
 
 
 </resources>
