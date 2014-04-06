@@ -15,12 +15,27 @@ public class SchoolinfoRequest extends BaseRequest{
     @Inject
     private SchoolService schoolListService;
 
+    private int mSid = -1;
+
 
     public SchoolinfoRequest(Class clazz, Context context) {
         super(clazz, context);
     }
+
+    public SchoolinfoRequest(Class clazz, Context context, int sid) {
+        super(clazz, context);
+        this.mSid = sid;
+
+    }
+
     @Override
     public Base run() {
+        Base base = null;
+        if(mSid == -1){
+            base = schoolListService.getSchoolinfo(getRestTemplate());
+        }else{
+            base = schoolListService.getSchoolinfo(getRestTemplate(), mSid);
+        }
         return schoolListService.getSchoolinfo(getRestTemplate());
     }
 
@@ -31,6 +46,6 @@ public class SchoolinfoRequest extends BaseRequest{
     }
 
     public String getcachekey(){
-        return "Schoolinfo";
+        return "Schoolinfo"+mSid;
     }
 }

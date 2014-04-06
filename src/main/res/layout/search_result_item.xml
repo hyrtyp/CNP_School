@@ -17,7 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginTop="-5dp">
+        android:layout_marginTop="@dimen/search_result_item_content_offsetY">
 
         <TextView
             android:id="@+id/tv_search_item_title"
@@ -25,12 +25,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
+            android:textColor="@color/search_result_item_title_color"
             android:text="海淀辅大幼儿园" />
 
         <TextView
             android:id="@+id/tv_search_item_range"
             style="@style/small_tv"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/search_result_item_range_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -46,7 +47,7 @@
             android:layout_marginLeft="@dimen/view_margin"
             android:layout_marginRight="@dimen/view_margin"
             android:layout_marginTop="@dimen/view_margin_small"
-            android:background="@android:color/darker_gray" />
+            android:background="@color/search_result_item_line_color" />
 
         <LinearLayout
             android:id="@+id/layout_search_item_intro1"
@@ -63,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
                 android:text="性质："
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/search_result_item_gray" />
 
             <TextView
                 android:id="@+id/tv_search_item_property"
@@ -71,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
+                android:textColor="@color/search_result_item_content_color"
                 android:text="公立" />
 
             <TextView
@@ -81,7 +83,7 @@
                 android:layout_marginRight="0dp"
                 android:layout_marginLeft="@dimen/view_margin"
                 android:text="职工人数："
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/search_result_item_gray" />
 
             <TextView
                 android:id="@+id/tv_search_item_staff_num"
@@ -89,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
+                android:textColor="@color/search_result_item_content_color"
                 android:text="350人" />
         </LinearLayout>
 
@@ -107,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
                 android:text="建院时间："
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/search_result_item_gray" />
 
             <TextView
                 android:id="@+id/tv_search_item_found_time"
@@ -115,6 +118,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
+                android:textColor="@color/search_result_item_content_color"
                 android:text="2001年8月25号" />
         </LinearLayout>
 
@@ -133,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
                 android:text="地址："
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="@color/search_result_item_gray" />
 
             <TextView
                 android:id="@+id/tv_search_item_address"
@@ -141,6 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="0dp"
+                android:textColor="@color/search_result_item_content_color"
                 android:text="北京市海淀区花园路西里" />
         </LinearLayout>
 

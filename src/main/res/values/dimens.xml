@@ -22,4 +22,6 @@
     <dimen name="search_result_spinner_focus_width">113dp</dimen>
     <dimen name="search_result_spinner_height">38dp</dimen>
     <dimen name="search_result_spinner_bottom_height">17dp</dimen>
+    <dimen name="search_result_item_content_offsetY">-5dp</dimen>
+    <dimen name="search_result_list_divider_height">10dp</dimen>
     </resources>

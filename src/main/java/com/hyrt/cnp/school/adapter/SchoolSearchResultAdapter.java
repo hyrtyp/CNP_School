@@ -77,7 +77,8 @@ public class SchoolSearchResultAdapter extends BaseAdapter{
             mViewHolder.property.setText("民办");
         }
         mViewHolder.staffNum.setText(data.getStaffNum() + "人");
-        mViewHolder.foundTime.setText(data.getnCreate()+"");
+        String[] createTimes = data.getnCreate().split("-");
+        mViewHolder.foundTime.setText(createTimes[0]+"年"+createTimes[1]+"月"+createTimes[2]+"号");
         mViewHolder.address.setText(data.getAddress()+"");
 
         return convertView;

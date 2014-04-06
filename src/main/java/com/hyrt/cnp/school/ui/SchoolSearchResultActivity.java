@@ -4,15 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.Image;
 import android.os.Bundle;
-import android.telephony.CellLocation;
-import android.telephony.TelephonyManager;
-import android.telephony.cdma.CdmaCellLocation;
-import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -29,12 +25,20 @@ import com.hyrt.cnp.school.adapter.SchoolSearchSpinnerAdapter;
 import com.hyrt.cnp.school.request.SchoolSearchRequest;
 import com.hyrt.cnp.school.requestListener.SchoolSearchRequestListener;
 import com.jingdong.common.frame.BaseActivity;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +59,8 @@ public class SchoolSearchResultActivity extends BaseActivity {
     private SchoolSearchSpinnerAdapter mDistrictAdapter, mPropertyAdapter, mStaffNumAdapter;
     private SchoolSearchResultAdapter mSearchResultAdapter;
 
+    private String position;
+
     private List<SchoolSearch> mDatas = new ArrayList<SchoolSearch>();
 
     private int mRefreshState = -1;//加载状态
@@ -65,6 +71,12 @@ public class SchoolSearchResultActivity extends BaseActivity {
     private String mKeytDistrict = "";
     private String mKeytProperty = "";
     private String mKeytStaffNum = "";
+
+    private double lng = 0;//纬度
+    private double lat = 0;//经度
+    private double tempLng = 0;
+    private double tempLat = 0;
+    private String provinceId;
 
     private static final String TAG = "SchoolSearchResultActivity";
 
@@ -89,7 +101,9 @@ public class SchoolSearchResultActivity extends BaseActivity {
         loadData();
     }
 
+
     public void loadPosition(){
+
        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         List<String> providers = lm.getAllProviders();
         android.util.Log.i(TAG, "providers:"+ providers.size());
@@ -97,12 +111,84 @@ public class SchoolSearchResultActivity extends BaseActivity {
             Location mLocation = lm.getLastKnownLocation(providers.get(0));
             android.util.Log.i(TAG, "mLocation:"+ mLocation);
             if(mLocation != null){
+                lng = mLocation.getLongitude();
+                lat = mLocation.getLatitude();
                 android.util.Log.i(TAG, "getLatitude:"+ mLocation.getLatitude()+" getLongitude:"+mLocation.getLongitude());
             }
         }
 
+        /*PositionRequestListener mPositionRequestListener = new PositionRequestListener(this);
+        mPositionRequestListener.setListener(mPositionListener);
+        PositionInfoRequest mPositionRequest = new PositionInfoRequest(PositionInfo.Model.class, this, lat, lng );
+        spiceManager.execute(
+                mPositionRequest, mPositionRequest.getcachekey(),
+                DurationInMillis.ONE_SECOND * 10,
+                mPositionRequestListener.start());*/
 
+        Thread mThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String path = "http://api.map.baidu.com/geocoder/v2/?" +
+                        "ak=3KTS4mpYnE8ZSGr4v1fEFmPO&location="+lat+","+lng+"&output=json";
+                URL url = null;
+                try{
+                    url = new URL(path);
+                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                    connection.setConnectTimeout(2000);
+                    connection.connect();
+                    if (connection.getResponseCode() == 200) {
+                        // 获取返回的数据
+                        BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                        String lines;
+                        String result = "";
+                        while ((lines = br.readLine()) != null) {
+
+                            result += lines;
+                        }
+                        android.util.Log.i("tag", "result:"+result);
+                        JSONObject mJson = new JSONObject(result);
+                        JSONObject resultJson = mJson.getJSONObject("result");
+                        JSONObject addressComponentJson = resultJson.getJSONObject("addressComponent");
+                        final String province = addressComponentJson.getString("province");
+                        android.util.Log.i("tag", "province:"+province);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                position = province;
+                                tvPosition.setText(province);
+                            }
+                        });
+                    } else {
+                        Log.i("tag", "Get方式请求失败");
+                    }
+                }catch (MalformedURLException e){
+
+                }catch (IOException e) {
+
+                }catch (JSONException e) {
+
+                }
+            }
+        });
+        mThread.start();
     }
+
+    /*private PositionRequestListener.RequestListener mPositionListener
+            = new PositionRequestListener.RequestListener() {
+        @Override
+        public void onRequestSuccess(PositionInfo data) {
+            Toast.makeText(SchoolSearchResultActivity.this, data+"", 1).show();
+            if(data != null){
+                String city = (data.getAddressComponent()).getCity();
+                Toast.makeText(SchoolSearchResultActivity.this, city, 1).show();
+            }
+        }
+
+        @Override
+        public void onRequestFailure(SpiceException e) {
+
+        }
+    };*/
 
     public void initImageLoader(){
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this));
@@ -117,25 +203,31 @@ public class SchoolSearchResultActivity extends BaseActivity {
      * 加载数据
      */
     private void loadData(){
+
+
         SchoolSearchRequestListener mRequestListener = new SchoolSearchRequestListener(this);
         mRequestListener.setListener(mOnRequestListener);
         SchoolSearchRequest mRequest = new SchoolSearchRequest(
                 SchoolSearch.Model.class, this,
-                mkeytName, mKeytDistrict, mKeytProperty, mKeytStaffNum);
+                mkeytName, mKeytDistrict, mKeytProperty, mKeytStaffNum, lng, lat, provinceId);
         spiceManager.execute(
                 mRequest, mRequest.getcachekey(),
                 DurationInMillis.ONE_SECOND * 10,
                 mRequestListener.start());
     }
 
+
+
     /**
      * 加载数据监听
      */
-    private SchoolSearchRequestListener.RequestListener mOnRequestListener = new SchoolSearchRequestListener.RequestListener() {
+    private SchoolSearchRequestListener.RequestListener mOnRequestListener
+            = new SchoolSearchRequestListener.RequestListener() {
         @Override
         public void onRequestSuccess(List<SchoolSearch> datas) {
             if(mRefreshState != ON_LOAD_MORE){
                 mDatas.clear();
+                xlvSearchResult.setSelection(0);
             }
             if(datas != null){
                 mDatas.addAll(datas);
@@ -155,7 +247,8 @@ public class SchoolSearchResultActivity extends BaseActivity {
 
         @Override
         public void onRequestFailure(SpiceException e) {
-
+            xlvSearchResult.setVisibility(View.GONE);
+            searchResultPrompt.setVisibility(View.VISIBLE);
         }
     };
 
@@ -373,13 +466,17 @@ public class SchoolSearchResultActivity extends BaseActivity {
         layoutStaffNum.setOnClickListener(mOnClickListener);
         tvPosition.setOnClickListener(mOnClickListener);
         xlvSearchResult.setXListViewListener(mSearchReusltListener);
+        xlvSearchResult.setOnItemClickListener(mXlvSearchResultOnItemClickListener);
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             if (view.getId() == R.id.tv_search_result_position) {
-
+                Intent intent = new Intent();
+                intent.setClass(SchoolSearchResultActivity.this, SchoolCityListActivity.class);
+                intent.putExtra("position", position);
+                startActivityForResult(intent, 1);
             } else if (view.getId() == R.id.layout_school_search_result_district) {
                 showDistrictPop();
             } else if (view.getId() == R.id.layout_school_search_result_property) {
@@ -413,6 +510,49 @@ public class SchoolSearchResultActivity extends BaseActivity {
             xlvSearchResult.stopLoadMore();
         }
     };
+
+    private AdapterView.OnItemClickListener mXlvSearchResultOnItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            if(mDistrictPopupWindow != null && mDistrictPopupWindow.isShowing()){
+                mDistrictPopupWindow.dismiss();
+            }
+            if(mPropertyPopupWindow != null && mPropertyPopupWindow.isShowing()){
+                mPropertyPopupWindow.dismiss();
+            }
+            if(mStaffNumPopupWindow != null && mStaffNumPopupWindow.isShowing()){
+                mStaffNumPopupWindow.dismiss();
+            }
+            int sid = mDatas.get(i-1).getNursery_id();
+            Intent intent = new Intent();
+            intent.setClass(SchoolSearchResultActivity.this, SchoolIndexActivity.class);
+            intent.putExtra("mSid", sid);
+            startActivity(intent);
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data != null){
+            String provinceName = data.getStringExtra("provinceName");
+            provinceId = data.getStringExtra("provinceId");
+            if(lng != 0){
+                tempLng = lng;
+                lng = 0;
+            }
+            if(lat != 0){
+                tempLat = lat;
+                lat = 0;
+            }
+            if(provinceId == null){
+                lat = tempLat;
+                lng = tempLng;
+            }
+            tvPosition.setText(provinceName);
+            loadData();
+        }
+    }
 
     /**
      * 遍历ui

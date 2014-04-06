@@ -14,25 +14,30 @@ import com.hyrt.cnp.base.account.utils.Log;
 public class SchoolSearchRequest extends BaseRequest{
 
     private String keytName, keytDistrict, keytProperty, keytScale;
+    private Double lng, lat;
+    private String province;
 
     @Inject
     private SchoolSearchService mSchoolSearchService;
 
     public SchoolSearchRequest(Class clazz, Context context,
                                String keytName, String keytDistrict,
-                               String keytProperty, String keytScale) {
+                               String keytProperty, String keytScale, double lng, double lat, String province) {
         super(clazz, context);
         this.keytName = keytName;
         this.keytDistrict = keytDistrict;
         this.keytProperty = keytProperty;
         this.keytScale = keytScale;
+        this.lng = lng;
+        this.lat = lat;
+        this.province = province;
     }
 
     @Override
     public Base run() {
         return mSchoolSearchService.getSchoolSearchData(
                 getRestTemplate(), keytName,
-                keytDistrict, keytProperty, keytScale);
+                keytDistrict, keytProperty, keytScale, lng, lat, province);
     }
 
     @Override

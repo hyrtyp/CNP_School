@@ -31,6 +31,7 @@ public class SchoolindexRequestListener extends BaseRequestListener {
         if(data != null){
             SchoolIndexActivity activity = (SchoolIndexActivity)context.get();
             School.Model2 result= (School.Model2)data;
+           android.util.Log.i("tag", "name:"+ result.getData().getnName()+" address:"+ result.getData().getAddress());
             activity.UPdataUI(result);
         }else{
             showMessage(R.string.nodata_title, R.string.nodata_content);

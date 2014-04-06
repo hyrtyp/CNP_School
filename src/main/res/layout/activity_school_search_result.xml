@@ -144,7 +144,9 @@
         <com.hyrt.cnp.base.view.XListView
             android:id="@+id/xlv_school_search_result_content"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
+            android:layout_height="fill_parent"
+            android:dividerHeight="@dimen/search_result_list_divider_height"
+            android:divider="#00000000"/>
         <TextView
             android:id="@+id/tv_school_search_result_prompt"
             android:layout_width="wrap_content"

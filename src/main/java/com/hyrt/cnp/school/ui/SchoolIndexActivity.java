@@ -30,17 +30,27 @@ public class SchoolIndexActivity extends BaseActivity {
     private ImageView schoolimage;
     private TextView schoolinfo;
 
+    private int mSid = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolindex);
+        intent = getIntent();
+        mSid = intent.getIntExtra("mSid", -1);
+
         initView();
         loadSendword();
     }
 
     private void loadSendword() {
         SchoolindexRequestListener sendwordRequestListener = new SchoolindexRequestListener(this);
-        SchoolinfoRequest schoolinfoRequest = new SchoolinfoRequest(School.Model2.class, this);
+        SchoolinfoRequest schoolinfoRequest = null;
+        if(mSid == -1){
+            schoolinfoRequest = new SchoolinfoRequest(School.Model2.class, this);
+        }else{
+            schoolinfoRequest = new SchoolinfoRequest(School.Model2.class, this, mSid);
+        }
         spiceManager.execute(schoolinfoRequest, schoolinfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }

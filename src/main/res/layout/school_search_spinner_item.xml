@@ -8,7 +8,7 @@
         android:layout_width="@dimen/search_result_spinner_focus_width"
         android:layout_height="@dimen/search_result_spinner_width"
         android:text="东城区"
-        android:textColor="@android:color/black"
+        android:textColor="@color/search_result_spinner_item_text"
         android:layout_marginLeft="2dp"
         android:gravity="center"/>
 </RelativeLayout>
