@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyrt.cnp.account.request.UserVarRequest;
+import com.hyrt.cnp.account.requestListener.UserVarRequestListener;
 import com.hyrt.cnp.base.account.model.SchoolSearch;
 import com.hyrt.cnp.base.view.XListView;
 import com.hyrt.cnp.school.R;
@@ -40,7 +42,11 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Zoe on 2014-04-01.
@@ -60,6 +66,9 @@ public class SchoolSearchResultActivity extends BaseActivity {
     private SchoolSearchResultAdapter mSearchResultAdapter;
 
     private String position;
+
+    private List<String> cityKeys = new ArrayList<String>();
+    private List<String> cityValues = new ArrayList<String>();
 
     private List<SchoolSearch> mDatas = new ArrayList<SchoolSearch>();
 
@@ -98,7 +107,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
         xlvSearchResult.setAdapter(mSearchResultAdapter);
         loadPosition();
         initImageLoader();
-        loadData();
+
     }
 
 
@@ -156,6 +165,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
                             public void run() {
                                 position = province;
                                 tvPosition.setText(province);
+                                loadData();
                             }
                         });
                     } else {
@@ -203,7 +213,30 @@ public class SchoolSearchResultActivity extends BaseActivity {
      * 加载数据
      */
     private void loadData(){
+        if(provinceId == null){
+            UserVarRequestListener mUserVarRequestListener = new UserVarRequestListener(this, "province");
+            mUserVarRequestListener.setListener(new UserVarRequestListener.RequestListener() {
+                @Override
+                public void onRequestSuccess(Map<String, String> data) {
+                    Set<String> key = data.keySet();
+                    for (Iterator it = key.iterator(); it.hasNext();) {
+                        provinceId = (String) it.next();
+                        position = data.get(provinceId);
+                    }
+                    loadCity();
+                }
 
+                @Override
+                public void onRequestFailure(SpiceException e) {}
+            });
+            UserVarRequest userVarRequest = new UserVarRequest(this, "province", position);
+            spiceManager.execute(
+                    userVarRequest, userVarRequest.createCacheKey(),
+                    DurationInMillis.ONE_SECOND * 10,
+                    mUserVarRequestListener);
+        }else{
+            loadCity();
+        }
 
         SchoolSearchRequestListener mRequestListener = new SchoolSearchRequestListener(this);
         mRequestListener.setListener(mOnRequestListener);
@@ -214,6 +247,43 @@ public class SchoolSearchResultActivity extends BaseActivity {
                 mRequest, mRequest.getcachekey(),
                 DurationInMillis.ONE_SECOND * 10,
                 mRequestListener.start());
+    }
+
+    public void loadCity(){
+        UserVarRequestListener mUserVarRequestListener = new UserVarRequestListener(this, "city");
+        mUserVarRequestListener.setListener(new UserVarRequestListener.RequestListener() {
+            @Override
+            public void onRequestSuccess(Map<String, String> data) {
+                cityKeys.clear();
+                cityValues.clear();
+//                Set<String> key = data.keySet();
+                Iterator<Map.Entry<String, String>> it = data.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry<String, String> entry = it.next();
+                    String mKey = entry.getKey();
+                    String mValue = entry.getValue();
+                    cityKeys.add(mKey);
+                    cityValues.add(mValue);
+                    android.util.Log.i("tag", "key:"+mKey+" value:"+mValue);
+                }
+                /*for (Iterator it = key.iterator(); it.hasNext();) {
+
+                }*/
+                if(mDistrictAdapter != null){
+                    mDistrictAdapter.notifyDataSetChanged();
+                }
+
+
+            }
+
+            @Override
+            public void onRequestFailure(SpiceException e) {}
+        });
+        UserVarRequest userVarRequest = new UserVarRequest(SchoolSearchResultActivity.this, "city", Integer.parseInt(provinceId));
+        spiceManager.execute(
+                userVarRequest, userVarRequest.createCacheKey(),
+                DurationInMillis.ONE_SECOND * 10,
+                mUserVarRequestListener);
     }
 
 
@@ -262,19 +332,18 @@ public class SchoolSearchResultActivity extends BaseActivity {
             mDistrictListView = (ListView) mDistrictView.findViewById(R.id.lv_school_search_spinner);
             ImageView ivSpinnerCenter = (ImageView) mDistrictView.findViewById(R.id.iv_school_search_spinner_center);
             mDistrictListView.setDividerHeight(0);
-            String[] array = new String[]{"东城区", "西城区", "宣武区", "崇文区","海淀区", "朝阳区", "丰台区", "石景山区"};
 
-            if (array.length > 1) {
-               LinearLayout.LayoutParams mParams = (LinearLayout.LayoutParams) ivSpinnerCenter.getLayoutParams();
-                if (array.length <= 8) {
-                    spinnerCenterHeight = getResources().getDimensionPixelOffset(R.dimen.search_result_spinner_height)*(array.length-1);
+            if (cityValues.size() > 1) {
+                LinearLayout.LayoutParams mParams = (LinearLayout.LayoutParams) ivSpinnerCenter.getLayoutParams();
+                if (cityValues.size() <= 8) {
+                    spinnerCenterHeight = getResources().getDimensionPixelOffset(R.dimen.search_result_spinner_height)*(cityValues.size()-1);
                 } else {
                     spinnerCenterHeight = getResources().getDimensionPixelOffset(R.dimen.search_result_spinner_height)*7;
                 }
 
                 mParams.height = spinnerCenterHeight;
             }
-            mDistrictAdapter = new SchoolSearchSpinnerAdapter(array, this);
+            mDistrictAdapter = new SchoolSearchSpinnerAdapter(cityValues, SchoolSearchResultActivity.this);
             mDistrictAdapter.setListener(mDistrictOnItemClickListener);
             mDistrictListView.setAdapter(mDistrictAdapter);
             RelativeLayout.LayoutParams mDistrictListViewParams = (RelativeLayout.LayoutParams) mDistrictListView.getLayoutParams();
@@ -306,12 +375,14 @@ public class SchoolSearchResultActivity extends BaseActivity {
             mPropertyListView = (ListView) mPropertyView.findViewById(R.id.lv_school_search_spinner);
             ImageView ivSpinnerCenter = (ImageView) mPropertyView.findViewById(R.id.iv_school_search_spinner_center);
             mPropertyListView.setDividerHeight(0);
-            String[] array = new String[]{"公办", "民办"};
+            List<String> array = new ArrayList<String>();
+            array.add("公办");
+            array.add("民办");
 
-            if (array.length > 1) {
+            if (array.size() > 1) {
                 LinearLayout.LayoutParams mParams = (LinearLayout.LayoutParams) ivSpinnerCenter.getLayoutParams();
-                if (array.length <= 8) {
-                    spinnerCenterHeight = getResources().getDimensionPixelOffset(R.dimen.search_result_spinner_height)*(array.length-1);
+                if (array.size() <= 8) {
+                    spinnerCenterHeight = getResources().getDimensionPixelOffset(R.dimen.search_result_spinner_height)*(array.size()-1);
                 } else {
                     spinnerCenterHeight = getResources().getDimensionPixelOffset(R.dimen.search_result_spinner_height)*7;
                 }
@@ -350,12 +421,17 @@ public class SchoolSearchResultActivity extends BaseActivity {
             mStaffNumListView = (ListView) mStaffNumView.findViewById(R.id.lv_school_search_spinner);
             ImageView ivSpinnerCenter = (ImageView) mStaffNumView.findViewById(R.id.iv_school_search_spinner_center);
             mStaffNumListView.setDividerHeight(0);
-            String[] array = new String[]{"0-50人", "50-100人", "100-200人", "200-300人", "300-500人", "500人以上"};
+            List<String> array = new ArrayList<String>();
+            array.add("0-50人");
+            array.add("50-100人");
+            array.add("100-200人");
+            array.add("300-500人");
+            array.add("500人以上");
 
-            if (array.length > 1) {
+            if (array.size() > 1) {
                 LinearLayout.LayoutParams mParams = (LinearLayout.LayoutParams) ivSpinnerCenter.getLayoutParams();
-                if (array.length <= 8) {
-                    spinnerCenterHeight = getResources().getDimensionPixelOffset(R.dimen.search_result_spinner_height)*(array.length-1);
+                if (array.size() <= 8) {
+                    spinnerCenterHeight = getResources().getDimensionPixelOffset(R.dimen.search_result_spinner_height)*(array.size()-1);
                 } else {
                     spinnerCenterHeight = getResources().getDimensionPixelOffset(R.dimen.search_result_spinner_height)*7;
                 }
@@ -537,6 +613,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
         if(data != null){
             String provinceName = data.getStringExtra("provinceName");
             provinceId = data.getStringExtra("provinceId");
+            tvDistrict.setText("区域");
             if(lng != 0){
                 tempLng = lng;
                 lng = 0;

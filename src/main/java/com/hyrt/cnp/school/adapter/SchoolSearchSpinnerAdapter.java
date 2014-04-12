@@ -13,12 +13,14 @@ import android.widget.Toast;
 import com.hyrt.cnp.base.account.utils.ScreenAdaptHelper;
 import com.hyrt.cnp.school.R;
 
+import java.util.List;
+
 /**
  * Created by Zoe on 2014-04-02.
  */
 public class SchoolSearchSpinnerAdapter extends BaseAdapter{
 
-    private String[] array;
+    private List<String> array;
     private Context mContext;
     private View focusView;
 
@@ -26,19 +28,19 @@ public class SchoolSearchSpinnerAdapter extends BaseAdapter{
 
     private OnItemClickListener mListener;
 
-    public SchoolSearchSpinnerAdapter(String[] array, Context context) {
+    public SchoolSearchSpinnerAdapter(List<String> array, Context context) {
         this.array = array;
         this.mContext = context;
     }
 
     @Override
     public int getCount() {
-        return array.length;
+        return array.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return array[i];
+        return array.get(i);
     }
 
     @Override
@@ -54,17 +56,17 @@ public class SchoolSearchSpinnerAdapter extends BaseAdapter{
         final TextView textView = (TextView) view.findViewById(R.id.spinner_title);
         RelativeLayout.LayoutParams mParams = (RelativeLayout.LayoutParams) textView.getLayoutParams();
         textView.setBackground(null);
-        if(array[i].equals(foucsString)){
+        if(array.get(i).equals(foucsString)){
             textView.setBackgroundResource(android.R.color.white);
         }
         int spinnerItemHeight = mContext.getResources().getDimensionPixelOffset(R.dimen.search_result_spinner_height);
         if(i == 0){
             mParams.height = spinnerItemHeight;
-            textView.setText(array[i]+"");
+            textView.setText(array.get(i)+"");
         } else {
             mParams.height = spinnerItemHeight;
 
-            textView.setText(array[i]+"");
+            textView.setText(array.get(i)+"");
         }
         textView.setLayoutParams(mParams);
         textView.setTag(i);
