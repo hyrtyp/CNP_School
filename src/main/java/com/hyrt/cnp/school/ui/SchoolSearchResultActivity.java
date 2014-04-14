@@ -548,6 +548,19 @@ public class SchoolSearchResultActivity extends BaseActivity {
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            if(mDistrictPopupWindow != null && mDistrictPopupWindow.isShowing()){
+                mDistrictPopupWindow.dismiss();
+                return;
+            }
+            if(mPropertyPopupWindow != null && mPropertyPopupWindow.isShowing()){
+                mPropertyPopupWindow.dismiss();
+                return;
+            }
+            if(mStaffNumPopupWindow != null && mStaffNumPopupWindow.isShowing()){
+                mStaffNumPopupWindow.dismiss();
+                return;
+            }
+
             if (view.getId() == R.id.tv_search_result_position) {
                 Intent intent = new Intent();
                 intent.setClass(SchoolSearchResultActivity.this, SchoolCityListActivity.class);
@@ -590,15 +603,6 @@ public class SchoolSearchResultActivity extends BaseActivity {
     private AdapterView.OnItemClickListener mXlvSearchResultOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            if(mDistrictPopupWindow != null && mDistrictPopupWindow.isShowing()){
-                mDistrictPopupWindow.dismiss();
-            }
-            if(mPropertyPopupWindow != null && mPropertyPopupWindow.isShowing()){
-                mPropertyPopupWindow.dismiss();
-            }
-            if(mStaffNumPopupWindow != null && mStaffNumPopupWindow.isShowing()){
-                mStaffNumPopupWindow.dismiss();
-            }
             int sid = mDatas.get(i-1).getNursery_id();
             Intent intent = new Intent();
             intent.setClass(SchoolSearchResultActivity.this, SchoolIndexActivity.class);
@@ -644,6 +648,23 @@ public class SchoolSearchResultActivity extends BaseActivity {
         tvStaffNum = (TextView) findViewById(R.id.tv_school_search_result_staff_num);
         xlvSearchResult = (XListView) findViewById(R.id.xlv_school_search_result_content);
         searchResultPrompt = (TextView) findViewById(R.id.tv_school_search_result_prompt);
+
+        RelativeLayout layout_school_search_result_content = (RelativeLayout) findViewById(R.id.layout_school_search_result_content);
+        layout_school_search_result_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mDistrictPopupWindow != null && mDistrictPopupWindow.isShowing()){
+                    mDistrictPopupWindow.dismiss();
+                }
+                if(mPropertyPopupWindow != null && mPropertyPopupWindow.isShowing()){
+                    mPropertyPopupWindow.dismiss();
+                }
+                if(mStaffNumPopupWindow != null && mStaffNumPopupWindow.isShowing()){
+                    mStaffNumPopupWindow.dismiss();
+                }
+            }
+        });
+
     }
 
     @Override
