@@ -14,6 +14,8 @@ import com.hyrt.cnp.school.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import net.oschina.app.AppContext;
+
 import java.util.List;
 
 /**
@@ -23,17 +25,10 @@ public class SchoolSearchResultAdapter extends BaseAdapter{
 
     private Context mContext;
     private List<SchoolSearch> datas;
-    private DisplayImageOptions mImageloaderoptions;
 
     public SchoolSearchResultAdapter(Context context, List<SchoolSearch> data) {
         this.mContext = context;
         this.datas = data;
-        mImageloaderoptions = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.cnp_spinner_inner)
-                .showImageOnFail(R.drawable.cnp_spinner_inner)
-                .showImageForEmptyUri(R.drawable.cnp_spinner_inner)
-                .cacheInMemory(true)
-                .build();
     }
 
     @Override
@@ -69,7 +64,7 @@ public class SchoolSearchResultAdapter extends BaseAdapter{
             mViewHolder = (ViewHolder) convertView.getTag();
         }
         SchoolSearch data = datas.get(i);
-        ImageLoader.getInstance().displayImage(data.getSchoolImagePath(), mViewHolder.pic, mImageloaderoptions);
+        ImageLoader.getInstance().displayImage(data.getSchoolImagePath(), mViewHolder.pic, AppContext.getInstance().mImageloaderoptions);
         mViewHolder.title.setText(data.getnName()+"");
         if(data.getProperty() == 1){
             mViewHolder.property.setText("公办");

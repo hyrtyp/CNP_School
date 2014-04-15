@@ -106,8 +106,6 @@ public class SchoolSearchResultActivity extends BaseActivity {
         mSearchResultAdapter = new SchoolSearchResultAdapter(this, mDatas);
         xlvSearchResult.setAdapter(mSearchResultAdapter);
         loadPosition();
-        initImageLoader();
-
     }
 
 
@@ -200,9 +198,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
         }
     };*/
 
-    public void initImageLoader(){
-        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this));
-    }
+
 
     @Override
     protected void initTitleview() {
