@@ -29,7 +29,6 @@ android {
 
 dependencies {
     compile project(':CNP_Base')
-    compile project(':CNP_Account')
     compile 'org.roboguice:roboguice:2.0'
     compile 'com.octo.android.robospice:robospice-ui-spicelist:1.4.5'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.11'

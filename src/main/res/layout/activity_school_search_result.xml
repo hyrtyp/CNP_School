@@ -12,6 +12,14 @@
         android:background="#fff"
         android:layout_weight="0">
 
+        <TextView
+            android:id="@+id/tv_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/medium_tv"
+            android:text="返回"
+            android:layout_centerVertical="true"/>
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="@dimen/cnp_school_search_result_bar_hegiht"

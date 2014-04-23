@@ -25,6 +25,7 @@ import com.hyrt.cnp.school.requestListener.SchoolRecipeInfoRequestListener;
 import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -74,7 +75,11 @@ public class SchoolRepiceInfoActivity extends BaseActivity implements ActionBar.
             for (int i = 0; i < model.getData().size(); i++) {
                 ActionBar.Tab tab = actionBar.newTab();
                 try {
-                    tab.setText(StringUtils.getWeekOfDate(model.getData().get(i).getRecipeDate2()));
+                    String week = StringUtils.getWeekOfDate(model.getData().get(i).getRecipeDate2());
+//                    if("星期六".equals(week) || "星期日".equals(week)){
+//                        continue;
+//                    }
+                    tab.setText(week);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -97,7 +102,7 @@ public class SchoolRepiceInfoActivity extends BaseActivity implements ActionBar.
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, android.support.v4.app.FragmentTransaction fragmentTransaction) {
-        mViewPager.setCurrentItem(tab.getPosition());
+        mViewPager.setCurrentItem(tab.getPosition());;
     }
 
     @Override
@@ -125,10 +130,15 @@ public class SchoolRepiceInfoActivity extends BaseActivity implements ActionBar.
             Fragmentrecipe page = null;
             if (pages.size() > position) {
                 page = pages.get(position);
-            } else {
-                page = new Fragmentrecipe(model.getData().get(position));
-                pages.add(page);
+                if (page != null) {
+                    return page;
+                }
             }
+            while (position>=pages.size()) {
+                pages.add(null);
+            }
+            page = new Fragmentrecipe(model.getData().get(position));
+            pages.set(position, page);
             return page;
         }
 

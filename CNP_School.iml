@@ -73,7 +73,6 @@
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="robospice-ui-spicelist-1.4.5" level="project" />
-    <orderEntry type="library" exported="" name="HockeySDK-3.0.1" level="project" />
     <orderEntry type="library" exported="" name="org.eclipse.egit.github.core-2.1.4" level="project" />
     <orderEntry type="library" exported="" name="guice-4.0-beta-no_aop" level="project" />
     <orderEntry type="library" exported="" name="aopalliance-1.0" level="project" />
@@ -100,7 +99,6 @@
     <orderEntry type="library" exported="" name="jackson-mapper-asl-1.9.11" level="project" />
     <orderEntry type="library" exported="" name="commons-httpclient-3.1" level="project" />
     <orderEntry type="library" exported="" name="commons-lang3-3.1" level="project" />
-    <orderEntry type="module" module-name="CNP_Account" exported="" />
     <orderEntry type="module" module-name="CNP_Base" exported="" />
   </component>
 </module>

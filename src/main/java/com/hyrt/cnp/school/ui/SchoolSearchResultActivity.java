@@ -17,9 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hyrt.cnp.account.request.UserVarRequest;
-import com.hyrt.cnp.account.requestListener.UserVarRequestListener;
+import com.hyrt.cnp.base.account.model.Base;
 import com.hyrt.cnp.base.account.model.SchoolSearch;
+import com.hyrt.cnp.base.account.request.BaseUserVarRequest;
+import com.hyrt.cnp.base.account.requestListener.BaseUserVarRequestListener;
 import com.hyrt.cnp.base.view.XListView;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolSearchResultAdapter;
@@ -210,8 +211,8 @@ public class SchoolSearchResultActivity extends BaseActivity {
      */
     private void loadData(){
         if(provinceId == null){
-            UserVarRequestListener mUserVarRequestListener = new UserVarRequestListener(this, "province");
-            mUserVarRequestListener.setListener(new UserVarRequestListener.RequestListener() {
+            BaseUserVarRequestListener mUserVarRequestListener = new BaseUserVarRequestListener(this, "province");
+            mUserVarRequestListener.setListener(new BaseUserVarRequestListener.RequestListener() {
                 @Override
                 public void onRequestSuccess(Map<String, String> data) {
                     Set<String> key = data.keySet();
@@ -225,7 +226,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
                 @Override
                 public void onRequestFailure(SpiceException e) {}
             });
-            UserVarRequest userVarRequest = new UserVarRequest(this, "province", position);
+            BaseUserVarRequest userVarRequest = new BaseUserVarRequest(this, "province", position);
             spiceManager.execute(
                     userVarRequest, userVarRequest.createCacheKey(),
                     DurationInMillis.ONE_SECOND * 10,
@@ -246,8 +247,8 @@ public class SchoolSearchResultActivity extends BaseActivity {
     }
 
     public void loadCity(){
-        UserVarRequestListener mUserVarRequestListener = new UserVarRequestListener(this, "city");
-        mUserVarRequestListener.setListener(new UserVarRequestListener.RequestListener() {
+        BaseUserVarRequestListener mUserVarRequestListener = new BaseUserVarRequestListener(this, "city");
+        mUserVarRequestListener.setListener(new BaseUserVarRequestListener.RequestListener() {
             @Override
             public void onRequestSuccess(Map<String, String> data) {
                 cityKeys.clear();
@@ -275,7 +276,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
             @Override
             public void onRequestFailure(SpiceException e) {}
         });
-        UserVarRequest userVarRequest = new UserVarRequest(SchoolSearchResultActivity.this, "city", Integer.parseInt(provinceId));
+        BaseUserVarRequest userVarRequest = new BaseUserVarRequest(SchoolSearchResultActivity.this, "city", Integer.parseInt(provinceId));
         spiceManager.execute(
                 userVarRequest, userVarRequest.createCacheKey(),
                 DurationInMillis.ONE_SECOND * 10,
@@ -658,6 +659,14 @@ public class SchoolSearchResultActivity extends BaseActivity {
                 if(mStaffNumPopupWindow != null && mStaffNumPopupWindow.isShowing()){
                     mStaffNumPopupWindow.dismiss();
                 }
+            }
+        });
+
+        TextView tv_cancle = (TextView) findViewById(R.id.tv_cancle);
+        tv_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 

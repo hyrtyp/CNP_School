@@ -8,8 +8,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hyrt.cnp.account.request.UserVarRequest;
-import com.hyrt.cnp.account.requestListener.UserVarRequestListener;
+import com.hyrt.cnp.base.account.model.Base;
+import com.hyrt.cnp.base.account.request.BaseUserVarRequest;
+import com.hyrt.cnp.base.account.requestListener.BaseUserVarRequestListener;
 import com.hyrt.cnp.base.view.BounceListView;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolCityListAdapter;
@@ -44,17 +45,17 @@ public class SchoolCityListActivity extends BaseActivity{
     }
 
     private void loadData(){
-        UserVarRequestListener userVarRequestListener = new UserVarRequestListener(this, "province");
+        BaseUserVarRequestListener userVarRequestListener = new BaseUserVarRequestListener(this, "province");
         userVarRequestListener.setListener(mUserVarListener);
 
-        UserVarRequest userVarRequest = new UserVarRequest(this, "province");
+        BaseUserVarRequest userVarRequest = new BaseUserVarRequest(this, "province");
         spiceManager.execute(
                 userVarRequest, userVarRequest.createCacheKey(),
                 DurationInMillis.ONE_SECOND * 10,
                 userVarRequestListener.start());
     }
 
-    private UserVarRequestListener.RequestListener mUserVarListener = new UserVarRequestListener.RequestListener() {
+    private BaseUserVarRequestListener.RequestListener mUserVarListener = new BaseUserVarRequestListener.RequestListener() {
         @Override
         public void onRequestSuccess(Map<String, String> data) {
             Collection<String> collection = data.values();
