@@ -67,7 +67,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         style="@style/container_view"
-        android:background="@drawable/shape_sendword_line">
+        android:background="@drawable/shape_sendword_line"
+        android:scrollbars="none">
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
