@@ -36,7 +36,7 @@ public class SchoolinfoRequest extends BaseRequest{
         }else{
             base = schoolListService.getSchoolinfo(getRestTemplate(), mSid);
         }
-        return schoolListService.getSchoolinfo(getRestTemplate());
+        return base;
     }
 
 
