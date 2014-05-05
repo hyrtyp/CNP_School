@@ -15,14 +15,20 @@ public class StarBabayRequest extends BaseRequest {
 
     @Inject
     private StarBabayService teacherService;
+    private int sid = -1;
 
     public StarBabayRequest(Class clazz, Context context) {
         super(clazz, context);
     }
 
+    public StarBabayRequest(Class clazz, Context context, int sid) {
+        super(clazz, context);
+        this.sid = sid;
+    }
+
     @Override
     public Base run() {
-        return teacherService.getStarbabayData(getRestTemplate());
+        return teacherService.getStarbabayData(getRestTemplate(), sid);
     }
 
     @Override
@@ -30,6 +36,6 @@ public class StarBabayRequest extends BaseRequest {
         return 0;
     }
     public String getcachekey(){
-        return "Starbabay";
+        return "Starbabay"+sid;
     }
 }

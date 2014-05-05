@@ -1,5 +1,6 @@
 package com.hyrt.cnp.school.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,11 +23,14 @@ public class StarBabayActivity extends BaseActivity {
 
     private GridView gridview;
     private StarBabayImageAdapter starTeacherImageAdapter;
+    private int mSid = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starteacher);
+        Intent intent = getIntent();
+        mSid = intent.getIntExtra("sid", mSid);
         initView();
     }
 
@@ -76,7 +80,7 @@ public class StarBabayActivity extends BaseActivity {
 
     private void loadStarteacehr() {
         StarBabayRequestListener sendwordRequestListener = new StarBabayRequestListener(this);
-        StarBabayRequest starBabayRequest = new StarBabayRequest(StarBabay.Model.class, this);
+        StarBabayRequest starBabayRequest = new StarBabayRequest(StarBabay.Model.class, this, mSid);
         spiceManager.execute(starBabayRequest, starBabayRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }

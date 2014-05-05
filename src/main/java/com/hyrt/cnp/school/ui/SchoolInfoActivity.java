@@ -1,5 +1,6 @@
 package com.hyrt.cnp.school.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,11 +21,14 @@ public class SchoolInfoActivity extends BaseActivity {
 
     private TextView schoolintro;
     private ImageView schoolmap;
+    private int mSid = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolinfo);
+        Intent intent = getIntent();
+        mSid = intent.getIntExtra("sid", mSid);
         initView();
     }
 
@@ -45,7 +49,7 @@ public class SchoolInfoActivity extends BaseActivity {
 
     private void loadSendword() {
         SchoolinfoRequestListener sendwordRequestListener = new SchoolinfoRequestListener(this);
-        SchoolinfoRequest schoolinfoRequest = new SchoolinfoRequest(School.Model2.class, this);
+        SchoolinfoRequest schoolinfoRequest = new SchoolinfoRequest(School.Model2.class, this, mSid);
         spiceManager.execute(schoolinfoRequest, schoolinfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }

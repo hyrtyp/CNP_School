@@ -29,12 +29,15 @@ public class SchoolRecipeActivity extends BaseActivity {
     private ListView noticelistview;
     private SimpleAdapter adapter = null;
     private Recipe.Model model = null;
+    private int mSid = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolrecipe);
         initView();
+        Intent intent = getIntent();
+        mSid = intent.getIntExtra("sid", mSid);
     }
 
     @Override
@@ -99,7 +102,7 @@ public class SchoolRecipeActivity extends BaseActivity {
      */
     private void loadSendword() {
         SchoolRecipeRequestListener sendwordRequestListener = new SchoolRecipeRequestListener(this);
-        SchoolRecipeRequest schoolRecipeRequest = new SchoolRecipeRequest(Recipe.Model.class, this);
+        SchoolRecipeRequest schoolRecipeRequest = new SchoolRecipeRequest(Recipe.Model.class, this, mSid);
         spiceManager.execute(schoolRecipeRequest, schoolRecipeRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }

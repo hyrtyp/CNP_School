@@ -1,5 +1,6 @@
 package com.hyrt.cnp.school.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,10 +29,14 @@ public class SendwordActivity extends BaseActivity {
     private TextView sendtextmsg;
     private WeakReference<ImageView> weakImageView;
 
+    private int mSid = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sendword);
+        Intent intent = getIntent();
+        mSid = intent.getIntExtra("sid", mSid);
         initView();
     }
 
@@ -71,7 +76,7 @@ public class SendwordActivity extends BaseActivity {
 
     private void loadSendword() {
         SendWordRequestListener sendwordRequestListener = new SendWordRequestListener(this);
-        SendwordRequest sendwordRequest = new SendwordRequest(SendWord.Model.class, this);
+        SendwordRequest sendwordRequest = new SendwordRequest(SendWord.Model.class, this, mSid);
         spiceManager.execute(sendwordRequest, sendwordRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }

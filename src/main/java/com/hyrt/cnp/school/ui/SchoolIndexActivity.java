@@ -86,28 +86,50 @@ public class SchoolIndexActivity extends BaseActivity {
                     intent = new Intent();
                     intent.setClass(SchoolIndexActivity.this, SchoolNoticeActivity.class);
                     intent.putExtra("data", "school");
+                    intent.putExtra("sid", mSid);
                     startActivity(intent);
                     break;
                 case 1:
-                    startActivity(new Intent().setClass(SchoolIndexActivity.this, SendwordActivity.class));
+                    intent = new Intent();
+                    intent.setClass(SchoolIndexActivity.this, SendwordActivity.class);
+                    intent.putExtra("sid", mSid);
+                    startActivity(intent);
                     break;
                 case 2:
-                    startActivity(new Intent().setClass(SchoolIndexActivity.this, SchoolPhotoActivity.class));
+                    intent = new Intent();
+                    intent.setClass(SchoolIndexActivity.this, SchoolPhotoActivity.class);
+                    intent.putExtra("sid", mSid);
+                    startActivity(intent);
                     break;
                 case 3:
-                    startActivity(new Intent().setClass(SchoolIndexActivity.this, StarTeacherActivity.class));
+                    intent = new Intent();
+                    intent.setClass(SchoolIndexActivity.this, StarTeacherActivity.class);
+                    intent.putExtra("sid", mSid);
+                    startActivity(intent);
                     break;
                 case 4:
-                    startActivity(new Intent().setClass(SchoolIndexActivity.this, StarBabayActivity.class));
+                    intent = new Intent();
+                    intent.setClass(SchoolIndexActivity.this, StarBabayActivity.class);
+                    intent.putExtra("sid", mSid);
+                    startActivity(intent);
                     break;
                 case 5:
-                    startActivity(new Intent().setClass(SchoolIndexActivity.this, SchoolInfoActivity.class));
+                    intent = new Intent();
+                    intent.setClass(SchoolIndexActivity.this, SchoolInfoActivity.class);
+                    intent.putExtra("sid", mSid);
+                    startActivity(intent);
                     break;
                 case 6:
-                    startActivity(new Intent().setClass(SchoolIndexActivity.this, ClassRoomListActivity.class));
+                    intent = new Intent();
+                    intent.setClass(SchoolIndexActivity.this, ClassRoomListActivity.class);
+                    intent.putExtra("sid", mSid);
+                    startActivity(intent);
                     break;
                 case 7:
-                    startActivity(new Intent().setClass(SchoolIndexActivity.this, SchoolRecipeActivity.class));
+                    intent = new Intent();
+                    intent.setClass(SchoolIndexActivity.this, SchoolRecipeActivity.class);
+                    intent.putExtra("sid", mSid);
+                    startActivity(intent);
                     break;
 
             }

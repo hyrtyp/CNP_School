@@ -14,14 +14,20 @@ public class StarTeacherRequest extends BaseRequest {
 
     @Inject
     private TeacherService teacherService;
+    private int sid = -1;
 
     public StarTeacherRequest(Class clazz, Context context) {
         super(clazz, context);
     }
 
+    public StarTeacherRequest(Class clazz, Context context, int sid) {
+        super(clazz, context);
+        this.sid = sid;
+    }
+
     @Override
     public Base run() {
-        return teacherService.getStarteacherData(getRestTemplate());
+        return teacherService.getStarteacherData(getRestTemplate(), sid);
     }
 
     @Override
@@ -29,6 +35,6 @@ public class StarTeacherRequest extends BaseRequest {
         return 0;
     }
     public String getcachekey(){
-        return "Starteacher";
+        return "Starteacher"+sid;
     }
 }

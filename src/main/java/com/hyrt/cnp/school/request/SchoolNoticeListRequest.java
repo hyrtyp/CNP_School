@@ -14,6 +14,7 @@ public class SchoolNoticeListRequest extends BaseRequest {
 
     private String data;
     private String more;
+    private int sid = -1;
 
     @Inject
     private SchoolNoticeService schoolNoticeService;
@@ -23,13 +24,20 @@ public class SchoolNoticeListRequest extends BaseRequest {
         this.more=more;
     }
 
+     public SchoolNoticeListRequest(Class clazz, Context context,String data,String more, int sid) {
+         super(clazz, context);
+         this.data=data;
+         this.more=more;
+         this.sid = sid;
+     }
+
     @Override
     public Base run() {
         if(data.equals("school")){
             if(more.equals("1")){
-                return schoolNoticeService.getNoticelistData(getRestTemplate());
+                return schoolNoticeService.getNoticelistData(getRestTemplate(), sid);
             }else{
-                return schoolNoticeService.getNoticelistDatamore(getRestTemplate(), more);
+                return schoolNoticeService.getNoticelistDatamore(getRestTemplate(), more, sid);
             } 
         }else{
             if(more.equals("1")){
@@ -45,6 +53,6 @@ public class SchoolNoticeListRequest extends BaseRequest {
         return 0;
     }
     public String getcachekey(){
-        return "Noticelist"+data;
+        return "Noticelist"+data+sid;
     }
 }

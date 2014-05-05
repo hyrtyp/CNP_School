@@ -34,12 +34,14 @@ public  class Fragmentphoto extends Fragment {
     private int id;
     private Photo.Model model;
     private String pkind;
+    private int mSid = -1;
     private ArrayList<String> imageurls=new ArrayList<String>();
 
 
-    public Fragmentphoto (int id){
+    public Fragmentphoto (int id, int sid){
         this.context=getActivity();
         this.id=id;
+        this.mSid = sid;
     }
 
 
@@ -74,7 +76,7 @@ public  class Fragmentphoto extends Fragment {
         activity = (SchoolPhotoActivity)getActivity();
         SchoolPhotoListRequestListener sendwordRequestListener
                 = new SchoolPhotoListRequestListener(getActivity(),id);
-        SchoolPhotoListRequest schoolPhotoListRequest =new SchoolPhotoListRequest(Photo.Model.class, activity,pkind);
+        SchoolPhotoListRequest schoolPhotoListRequest =new SchoolPhotoListRequest(Photo.Model.class, activity,pkind, mSid);
         activity.spiceManager.execute(schoolPhotoListRequest,schoolPhotoListRequest.getcachekey(),
                 DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());

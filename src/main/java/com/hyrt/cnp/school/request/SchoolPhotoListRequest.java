@@ -16,14 +16,22 @@ public class SchoolPhotoListRequest extends BaseRequest{
     private PhotoService schoolListService;
 
     private String pkind;
+    private int mSid = -1;
 
     public SchoolPhotoListRequest(Class clazz, Context context,String pkind) {
         super(clazz, context);
         this.pkind=pkind;
     }
+
+    public SchoolPhotoListRequest(Class clazz, Context context,String pkind, int sid) {
+        super(clazz, context);
+        this.pkind=pkind;
+        this.mSid = sid;
+    }
+
     @Override
     public Base run() {
-        return schoolListService.getphotolistData(getRestTemplate(),pkind);
+        return schoolListService.getphotolistData(getRestTemplate(),pkind, mSid);
     }
 
 
@@ -33,6 +41,6 @@ public class SchoolPhotoListRequest extends BaseRequest{
     }
 
     public String getcachekey(){
-        return "Schoolphotolist"+pkind;
+        return "Schoolphotolist"+pkind+mSid;
     }
 }

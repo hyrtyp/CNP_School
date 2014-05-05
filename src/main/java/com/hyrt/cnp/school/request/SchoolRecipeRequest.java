@@ -14,14 +14,21 @@ public class SchoolRecipeRequest extends BaseRequest{
 
     @Inject
     private RecipeService schoolListService;
+    private int sid = -1;
 
 
     public SchoolRecipeRequest(Class clazz, Context context) {
         super(clazz, context);
     }
+
+    public SchoolRecipeRequest(Class clazz, Context context, int sid) {
+        super(clazz, context);
+        this.sid = sid;
+    }
+
     @Override
     public Base run() {
-        return schoolListService.getSchoolRecipeData(getRestTemplate());
+        return schoolListService.getSchoolRecipeData(getRestTemplate(), sid);
     }
 
 
@@ -31,6 +38,6 @@ public class SchoolRecipeRequest extends BaseRequest{
     }
 
     public String getcachekey(){
-        return "SchoolRecipe";
+        return "SchoolRecipe"+sid;
     }
 }

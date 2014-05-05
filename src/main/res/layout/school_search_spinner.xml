@@ -27,7 +27,7 @@
         android:id="@+id/lv_school_search_spinner"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="6dp"
+        android:paddingTop="7dp"
         android:fadingEdge="none"
         android:overScrollMode="never"
         android:cacheColorHint="#00000000"

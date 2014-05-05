@@ -14,14 +14,20 @@ public class SendwordRequest extends BaseRequest {
 
     @Inject
     private SendwordService sendwordService;
+    private int sid = -1;
 
     public SendwordRequest(Class clazz, Context context) {
         super(clazz, context);
     }
 
+    public SendwordRequest(Class clazz, Context context, int sid) {
+        super(clazz, context);
+        this.sid = sid;
+    }
+
     @Override
     public Base run() {
-        return sendwordService.getSendwordData(getRestTemplate());
+        return sendwordService.getSendwordData(getRestTemplate(), sid);
     }
 
     @Override
@@ -30,6 +36,6 @@ public class SendwordRequest extends BaseRequest {
     }
 
     public String getcachekey(){
-        return "Sendword";
+        return "Sendword"+sid;
     }
 }

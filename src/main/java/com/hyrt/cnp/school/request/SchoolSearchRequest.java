@@ -5,20 +5,25 @@ import android.content.Context;
 import com.google.inject.Inject;
 import com.hyrt.cnp.base.account.model.Base;
 import com.hyrt.cnp.base.account.request.BaseRequest;
+import com.hyrt.cnp.base.account.request.NotNeedLoginBaseRequest;
+import com.hyrt.cnp.base.account.service.NotNeedLoginService;
 import com.hyrt.cnp.base.account.service.SchoolSearchService;
 import com.hyrt.cnp.base.account.utils.Log;
 
 /**
  * Created by Zoe on 2014-04-01.
  */
-public class SchoolSearchRequest extends BaseRequest{
+public class SchoolSearchRequest extends NotNeedLoginBaseRequest{
 
     private String keytName, keytDistrict, keytProperty, keytScale;
     private Double lng, lat;
     private String province;
 
+//    @Inject
+//    private SchoolSearchService mSchoolSearchService;
+
     @Inject
-    private SchoolSearchService mSchoolSearchService;
+    private NotNeedLoginService notNeedLoginService;
 
     public SchoolSearchRequest(Class clazz, Context context,
                                String keytName, String keytDistrict,
@@ -35,7 +40,7 @@ public class SchoolSearchRequest extends BaseRequest{
 
     @Override
     public Base run() {
-        return mSchoolSearchService.getSchoolSearchData(
+        return notNeedLoginService.getSchoolSearchData(
                 getRestTemplate(), keytName,
                 keytDistrict, keytProperty, keytScale, lng, lat, province);
     }
@@ -46,6 +51,6 @@ public class SchoolSearchRequest extends BaseRequest{
     }
 
     public String getcachekey(){
-        return "SchoolSearch";
+        return "SchoolSearch"+keytName+keytDistrict+keytProperty+keytScale+lng+lat+province;
     }
 }

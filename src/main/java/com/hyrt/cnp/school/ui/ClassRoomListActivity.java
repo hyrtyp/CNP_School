@@ -1,5 +1,6 @@
 package com.hyrt.cnp.school.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -28,11 +29,14 @@ public class ClassRoomListActivity extends BaseActivity {
     private ClassRoomImageAdapter starTeacherAdaptersmall = null;
     private ClassRoomImageAdapter starTeacherAdaptermun = null;
     private ClassRoomImageAdapter starTeacherAdaptermax = null;
+    private int mSid = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classroom);
+        Intent intent = getIntent();
+        mSid = intent.getIntExtra("sid", mSid);
         initView();
     }
 
@@ -84,7 +88,7 @@ public class ClassRoomListActivity extends BaseActivity {
 
     private void loadSendword() {
         ClassRoomListRequestListener sendwordRequestListener = new ClassRoomListRequestListener(this);
-        ClassRoomListRequest classRoomListRequest = new ClassRoomListRequest(ClassRoom.Model.class, this);
+        ClassRoomListRequest classRoomListRequest = new ClassRoomListRequest(ClassRoom.Model.class, this, mSid);
         spiceManager.execute(classRoomListRequest, classRoomListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }

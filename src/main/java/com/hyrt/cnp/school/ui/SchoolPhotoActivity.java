@@ -1,6 +1,7 @@
 package com.hyrt.cnp.school.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -25,12 +26,17 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
 
     private AppSectionsPagerAdapter mAppSectionsPagerAdapter = null;
 
+    private static int mSid = -1;
+
     private ViewPager mViewPager;
     public static ArrayList<Fragmentphoto> pages = new ArrayList<Fragmentphoto>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolphoto);
+
+        Intent intent = getIntent();
+        mSid = intent.getIntExtra("sid", mSid);
 
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
@@ -103,7 +109,7 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
             if (pages.size() > position) {
                 page = pages.get(position);
             } else {
-                page = new Fragmentphoto(position);
+                page = new Fragmentphoto(position, mSid);
                 pages.add(page);
             }
             return page;

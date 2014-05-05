@@ -21,6 +21,7 @@ import com.hyrt.cnp.base.account.model.Base;
 import com.hyrt.cnp.base.account.model.SchoolSearch;
 import com.hyrt.cnp.base.account.request.BaseUserVarRequest;
 import com.hyrt.cnp.base.account.requestListener.BaseUserVarRequestListener;
+import com.hyrt.cnp.base.account.utils.AlertUtils;
 import com.hyrt.cnp.base.view.XListView;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolSearchResultAdapter;
@@ -87,6 +88,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
     private double tempLng = 0;
     private double tempLat = 0;
     private String provinceId;
+    private boolean isLogin = true;
 
     private static final String TAG = "SchoolSearchResultActivity";
 
@@ -94,10 +96,11 @@ public class SchoolSearchResultActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_search_result);
-        findView();
-        setListener();
         Intent intent = getIntent();
         mkeytName = intent.getStringExtra("name");
+        isLogin = intent.getBooleanExtra("isLogin", true);
+        findView();
+        setListener();
         if(mkeytName == null){
             mkeytName = "";
         }
@@ -163,7 +166,10 @@ public class SchoolSearchResultActivity extends BaseActivity {
                             @Override
                             public void run() {
                                 position = province;
-                                tvPosition.setText(province);
+                                if(position == null || position.trim().equals("")){
+                                    position = "北京市";
+                                }
+                                tvPosition.setText(position);
                                 loadData();
                             }
                         });
@@ -181,23 +187,6 @@ public class SchoolSearchResultActivity extends BaseActivity {
         });
         mThread.start();
     }
-
-    /*private PositionRequestListener.RequestListener mPositionListener
-            = new PositionRequestListener.RequestListener() {
-        @Override
-        public void onRequestSuccess(PositionInfo data) {
-            Toast.makeText(SchoolSearchResultActivity.this, data+"", 1).show();
-            if(data != null){
-                String city = (data.getAddressComponent()).getCity();
-                Toast.makeText(SchoolSearchResultActivity.this, city, 1).show();
-            }
-        }
-
-        @Override
-        public void onRequestFailure(SpiceException e) {
-
-        }
-    };*/
 
 
 
@@ -261,7 +250,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
                     String mValue = entry.getValue();
                     cityKeys.add(mKey);
                     cityValues.add(mValue);
-                    android.util.Log.i("tag", "key:"+mKey+" value:"+mValue);
+//                    android.util.Log.i("tag", "key:"+mKey+" value:"+mValue);
                 }
                 /*for (Iterator it = key.iterator(); it.hasNext();) {
 
@@ -600,11 +589,16 @@ public class SchoolSearchResultActivity extends BaseActivity {
     private AdapterView.OnItemClickListener mXlvSearchResultOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            int sid = mDatas.get(i-1).getNursery_id();
-            Intent intent = new Intent();
-            intent.setClass(SchoolSearchResultActivity.this, SchoolIndexActivity.class);
-            intent.putExtra("mSid", sid);
-            startActivity(intent);
+            if(isLogin){
+                int sid = mDatas.get(i-1).getNursery_id();
+                Intent intent = new Intent();
+                intent.setClass(SchoolSearchResultActivity.this, SchoolIndexActivity.class);
+                intent.putExtra("mSid", sid);
+                startActivity(intent);
+            }else{
+                AlertUtils.getInstance().showCenterToast(SchoolSearchResultActivity.this, "请登录！");
+            }
+
         }
     };
 
@@ -663,9 +657,17 @@ public class SchoolSearchResultActivity extends BaseActivity {
         });
 
         TextView tv_cancle = (TextView) findViewById(R.id.tv_cancle);
+        if(isLogin){
+            tv_cancle.setText("返回");
+        }else{
+            tv_cancle.setText("登录");
+        }
         tv_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!isLogin){
+                    setResult(101);
+                }
                 finish();
             }
         });

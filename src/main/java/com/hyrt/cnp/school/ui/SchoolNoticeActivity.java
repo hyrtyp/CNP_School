@@ -28,6 +28,7 @@ public class SchoolNoticeActivity extends BaseActivity {
     private SchoolNoticeAdapter schoolNoticeAdapter = null;
     //    private Notice.Model models;
     private String data;
+    private int mSid = -1;
     private Notice notice;
     private TextView schoolnotice_title, schoolnotice_time_name, schoolnotice_content;
     private LinearLayout noticefirst;
@@ -57,6 +58,7 @@ public class SchoolNoticeActivity extends BaseActivity {
         super.initTitleview();
         Intent intent = getIntent();
         data = intent.getStringExtra("data");
+        mSid = intent.getIntExtra("sid", -1);
         if (data.equals("school")) {
             titletext.setText("通知公告");
         } else if (data.equals("classroom")) {
@@ -132,7 +134,7 @@ public class SchoolNoticeActivity extends BaseActivity {
      */
     private void loadSchoolNoticeData() {
         SchoolNoticeRequestListener schoolNoticelistRequestListener = new SchoolNoticeRequestListener(this);
-        SchoolNoticeListRequest schoolNoticeListRequest = new SchoolNoticeListRequest(Notice.Model.class, this, "school", more);
+        SchoolNoticeListRequest schoolNoticeListRequest = new SchoolNoticeListRequest(Notice.Model.class, this, "school", more, mSid);
         spiceManager.execute(schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 schoolNoticelistRequestListener.start());
     }

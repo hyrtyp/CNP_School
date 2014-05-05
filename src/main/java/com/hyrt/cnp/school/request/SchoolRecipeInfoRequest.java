@@ -33,6 +33,6 @@ public class SchoolRecipeInfoRequest extends BaseRequest{
     }
 
     public String getcachekey(){
-        return "RecipeWeek";
+        return "RecipeWeek"+recipe.hashCode();
     }
 }

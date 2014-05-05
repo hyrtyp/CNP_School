@@ -25,10 +25,14 @@ public class StarTeacherActivity extends BaseActivity {
 
     private StarTeacherImageAdapter starTeacherImageAdapter;
 
+    private int mSid = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starteacher);
+        Intent intent = getIntent();
+        mSid = intent.getIntExtra("sid", mSid);
         initView();
     }
 
@@ -72,7 +76,7 @@ public class StarTeacherActivity extends BaseActivity {
 
     private void loadStarteacehr() {
         StarTeacherRequestListener sendwordRequestListener = new StarTeacherRequestListener(this);
-        StarTeacherRequest starTeacherRequest = new StarTeacherRequest(Teacher.Model.class, this);
+        StarTeacherRequest starTeacherRequest = new StarTeacherRequest(Teacher.Model.class, this, mSid);
         spiceManager.execute(starTeacherRequest, starTeacherRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
                 sendwordRequestListener.start());
     }

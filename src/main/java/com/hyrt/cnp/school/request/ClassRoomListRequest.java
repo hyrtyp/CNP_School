@@ -14,14 +14,20 @@ public class ClassRoomListRequest extends BaseRequest{
 
     @Inject
     private ClassRoomService schoolListService;
-
+    private int sid = -1;
 
     public ClassRoomListRequest(Class clazz, Context context) {
         super(clazz, context);
     }
+
+    public ClassRoomListRequest(Class clazz, Context context, int sid) {
+        super(clazz, context);
+        this.sid = sid;
+    }
+
     @Override
     public Base run() {
-        return schoolListService.getClassRoomListData(getRestTemplate());
+        return schoolListService.getClassRoomListData(getRestTemplate(), sid);
     }
 
 
@@ -30,6 +36,6 @@ public class ClassRoomListRequest extends BaseRequest{
         return 0;
     }
     public String getcachekey(){
-        return "ClassRoomList";
+        return "ClassRoomList"+sid;
     }
 }
