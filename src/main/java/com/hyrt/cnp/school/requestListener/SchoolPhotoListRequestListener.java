@@ -24,14 +24,27 @@ public class SchoolPhotoListRequestListener extends BaseRequestListener {
     @Override
     public void onRequestFailure(SpiceException e) {
         super.onRequestFailure(e);
-        showMessage(R.string.nodata_title,R.string.nodata_content);
+//        showMessage(R.string.nodata_title,R.string.nodata_content);
+        SchoolPhotoActivity activity = (SchoolPhotoActivity) context.get();
+        switch (id) {
+            case 0:
+                activity.pages.get(0).initData(null);
+                break;
+            case 1:
+                activity.pages.get(1).initData(null);
+                break;
+            case 2:
+                activity.pages.get(2).initData(null);
+                break;
+        }
     }
 
     @Override
     public void onRequestSuccess(Object data) {
         super.onRequestSuccess(data);
+        SchoolPhotoActivity activity = (SchoolPhotoActivity)context.get();
         if(data != null){
-            SchoolPhotoActivity activity = (SchoolPhotoActivity)context.get();
+
             Photo.Model result= (Photo.Model)data;
             switch (id){
                 case 0:
@@ -45,7 +58,18 @@ public class SchoolPhotoListRequestListener extends BaseRequestListener {
                     break;
             }
         }else{
-            showMessage(R.string.nodata_title,R.string.nodata_content);
+            switch (id){
+                case 0:
+                    activity.pages.get(0).initData(null);
+                    break;
+                case 1:
+                    activity.pages.get(1).initData(null);
+                    break;
+                case 2:
+                    activity.pages.get(2).initData(null);
+                    break;
+            }
+//            showMessage(R.string.nodata_title,R.string.nodata_content);
         }
     }
 

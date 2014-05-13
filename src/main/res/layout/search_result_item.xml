@@ -37,7 +37,8 @@
             android:layout_alignParentRight="true"
             android:singleLine="true"
             android:layout_alignBottom="@id/tv_search_item_title"
-            android:text="200米" />
+            android:text="200米"
+            android:visibility="gone"/>
 
         <ImageView
             android:id="@+id/iv_search_item_line"

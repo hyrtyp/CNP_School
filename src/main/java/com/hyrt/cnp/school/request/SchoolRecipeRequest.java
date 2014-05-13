@@ -5,12 +5,13 @@ import android.content.Context;
 import com.google.inject.Inject;
 import com.hyrt.cnp.base.account.model.Base;
 import com.hyrt.cnp.base.account.request.BaseRequest;
+import com.hyrt.cnp.base.account.request.NotNeedLoginBaseRequest;
 import com.hyrt.cnp.base.account.service.RecipeService;
 
 /**
  * Created by GYH on 14-1-3.
  */
-public class SchoolRecipeRequest extends BaseRequest{
+public class SchoolRecipeRequest extends NotNeedLoginBaseRequest{
 
     @Inject
     private RecipeService schoolListService;

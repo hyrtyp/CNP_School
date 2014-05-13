@@ -20,7 +20,7 @@ import com.octo.android.robospice.persistence.DurationInMillis;
 public class SchoolInfoActivity extends BaseActivity {
 
     private TextView schoolintro;
-    private ImageView schoolmap;
+//    private ImageView schoolmap;
     private int mSid = -1;
 
     @Override
@@ -28,7 +28,7 @@ public class SchoolInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolinfo);
         Intent intent = getIntent();
-        mSid = intent.getIntExtra("sid", mSid);
+        mSid = intent.getIntExtra("sid", -1);
         initView();
     }
 
@@ -40,7 +40,7 @@ public class SchoolInfoActivity extends BaseActivity {
 
     private void initView() {
         schoolintro = (TextView) findViewById(R.id.schoolintro);
-        schoolmap = (ImageView) findViewById(R.id.schoolmap);
+//        schoolmap = (ImageView) findViewById(R.id.schoolmap);
     }
 
     public void initData(School.Model2 model2) {

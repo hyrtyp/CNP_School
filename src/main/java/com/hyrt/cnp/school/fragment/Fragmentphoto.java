@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.hyrt.cnp.base.account.model.Photo;
 import com.hyrt.cnp.school.R;
@@ -34,8 +36,9 @@ public  class Fragmentphoto extends Fragment {
     private int id;
     private Photo.Model model;
     private String pkind;
-    private int mSid = -1;
+    public int mSid = -1;
     private ArrayList<String> imageurls=new ArrayList<String>();
+    private View rootView;
 
 
     public Fragmentphoto (int id, int sid){
@@ -48,7 +51,7 @@ public  class Fragmentphoto extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.layout_fragment_schoolphoto, container, false);
+        rootView = inflater.inflate(R.layout.layout_fragment_schoolphoto, container, false);
         gridview = (GridView)rootView.findViewById(R.id.cnp_gridview);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -83,6 +86,18 @@ public  class Fragmentphoto extends Fragment {
     }
 
     public void initData(Photo.Model model){
+        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.layout_bottom);
+        TextView bottom_num = (TextView) rootView.findViewById(R.id.bottom_num);
+        if(model == null){
+            if (model == null || model.getData().size() == 0) {
+                linearLayout.setVisibility(View.VISIBLE);
+                bottom_num.setText("暂无信息");
+            }
+            return;
+        }
+
+        linearLayout.setVisibility(View.GONE);
+        bottom_num.setText("");
         this.model=model;
         String[] resKeys=new String[]{"getImagethpath","getTitle"};
         int[] reses=new int[]{R.id.gridview_image,R.id.gridview_name};

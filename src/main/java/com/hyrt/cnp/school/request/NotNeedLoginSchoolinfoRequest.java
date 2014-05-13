@@ -4,14 +4,13 @@ import android.content.Context;
 
 import com.google.inject.Inject;
 import com.hyrt.cnp.base.account.model.Base;
-import com.hyrt.cnp.base.account.request.BaseRequest;
 import com.hyrt.cnp.base.account.request.NotNeedLoginBaseRequest;
 import com.hyrt.cnp.base.account.service.SchoolService;
 
 /**
  * Created by GYH on 14-1-3.
  */
-public class SchoolinfoRequest extends NotNeedLoginBaseRequest{
+public class NotNeedLoginSchoolinfoRequest extends NotNeedLoginBaseRequest{
 
     @Inject
     private SchoolService schoolListService;
@@ -19,11 +18,11 @@ public class SchoolinfoRequest extends NotNeedLoginBaseRequest{
     private int mSid = -1;
 
 
-    public SchoolinfoRequest(Class clazz, Context context) {
+    public NotNeedLoginSchoolinfoRequest(Class clazz, Context context) {
         super(clazz, context);
     }
 
-    public SchoolinfoRequest(Class clazz, Context context, int sid) {
+    public NotNeedLoginSchoolinfoRequest(Class clazz, Context context, int sid) {
         super(clazz, context);
         this.mSid = sid;
 

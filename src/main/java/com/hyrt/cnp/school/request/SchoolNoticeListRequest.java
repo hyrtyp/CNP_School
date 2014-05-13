@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.inject.Inject;
 import com.hyrt.cnp.base.account.model.Base;
 import com.hyrt.cnp.base.account.request.BaseRequest;
+import com.hyrt.cnp.base.account.request.NotNeedLoginBaseRequest;
 import com.hyrt.cnp.base.account.service.SchoolNoticeService;
 
  /**
@@ -29,6 +30,7 @@ public class SchoolNoticeListRequest extends BaseRequest {
          this.data=data;
          this.more=more;
          this.sid = sid;
+         android.util.Log.i("tag", "SchoolNoticeListRequest:"+sid);
      }
 
     @Override
@@ -53,6 +55,6 @@ public class SchoolNoticeListRequest extends BaseRequest {
         return 0;
     }
     public String getcachekey(){
-        return "Noticelist"+data+sid;
+        return "Noticelist"+data+sid+more;
     }
 }

@@ -11,5 +11,17 @@
         >
         <include layout="@layout/layout_gridview_image"></include>
     </LinearLayout>
-
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/layout_bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/view_bottom_margin">
+            <include layout="@layout/layout_bottom_num"></include>
+        </LinearLayout>
+        </RelativeLayout>
 </FrameLayout>

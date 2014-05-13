@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.hyrt.cnp.school.R;
@@ -36,7 +37,7 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
         setContentView(R.layout.activity_schoolphoto);
 
         Intent intent = getIntent();
-        mSid = intent.getIntExtra("sid", mSid);
+        mSid = intent.getIntExtra("sid", -1);
 
         mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
 
@@ -112,6 +113,7 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
                 page = new Fragmentphoto(position, mSid);
                 pages.add(page);
             }
+            page.mSid = mSid;
             return page;
         }
 
@@ -125,5 +127,11 @@ public class SchoolPhotoActivity extends BaseActivity implements ActionBar.TabLi
         public CharSequence getPageTitle(int position) {
             return null;
         }
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        pages = new ArrayList<Fragmentphoto>();
     }
 }

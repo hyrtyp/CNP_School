@@ -14,10 +14,11 @@
         />
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/cnp_school_intro_layoutheight"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
         android:background="@drawable/shape_sendword_line"
         style="@style/container_view"
+        android:layout_marginBottom="@dimen/view_margin_small"
         >
         <TextView
             android:id="@+id/schoolintro"
@@ -27,7 +28,7 @@
             style="@style/medium_tv"
             />
     </LinearLayout>
-    <TextView
+   <!-- <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/large_tv"
@@ -48,5 +49,5 @@
             android:layout_marginRight="0dp"
             android:layout_marginLeft="0dp"
             />
-    </LinearLayout>
+    </LinearLayout>-->
 </LinearLayout>

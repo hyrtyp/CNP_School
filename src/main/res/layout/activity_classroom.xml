@@ -24,6 +24,7 @@
             android:orientation="vertical"
             >
             <TextView
+                android:id="@+id/tv_class_min"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="小班"
@@ -41,6 +42,7 @@
                 android:layout_margin="@dimen/view_margin_small"/>
 
             <TextView
+                android:id="@+id/tv_class_mun"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="中班"
@@ -59,6 +61,7 @@
                 android:layout_margin="@dimen/view_margin_small" />
 
             <TextView
+                android:id="@+id/tv_class_max"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="大班"
@@ -67,6 +70,42 @@
 
             <com.hyrt.cnp.school.view.MyGridView
                 android:id="@+id/cnp_gridview_max"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="2"
+                android:verticalSpacing="6dp"
+                android:horizontalSpacing="6dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                android:layout_margin="@dimen/view_margin_small" />
+            <TextView
+                android:id="@+id/tv_class_custody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="托班"
+                style="@style/large_tv"
+                android:layout_marginTop="@dimen/view_margin_small"/>
+
+            <com.hyrt.cnp.school.view.MyGridView
+                android:id="@+id/cnp_gridview_custody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="2"
+                android:verticalSpacing="6dp"
+                android:horizontalSpacing="6dp"
+                android:stretchMode="columnWidth"
+                android:gravity="center"
+                android:layout_margin="@dimen/view_margin_small" />
+            <TextView
+                android:id="@+id/tv_class_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="其他"
+                style="@style/large_tv"
+                android:layout_marginTop="@dimen/view_margin_small"/>
+
+            <com.hyrt.cnp.school.view.MyGridView
+                android:id="@+id/cnp_gridview_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:numColumns="2"

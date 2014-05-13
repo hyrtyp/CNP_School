@@ -21,14 +21,18 @@ import java.util.ArrayList;
  * Created by GYH on 14-1-10.
  */
 public class ClassRoomListActivity extends BaseActivity {
-    private MyGridView gridviewsmall, gridviewmun, gridviewmax;
-    private int[] imageResIdsmall, imageResIdmun, imageResIdmax;
-    private String[] Smalltext = {"小三班\n班主任：苏菲菲", "小三班\n班主任：苏菲菲"};
-    private String[] Muntext = {"付晓宁\n班主任：苏菲菲"};
-    private String[] Maxtext = {"付晓宁\n班主任：苏菲菲"};
+    private MyGridView gridviewsmall, gridviewmun, gridviewmax, gridviewcustody, gridviewother;
+//    private int[] imageResIdsmall, imageResIdmun, imageResIdmax, imageResIdcustody, imageResIdother;
+//    private String[] Smalltext = {"小三班\n班主任：苏菲菲", "小三班\n班主任：苏菲菲"};
+//    private String[] Muntext = {"付晓宁\n班主任：苏菲菲"};
+//    private String[] Maxtext = {"付晓宁\n班主任：苏菲菲"};
+//    private String[] Custodytext = {"付晓宁\n班主任：苏菲菲"};
+//    private String[] Othertext = {"付晓宁\n班主任：苏菲菲"};
     private ClassRoomImageAdapter starTeacherAdaptersmall = null;
     private ClassRoomImageAdapter starTeacherAdaptermun = null;
     private ClassRoomImageAdapter starTeacherAdaptermax = null;
+    private ClassRoomImageAdapter starTeacherAdaptercustody = null;
+    private ClassRoomImageAdapter starTeacherAdapterother = null;
     private int mSid = -1;
 
     @Override
@@ -36,7 +40,7 @@ public class ClassRoomListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classroom);
         Intent intent = getIntent();
-        mSid = intent.getIntExtra("sid", mSid);
+        mSid = intent.getIntExtra("sid", -1);
         initView();
     }
 
@@ -59,9 +63,11 @@ public class ClassRoomListActivity extends BaseActivity {
         gridviewsmall = (MyGridView) findViewById(R.id.cnp_gridview_small);
         gridviewmun = (MyGridView) findViewById(R.id.cnp_gridview_mun);
         gridviewmax = (MyGridView) findViewById(R.id.cnp_gridview_max);
-        imageResIdsmall = new int[]{R.drawable.classroom1, R.drawable.classroom2};
-        imageResIdmun = new int[]{R.drawable.classroom3};
-        imageResIdmax = new int[]{R.drawable.classroom2};
+        gridviewcustody = (MyGridView) findViewById(R.id.cnp_gridview_custody);
+        gridviewother = (MyGridView) findViewById(R.id.cnp_gridview_other);
+//        imageResIdsmall = new int[]{R.drawable.classroom1, R.drawable.classroom2};
+//        imageResIdmun = new int[]{R.drawable.classroom3};
+//        imageResIdmax = new int[]{R.drawable.classroom2};
     }
 
     /**
@@ -77,12 +83,16 @@ public class ClassRoomListActivity extends BaseActivity {
         } else {
             String[] resKeys = new String[]{"getImagepath", "getRenname","getRoomname"};
             int[] reses = new int[]{R.id.gridview_image, R.id.gridview_renname,R.id.gridview_classroomname};
+            starTeacherAdapterother = new ClassRoomImageAdapter(this, getClassRoommodel(model, "5").getData(), R.layout.layout_item_gridview_image_classroomlist, resKeys, reses);
+            starTeacherAdaptercustody = new ClassRoomImageAdapter(this, getClassRoommodel(model, "4").getData(), R.layout.layout_item_gridview_image_classroomlist, resKeys, reses);
             starTeacherAdaptersmall = new ClassRoomImageAdapter(this, getClassRoommodel(model, "3").getData(), R.layout.layout_item_gridview_image_classroomlist, resKeys, reses);
             starTeacherAdaptermun = new ClassRoomImageAdapter(this, getClassRoommodel(model, "2").getData(), R.layout.layout_item_gridview_image_classroomlist, resKeys, reses);
             starTeacherAdaptermax = new ClassRoomImageAdapter(this, getClassRoommodel(model, "1").getData(), R.layout.layout_item_gridview_image_classroomlist, resKeys, reses);
             gridviewsmall.setAdapter(starTeacherAdaptersmall);
             gridviewmun.setAdapter(starTeacherAdaptermun);
             gridviewmax.setAdapter(starTeacherAdaptermax);
+            gridviewcustody.setAdapter(starTeacherAdaptercustody);
+            gridviewother.setAdapter(starTeacherAdapterother);
         }
     }
 

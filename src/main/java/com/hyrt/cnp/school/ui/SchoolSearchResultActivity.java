@@ -1,5 +1,6 @@
 package com.hyrt.cnp.school.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -21,6 +22,7 @@ import com.hyrt.cnp.base.account.model.Base;
 import com.hyrt.cnp.base.account.model.SchoolSearch;
 import com.hyrt.cnp.base.account.request.BaseUserVarRequest;
 import com.hyrt.cnp.base.account.requestListener.BaseUserVarRequestListener;
+import com.hyrt.cnp.base.account.ui.LightProgressDialog;
 import com.hyrt.cnp.base.account.utils.AlertUtils;
 import com.hyrt.cnp.base.view.XListView;
 import com.hyrt.cnp.school.R;
@@ -113,6 +115,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
     }
 
 
+    private AlertDialog progress;
     public void loadPosition(){
 
        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -135,7 +138,10 @@ public class SchoolSearchResultActivity extends BaseActivity {
                 mPositionRequest, mPositionRequest.getcachekey(),
                 DurationInMillis.ONE_SECOND * 10,
                 mPositionRequestListener.start());*/
-
+        if(progress == null){
+            progress = LightProgressDialog.create(this, "加载中...");
+        }
+        progress.show();
         Thread mThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -170,6 +176,8 @@ public class SchoolSearchResultActivity extends BaseActivity {
                                     position = "北京市";
                                 }
                                 tvPosition.setText(position);
+                                progress.dismiss();
+                                progress = null;
                                 loadData();
                             }
                         });
@@ -589,15 +597,15 @@ public class SchoolSearchResultActivity extends BaseActivity {
     private AdapterView.OnItemClickListener mXlvSearchResultOnItemClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            if(isLogin){
+//            if(isLogin){
                 int sid = mDatas.get(i-1).getNursery_id();
                 Intent intent = new Intent();
                 intent.setClass(SchoolSearchResultActivity.this, SchoolIndexActivity.class);
                 intent.putExtra("mSid", sid);
                 startActivity(intent);
-            }else{
-                AlertUtils.getInstance().showCenterToast(SchoolSearchResultActivity.this, "请登录！");
-            }
+//            }else{
+//                AlertUtils.getInstance().showCenterToast(SchoolSearchResultActivity.this, "请登录！");
+//            }
 
         }
     };

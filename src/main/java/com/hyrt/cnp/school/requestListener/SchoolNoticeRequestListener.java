@@ -31,6 +31,7 @@ public class SchoolNoticeRequestListener extends BaseRequestListener{
     public void onRequestSuccess(Object data) {
         super.onRequestSuccess(data);
         if(data != null){
+
             SchoolNoticeActivity activity = (SchoolNoticeActivity)context.get();
             Notice.Model result= (Notice.Model)data;
             activity.initData(result);

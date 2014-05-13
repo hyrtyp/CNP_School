@@ -5,12 +5,13 @@ import android.content.Context;
 import com.google.inject.Inject;
 import com.hyrt.cnp.base.account.model.Base;
 import com.hyrt.cnp.base.account.request.BaseRequest;
+import com.hyrt.cnp.base.account.request.NotNeedLoginBaseRequest;
 import com.hyrt.cnp.base.account.service.TeacherService;
 
 /**
  * Created by GYH on 14-1-14.
  */
-public class StarTeacherInfoRequest extends BaseRequest {
+public class StarTeacherInfoRequest extends NotNeedLoginBaseRequest {
 
     @Inject
     private TeacherService teacherService;

@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.hyrt.cnp.base.account.model.Notice;
 import com.hyrt.cnp.school.R;
+import com.hyrt.cnp.school.request.NotNeedLoginNoticeInfoRequest;
 import com.hyrt.cnp.school.request.NoticeInfoRequest;
 import com.hyrt.cnp.school.requestListener.NoticeInfoRequestListener;
 import com.jingdong.common.frame.BaseActivity;
@@ -50,10 +51,20 @@ public class SchoolNoticeInfoActivity extends BaseActivity {
 
     private void LoadData(){
         Notice notice = (Notice) getIntent().getSerializableExtra("notice");
+        int sid = getIntent().getIntExtra("sid", -1);
         NoticeInfoRequestListener schoolNoticelistRequestListener = new NoticeInfoRequestListener(this);
-        NoticeInfoRequest schoolNoticeListRequest = new NoticeInfoRequest(Notice.Model.class, this, data, notice.getAnnource_id()+"");
-        spiceManager.execute(schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
-                schoolNoticelistRequestListener.start());
+        if(sid != -1 && data.equals("school")){
+            NotNeedLoginNoticeInfoRequest schoolNoticeListRequest = new NotNeedLoginNoticeInfoRequest(
+                    Notice.Model.class, this, data, sid, notice.getAnnource_id()+"");
+            spiceManager.execute(schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+                    schoolNoticelistRequestListener.start());
+        }else{
+            NoticeInfoRequest schoolNoticeListRequest = new NoticeInfoRequest(
+                    Notice.Model.class, this, data, notice.getAnnource_id()+"");
+            spiceManager.execute(schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+                    schoolNoticelistRequestListener.start());
+        }
+
     }
 
     public void UpDataUI(Notice.Model2 model2){

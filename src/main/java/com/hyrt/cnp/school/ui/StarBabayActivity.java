@@ -16,6 +16,8 @@ import com.hyrt.cnp.school.requestListener.StarBabayRequestListener;
 import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
+import java.util.ArrayList;
+
 /**
  * Created by GYH on 14-1-10.
  */
@@ -24,6 +26,8 @@ public class StarBabayActivity extends BaseActivity {
     private GridView gridview;
     private StarBabayImageAdapter starTeacherImageAdapter;
     private int mSid = -1;
+    private ArrayList<String> paths = new ArrayList<String>();
+    private ArrayList<String> names = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,9 @@ public class StarBabayActivity extends BaseActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                showPop(gridview, ((StarBabay) starTeacherImageAdapter.getItem(i)).getImagepath());
+                String path = ((StarBabay) starTeacherImageAdapter.getItem(i)).getImagepath();
+//                showPop(gridview, path);
+                showPop4(gridview, paths, names, i, StarBabayActivity.this);
 //                Intent intent = new Intent();
 //                intent.putExtra("imageurl",((StarBabay) starTeacherImageAdapter.getItem(i)).getImagepath());
 //                intent.setClass(StarBabayActivity.this, ImageShowpop.class);
@@ -70,6 +76,12 @@ public class StarBabayActivity extends BaseActivity {
             TextView bottom_num = (TextView) findViewById(R.id.bottom_num);
             bottom_num.setText("暂无信息");
         } else {
+            paths.clear();
+            names.clear();
+            for(int i=0, j=model.getData().size(); i<j;i++){
+                paths.add(model.getData().get(i).getImagepath());
+                names.add(model.getData().get(i).getRenname());
+            }
             String[] resKeys = new String[]{"getImagepath", "getRenname"};
             int[] reses = new int[]{R.id.gridview_image, R.id.gridview_name};
             starTeacherImageAdapter = new StarBabayImageAdapter

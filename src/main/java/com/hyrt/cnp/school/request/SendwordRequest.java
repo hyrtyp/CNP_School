@@ -5,12 +5,13 @@ import android.content.Context;
 import com.google.inject.Inject;
 import com.hyrt.cnp.base.account.model.Base;
 import com.hyrt.cnp.base.account.request.BaseRequest;
+import com.hyrt.cnp.base.account.request.NotNeedLoginBaseRequest;
 import com.hyrt.cnp.base.account.service.SendwordService;
 
 /**
  * Created by GYH on 14-1-8.
  */
-public class SendwordRequest extends BaseRequest {
+public class SendwordRequest extends NotNeedLoginBaseRequest {
 
     @Inject
     private SendwordService sendwordService;

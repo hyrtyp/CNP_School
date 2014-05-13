@@ -37,7 +37,7 @@ public class SchoolRecipeActivity extends BaseActivity {
         setContentView(R.layout.activity_schoolrecipe);
         initView();
         Intent intent = getIntent();
-        mSid = intent.getIntExtra("sid", mSid);
+        mSid = intent.getIntExtra("sid", -1);
     }
 
     @Override
@@ -80,7 +80,9 @@ public class SchoolRecipeActivity extends BaseActivity {
             linearLayout.setVisibility(View.VISIBLE);
             TextView bottom_num = (TextView) findViewById(R.id.bottom_num);
             bottom_num.setText("暂无信息");
+            noticelistview.setVisibility(View.GONE);
         } else {
+            noticelistview.setVisibility(View.VISIBLE);
             this.model = model;
             List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 

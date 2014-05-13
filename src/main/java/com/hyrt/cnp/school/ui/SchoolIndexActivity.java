@@ -12,10 +12,13 @@ import com.hyrt.cnp.base.account.model.School;
 import com.hyrt.cnp.base.account.utils.FaceUtils;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolIndexAdapter;
+import com.hyrt.cnp.school.request.NotNeedLoginSchoolinfoRequest;
 import com.hyrt.cnp.school.request.SchoolinfoRequest;
 import com.hyrt.cnp.school.requestListener.SchoolindexRequestListener;
 import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
+
+import net.oschina.app.AppContext;
 
 /**
  * Created by GYH on 14-1-8.
@@ -38,6 +41,10 @@ public class SchoolIndexActivity extends BaseActivity {
         setContentView(R.layout.activity_schoolindex);
         intent = getIntent();
         mSid = intent.getIntExtra("mSid", -1);
+        if(AppContext.getInstance().mUserDetail != null && mSid == -1){
+            mSid = Integer.parseInt(AppContext.getInstance().mUserDetail.getNursery_id());
+        }
+        android.util.Log.i("tag", "mSid:"+mSid);
 
         initView();
         loadSendword();
@@ -45,19 +52,26 @@ public class SchoolIndexActivity extends BaseActivity {
 
     private void loadSendword() {
         SchoolindexRequestListener sendwordRequestListener = new SchoolindexRequestListener(this);
-        SchoolinfoRequest schoolinfoRequest = null;
         if(mSid == -1){
+            SchoolinfoRequest schoolinfoRequest = null;
             schoolinfoRequest = new SchoolinfoRequest(School.Model2.class, this);
+            spiceManager.execute(schoolinfoRequest, schoolinfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+                    sendwordRequestListener.start());
         }else{
-            schoolinfoRequest = new SchoolinfoRequest(School.Model2.class, this, mSid);
+            NotNeedLoginSchoolinfoRequest schoolinfoRequest = null;
+            schoolinfoRequest = new NotNeedLoginSchoolinfoRequest(School.Model2.class, this, mSid);
+            spiceManager.execute(schoolinfoRequest, schoolinfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
+                    sendwordRequestListener.start());
         }
-        spiceManager.execute(schoolinfoRequest, schoolinfoRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
-                sendwordRequestListener.start());
+
     }
 
     public void UPdataUI(School.Model2 model2) {
         showDetailImage(FaceUtils.getSchoolImage(model2.getData().getNursery_id(), FaceUtils.FACE_SMALL), schoolimage, false);
         schoolinfo.setText(model2.getData().getAddress() + "      电话：" + model2.getData().getTel());
+        if(model2 != null){
+            titletext.setText(model2.getData().getnName());
+        }
     }
 
     private void initView() {

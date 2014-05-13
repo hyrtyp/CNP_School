@@ -32,7 +32,8 @@ public class StarTeacherActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starteacher);
         Intent intent = getIntent();
-        mSid = intent.getIntExtra("sid", mSid);
+        mSid = intent.getIntExtra("sid", -1);
+        android.util.Log.i("tag", "StartTeacher mSid:"+mSid);
         initView();
     }
 

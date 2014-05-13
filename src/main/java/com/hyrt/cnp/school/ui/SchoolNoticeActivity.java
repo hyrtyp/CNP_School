@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.hyrt.cnp.base.account.model.Notice;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolNoticeAdapter;
+import com.hyrt.cnp.school.request.NotNeedLoginSchoolNoticeListRequest;
 import com.hyrt.cnp.school.request.SchoolNoticeListRequest;
 import com.hyrt.cnp.school.requestListener.SchoolNoticeRequestListener;
 import com.hyrt.cnp.base.view.XListView;
@@ -47,7 +48,7 @@ public class SchoolNoticeActivity extends BaseActivity {
         setContentView(R.layout.activity_schoolnotice);
         initView();
         STATE = HASDATA;
-        loadData();
+        loadData(false);
     }
 
     /**
@@ -66,11 +67,14 @@ public class SchoolNoticeActivity extends BaseActivity {
         }
     }
 
-    private void loadData() {
+    private void loadData(boolean isMore) {
+        if(!isMore){
+            STATE = REFRESH;
+        }
         if (data.equals("school")) {
-            loadSchoolNoticeData();
+            loadSchoolNoticeData(isMore);
         } else if (data.equals("classroom")) {
-            loadClassroomNoticeData();
+            loadClassroomNoticeData(isMore);
         }
     }
 
@@ -92,6 +96,7 @@ public class SchoolNoticeActivity extends BaseActivity {
                 intent.setClass(SchoolNoticeActivity.this, SchoolNoticeInfoActivity.class);
                 intent.putExtra("notice", notices.get(i));
                 intent.putExtra("data", data);
+                intent.putExtra("sid", mSid);
                 startActivity(intent);
             }
         });
@@ -105,7 +110,7 @@ public class SchoolNoticeActivity extends BaseActivity {
                 } else {
                     STATE = REFRESH;
                     more = "1";
-                    loadData();
+                    loadData(false);
                 }
                 noticelistview.stopRefresh();
             }
@@ -115,7 +120,7 @@ public class SchoolNoticeActivity extends BaseActivity {
                 if (STATE.equals(HASDATA) || STATE.equals(REFRESH)) {
                     Toast.makeText(SchoolNoticeActivity.this, "正在加载,请稍后!", Toast.LENGTH_SHORT).show();
                 } else {
-                    loadData();
+                    loadData(true);
                 }
                 noticelistview.stopLoadMore();
             }
@@ -132,22 +137,51 @@ public class SchoolNoticeActivity extends BaseActivity {
     /**
      * 学习公告请求方法
      */
-    private void loadSchoolNoticeData() {
+    private void loadSchoolNoticeData(boolean isMore) {
         SchoolNoticeRequestListener schoolNoticelistRequestListener = new SchoolNoticeRequestListener(this);
-        SchoolNoticeListRequest schoolNoticeListRequest = new SchoolNoticeListRequest(Notice.Model.class, this, "school", more, mSid);
-        spiceManager.execute(schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
-                schoolNoticelistRequestListener.start());
+        NotNeedLoginSchoolNoticeListRequest schoolNoticeListRequest = null;
+        if(isMore){
+            if(notices.size() > 0){
+                more = notices.get(notices.size()-1).getAnnource_id()+"";
+                schoolNoticeListRequest = new NotNeedLoginSchoolNoticeListRequest(
+                        Notice.Model.class, this, "school", more, mSid);
+            }
+        }else{
+            schoolNoticeListRequest = new NotNeedLoginSchoolNoticeListRequest(
+                    Notice.Model.class, this, "school", "1", mSid);
+        }
+        if(schoolNoticeListRequest != null){
+            spiceManager.execute(
+                    schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(),
+                    DurationInMillis.ONE_SECOND * 10,
+                    schoolNoticelistRequestListener.start());
+        }
     }
 
     /**
      * 班级公告请求方法
      */
 
-    private void loadClassroomNoticeData() {
+    private void loadClassroomNoticeData(boolean isMore) {
         SchoolNoticeRequestListener schoolNoticelistRequestListener = new SchoolNoticeRequestListener(this);
-        SchoolNoticeListRequest schoolNoticeListRequest = new SchoolNoticeListRequest(Notice.Model.class, this, "classroom", more);
-        spiceManager.execute(schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(), DurationInMillis.ONE_SECOND * 10,
-                schoolNoticelistRequestListener.start());
+
+        SchoolNoticeListRequest schoolNoticeListRequest = null;
+        if(isMore){
+            if(notices.size() > 0){
+                more = notices.get(notices.size()-1).getAnnource_id()+"";
+                schoolNoticeListRequest = new SchoolNoticeListRequest(
+                        Notice.Model.class, this, "classroom", more);
+            }
+        }else{
+            schoolNoticeListRequest = new SchoolNoticeListRequest(
+                    Notice.Model.class, this, "classroom", "1");
+        }
+        if(schoolNoticeListRequest != null){
+            spiceManager.execute(
+                    schoolNoticeListRequest, schoolNoticeListRequest.getcachekey(),
+                    DurationInMillis.ONE_SECOND * 10,
+                    schoolNoticelistRequestListener.start());
+        }
     }
 
     /**
@@ -162,18 +196,23 @@ public class SchoolNoticeActivity extends BaseActivity {
         } else if (model == null) {
             Toast.makeText(SchoolNoticeActivity.this, "已经全部加载", Toast.LENGTH_SHORT).show();
         } else {
-            more = model.getMore();
-            if (STATE.equals(REFRESH)) {//如果正在刷新就清空
-                notices.clear();
+            if(notices.size() <= 0){
+                notices.addAll(model.getData());
+                notice = model.getData().get(0);
+                schoolnotice_title.setText(notice.getTitle());
+
+                schoolnotice_time_name.setText("发布人:" + notice.getRenname() +
+                        "    发布时间:" + notice.getPosttime2());
+
+                schoolnotice_content.setText(notice.getContent());
+            }else{
+                if (STATE.equals(REFRESH)) {//如果正在刷新就清空
+                    notices.clear();
+                }
+                notices.addAll(model.getData());
             }
-            notices.addAll(model.getData());
-            notice = model.getData().get(0);
-            schoolnotice_title.setText(model.getData().get(0).getTitle());
 
-            schoolnotice_time_name.setText("发布人:" + model.getData().get(0).getRenname() +
-                    "    发布时间:" + model.getData().get(0).getPosttime2());
 
-            schoolnotice_content.setText(model.getData().get(0).getContent());
             noticefirst.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -181,6 +220,7 @@ public class SchoolNoticeActivity extends BaseActivity {
                     intent.setClass(SchoolNoticeActivity.this, SchoolNoticeInfoActivity.class);
                     intent.putExtra("notice", notice);
                     intent.putExtra("data", data);
+                    intent.putExtra("sid", mSid);
                     startActivity(intent);
                 }
             });
