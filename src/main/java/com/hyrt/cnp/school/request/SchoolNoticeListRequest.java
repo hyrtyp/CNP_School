@@ -55,6 +55,6 @@ public class SchoolNoticeListRequest extends BaseRequest {
         return 0;
     }
     public String getcachekey(){
-        return "Noticelist"+data+sid+more;
+        return "Noticelist"+data+sid+more+System.currentTimeMillis();
     }
 }

@@ -37,6 +37,6 @@ public class NoticeInfoRequest extends BaseRequest {
         return 0;
     }
     public String getcachekey(){
-        return "Noticeinfo"+data+annourceid;
+        return "Noticeinfo"+data+annourceid+System.currentTimeMillis();
     }
 }

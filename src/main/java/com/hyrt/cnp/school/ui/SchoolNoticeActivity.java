@@ -2,21 +2,29 @@ package com.hyrt.cnp.school.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyrt.cnp.base.account.model.BaseTest;
 import com.hyrt.cnp.base.account.model.Notice;
+import com.hyrt.cnp.base.account.utils.LogHelper;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.adapter.SchoolNoticeAdapter;
 import com.hyrt.cnp.school.request.NotNeedLoginSchoolNoticeListRequest;
+import com.hyrt.cnp.school.request.NoticeAlterRequest;
 import com.hyrt.cnp.school.request.SchoolNoticeListRequest;
+import com.hyrt.cnp.school.requestListener.NoticeAlterRequestListener;
 import com.hyrt.cnp.school.requestListener.SchoolNoticeRequestListener;
 import com.hyrt.cnp.base.view.XListView;
 import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
+
+import net.oschina.app.AppContext;
 
 import java.util.ArrayList;
 
@@ -31,8 +39,8 @@ public class SchoolNoticeActivity extends BaseActivity {
     private String data;
     private int mSid = -1;
     private Notice notice;
-    private TextView schoolnotice_title, schoolnotice_time_name, schoolnotice_content;
-    private LinearLayout noticefirst;
+    private TextView schoolnotice_title, schoolnotice_time_name, schoolnotice_content, tv_change, tv_del;
+    private LinearLayout noticefirst, layoutAlter;
 
     private ArrayList<Notice> notices = new ArrayList<Notice>();
     private ArrayList<Notice> notices2 = new ArrayList<Notice>();
@@ -42,13 +50,52 @@ public class SchoolNoticeActivity extends BaseActivity {
     final private String HASDATA = "hasdata";
     private String more = "1";
 
+    public static final int RESULT_FROM_SEND_NOTICE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schoolnotice);
         initView();
+        if(data != null && data.equals("classroom")
+                && AppContext.getInstance().mUserDetail != null
+                && AppContext.getInstance().mUserDetail.getGroupID() != 7){
+            layoutAlter.setVisibility(View.VISIBLE);
+        }
         STATE = HASDATA;
         loadData(false);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(menu != null && data != null && data.equals("classroom")
+                && AppContext.getInstance().mUserDetail != null
+                && AppContext.getInstance().mUserDetail.getGroupID() != 7){
+            menu.add("发布")
+                    .setIcon(R.drawable.ic_actionbar_upload)
+                    .setShowAsAction(
+                            MenuItem.SHOW_AS_ACTION_ALWAYS);
+            return  true;
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getTitle().equals("发布")) {
+            Intent intent = new Intent();
+            intent.setClass(this, SendNoticeActivity.class);
+            startActivityForResult(intent, RESULT_FROM_SEND_NOTICE);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_FROM_SEND_NOTICE){
+            loadData(false);
+        }
     }
 
     /**
@@ -87,6 +134,32 @@ public class SchoolNoticeActivity extends BaseActivity {
         schoolnotice_title = (TextView) findViewById(R.id.schoolnotice_title);
         schoolnotice_time_name = (TextView) findViewById(R.id.schoolnotice_time_name);
         schoolnotice_content = (TextView) findViewById(R.id.schoolnotice_content);
+        layoutAlter = (LinearLayout) findViewById(R.id.layout_alter);
+        tv_change = (TextView) findViewById(R.id.tv_change);
+        tv_change.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(SchoolNoticeActivity.this, SendNoticeActivity.class);
+                intent.putExtra("notice", notice);
+                intent.putExtra("type", 1);
+                startActivityForResult(intent, RESULT_FROM_SEND_NOTICE);
+            }
+        });
+        tv_del = (TextView) findViewById(R.id.tv_del);
+        tv_del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NoticeAlterRequestListener requestListener = new NoticeAlterRequestListener(SchoolNoticeActivity.this);
+                requestListener.setListener(mNoticeDelRequestListener);
+                NoticeAlterRequest  request = new NoticeAlterRequest(
+                        SchoolNoticeActivity.this, notice.getAnnource_id());
+                spiceManager.execute(
+                        request, request.getcachekey(),
+                        DurationInMillis.ONE_SECOND * 10,
+                        requestListener.start(2));
+            }
+        });
 
         noticelistview = (XListView) findViewById(R.id.schoolnotice_listview);
         noticelistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -97,7 +170,7 @@ public class SchoolNoticeActivity extends BaseActivity {
                 intent.putExtra("notice", notices.get(i));
                 intent.putExtra("data", data);
                 intent.putExtra("sid", mSid);
-                startActivity(intent);
+                startActivityForResult(intent, RESULT_FROM_SEND_NOTICE);
             }
         });
         noticelistview.setPullLoadEnable(true);
@@ -128,6 +201,19 @@ public class SchoolNoticeActivity extends BaseActivity {
 
 
     }
+
+    public NoticeAlterRequestListener.RequestListener mNoticeDelRequestListener
+            = new NoticeAlterRequestListener.RequestListener() {
+        @Override
+        public void onRequestSuccess(BaseTest data) {
+            loadData(false);
+        }
+
+        @Override
+        public void onRequestFailure() {
+
+        }
+    };
 
     @Override
     protected void onStart() {
@@ -196,8 +282,12 @@ public class SchoolNoticeActivity extends BaseActivity {
         } else if (model == null) {
             Toast.makeText(SchoolNoticeActivity.this, "已经全部加载", Toast.LENGTH_SHORT).show();
         } else {
-            if(notices.size() <= 0){
-                notices.addAll(model.getData());
+            if (STATE.equals(REFRESH)) {//如果正在刷新就清空
+                notices.clear();
+            }
+            notices.addAll(model.getData());
+//            if(notices.size() <= 0){
+//                notices.addAll(model.getData());
                 notice = model.getData().get(0);
                 schoolnotice_title.setText(notice.getTitle());
 
@@ -205,12 +295,7 @@ public class SchoolNoticeActivity extends BaseActivity {
                         "    发布时间:" + notice.getPosttime2());
 
                 schoolnotice_content.setText(notice.getContent());
-            }else{
-                if (STATE.equals(REFRESH)) {//如果正在刷新就清空
-                    notices.clear();
-                }
-                notices.addAll(model.getData());
-            }
+//            }
 
 
             noticefirst.setOnClickListener(new View.OnClickListener() {
@@ -221,14 +306,14 @@ public class SchoolNoticeActivity extends BaseActivity {
                     intent.putExtra("notice", notice);
                     intent.putExtra("data", data);
                     intent.putExtra("sid", mSid);
-                    startActivity(intent);
+                    startActivityForResult(intent, RESULT_FROM_SEND_NOTICE);
                 }
             });
-            notices2.clear();
-            notices2.addAll(notices);
-            notices2.remove(0);//移除第一个
+//            notices2.clear();
+//            notices2.addAll(notices);
+//            notices2.remove(0);//移除第一个
             if (schoolNoticeAdapter == null) {
-                schoolNoticeAdapter = new SchoolNoticeAdapter(SchoolNoticeActivity.this, notices2);
+                schoolNoticeAdapter = new SchoolNoticeAdapter(SchoolNoticeActivity.this, notices, data);
                 noticelistview.setAdapter(schoolNoticeAdapter);
             } else {
                 schoolNoticeAdapter.notifyDataSetChanged();

@@ -1,16 +1,29 @@
 package com.hyrt.cnp.school.ui;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hyrt.cnp.base.account.model.BaseTest;
 import com.hyrt.cnp.base.account.model.Notice;
+import com.hyrt.cnp.base.account.utils.PhotoUpload;
 import com.hyrt.cnp.school.R;
 import com.hyrt.cnp.school.request.NotNeedLoginNoticeInfoRequest;
+import com.hyrt.cnp.school.request.NoticeAlterRequest;
 import com.hyrt.cnp.school.request.NoticeInfoRequest;
+import com.hyrt.cnp.school.requestListener.NoticeAlterRequestListener;
 import com.hyrt.cnp.school.requestListener.NoticeInfoRequestListener;
 import com.jingdong.common.frame.BaseActivity;
 import com.octo.android.robospice.persistence.DurationInMillis;
+
+import net.oschina.app.AppContext;
 
 /**
  * Created by GYH on 14-1-9.
@@ -21,6 +34,8 @@ public class SchoolNoticeInfoActivity extends BaseActivity {
     private TextView Noticetime;
     private TextView Noticecontext;
     private String data;
+    private Notice notice;
+    private Dialog mPhotoSelctDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +54,88 @@ public class SchoolNoticeInfoActivity extends BaseActivity {
             titletext.setText("通知公告");
         } else if (data.equals("classroom")) {
             titletext.setText("班级公告");
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(menu != null && data != null && data.equals("classroom")
+                && AppContext.getInstance().mUserDetail != null
+                && AppContext.getInstance().mUserDetail.getGroupID() != 7){
+            menu.add("修改")
+                    .setIcon(R.drawable.ic_setting)
+                    .setShowAsAction(
+                            MenuItem.SHOW_AS_ACTION_ALWAYS);
+            return  true;
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getTitle().equals("修改")) {
+            if(mPhotoSelctDialog == null){
+                mPhotoSelctDialog = new Dialog(this, R.style.MyDialog);
+                mPhotoSelctDialog.setContentView(R.layout.layout_notice_dialog);
+                mPhotoSelctDialog.getWindow().setLayout(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                LinearLayout layout_dialog_parent = (LinearLayout) mPhotoSelctDialog.findViewById(R.id.layout_dialog_parent);
+                TextView tv_change_notice = (TextView) mPhotoSelctDialog.findViewById(R.id.tv_change_notice);
+                TextView tv_del_notice = (TextView) mPhotoSelctDialog.findViewById(R.id.tv_del_notice);
+                TextView tv_cancle_dialog = (TextView) mPhotoSelctDialog.findViewById(R.id.tv_cancle_dialog);
+
+                View.OnClickListener mLayoutOnClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(view.getId() == R.id.tv_change_notice){
+                            Intent intent = new Intent();
+                            intent.setClass(SchoolNoticeInfoActivity.this, SendNoticeActivity.class);
+                            intent.putExtra("notice", notice);
+                            intent.putExtra("type", 1);
+                            startActivityForResult(intent, SchoolNoticeActivity.RESULT_FROM_SEND_NOTICE);
+                        }else if(view.getId() == R.id.tv_del_notice){
+                            NoticeAlterRequestListener requestListener = new NoticeAlterRequestListener(SchoolNoticeInfoActivity.this);
+                            requestListener.setListener(mNoticeDelRequestListener);
+                            NoticeAlterRequest request = new NoticeAlterRequest(
+                                    SchoolNoticeInfoActivity.this, notice.getAnnource_id());
+                            spiceManager.execute(
+                                    request, request.getcachekey(),
+                                    DurationInMillis.ONE_SECOND * 10,
+                                    requestListener.start(2));
+                        }
+                        mPhotoSelctDialog.dismiss();
+                    }
+                };
+                layout_dialog_parent.setOnClickListener(mLayoutOnClickListener);
+                tv_change_notice.setOnClickListener(mLayoutOnClickListener);
+                tv_del_notice.setOnClickListener(mLayoutOnClickListener);
+                tv_cancle_dialog.setOnClickListener(mLayoutOnClickListener);
+            }
+            mPhotoSelctDialog.show();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public NoticeAlterRequestListener.RequestListener mNoticeDelRequestListener
+            = new NoticeAlterRequestListener.RequestListener() {
+        @Override
+        public void onRequestSuccess(BaseTest data) {
+            setResult(SchoolNoticeActivity.RESULT_FROM_SEND_NOTICE);
+            finish();
+        }
+
+        @Override
+        public void onRequestFailure() {
+
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == SchoolNoticeActivity.RESULT_FROM_SEND_NOTICE){
+            LoadData();
         }
     }
 
@@ -67,9 +164,16 @@ public class SchoolNoticeInfoActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void finish() {
+        setResult(SchoolNoticeActivity.RESULT_FROM_SEND_NOTICE);
+        super.finish();
+    }
+
     public void UpDataUI(Notice.Model2 model2){
-        Noticetitle.setText(model2.getData().getTitle());
-        Noticetime.setText("发布人：" + model2.getData().getRenname() + " 发布时间：" + model2.getData().getPosttime2());
-        Noticecontext.setText(model2.getData().getContent());
+        notice = model2.getData();
+        Noticetitle.setText(notice.getTitle());
+        Noticetime.setText("发布人：" + notice.getRenname() + " 发布时间：" + notice.getPosttime2());
+        Noticecontext.setText(notice.getContent());
     }
 }
