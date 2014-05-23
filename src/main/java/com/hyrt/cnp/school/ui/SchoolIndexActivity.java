@@ -16,6 +16,8 @@ import com.hyrt.cnp.school.request.NotNeedLoginSchoolinfoRequest;
 import com.hyrt.cnp.school.request.SchoolinfoRequest;
 import com.hyrt.cnp.school.requestListener.SchoolindexRequestListener;
 import com.jingdong.common.frame.BaseActivity;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.octo.android.robospice.persistence.DurationInMillis;
 
 import net.oschina.app.AppContext;
@@ -67,7 +69,15 @@ public class SchoolIndexActivity extends BaseActivity {
     }
 
     public void UPdataUI(School.Model2 model2) {
-        showDetailImage(FaceUtils.getSchoolImage(model2.getData().getNursery_id(), FaceUtils.FACE_SMALL), schoolimage, false);
+        String imagePath = FaceUtils.getSchoolImage(model2.getData().getNursery_id(), FaceUtils.FACE_SMALL);
+        DisplayImageOptions mOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.hua2)
+                .showImageOnFail(R.drawable.hua2)
+                .showImageForEmptyUri(R.drawable.hua2)
+                .cacheInMemory(true)
+                .build();
+        ImageLoader.getInstance().displayImage(imagePath, schoolimage, mOptions);
+//        showDetailImage(FaceUtils.getSchoolImage(model2.getData().getNursery_id(), FaceUtils.FACE_SMALL), schoolimage, false);
         schoolinfo.setText(model2.getData().getAddress() + "      电话：" + model2.getData().getTel());
         if(model2 != null){
             titletext.setText(model2.getData().getnName());

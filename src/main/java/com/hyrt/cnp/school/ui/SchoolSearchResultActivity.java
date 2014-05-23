@@ -250,6 +250,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
             public void onRequestSuccess(Map<String, String> data) {
                 cityKeys.clear();
                 cityValues.clear();
+                cityValues.add("全部");
 //                Set<String> key = data.keySet();
                 Iterator<Map.Entry<String, String>> it = data.entrySet().iterator();
                 while (it.hasNext()) {
@@ -370,6 +371,7 @@ public class SchoolSearchResultActivity extends BaseActivity {
             ImageView ivSpinnerCenter = (ImageView) mPropertyView.findViewById(R.id.iv_school_search_spinner_center);
             mPropertyListView.setDividerHeight(0);
             List<String> array = new ArrayList<String>();
+            array.add("全部");
             array.add("公办");
             array.add("民办");
 
@@ -416,9 +418,11 @@ public class SchoolSearchResultActivity extends BaseActivity {
             ImageView ivSpinnerCenter = (ImageView) mStaffNumView.findViewById(R.id.iv_school_search_spinner_center);
             mStaffNumListView.setDividerHeight(0);
             List<String> array = new ArrayList<String>();
+            array.add("全部");
             array.add("0-50人");
             array.add("50-100人");
             array.add("100-200人");
+            array.add("200-300人");
             array.add("300-500人");
             array.add("500人以上");
 
@@ -460,12 +464,16 @@ public class SchoolSearchResultActivity extends BaseActivity {
             if(mDistrictPopupWindow != null){
                 mDistrictPopupWindow.dismiss();
             }
-            mKeytDistrict = text;
+            if("全部".equals(text)){
+                mKeytDistrict = "";
+            }else{
+                mKeytDistrict = text;
+            }
             tvDistrict.setText(text);
-            if (mKeytDistrict.length() > 0) {
+//            if (mKeytDistrict.length() > 0) {
                 mRefreshState = ON_REFRESH_DATA;
                 loadData();
-            }
+//            }
         }
     };
 
@@ -483,10 +491,10 @@ public class SchoolSearchResultActivity extends BaseActivity {
                 mKeytProperty = "";
             }
             tvProperty.setText(text);
-            if (mKeytProperty.length() > 0) {
+//            if (mKeytProperty.length() > 0) {
                 mRefreshState = ON_REFRESH_DATA;
                 loadData();
-            }
+//            }
         }
     };
 
@@ -497,22 +505,22 @@ public class SchoolSearchResultActivity extends BaseActivity {
                 mStaffNumPopupWindow.dismiss();
             }
             switch (position){
-                case 0:
+                case 1:
                     mKeytStaffNum = "0-50";
                     break;
-                case 1:
+                case 2:
                     mKeytStaffNum = "50-100";
                     break;
-                case 2:
+                case 3:
                     mKeytStaffNum = "100-200";
                     break;
-                case 3:
+                case 4:
                     mKeytStaffNum = "200-300";
                     break;
-                case 4:
+                case 5:
                     mKeytStaffNum = "300-500";
                     break;
-                case 5:
+                case 6:
                     mKeytStaffNum = "500-0";
                     break;
                 default:
@@ -520,10 +528,10 @@ public class SchoolSearchResultActivity extends BaseActivity {
                     break;
             }
             tvStaffNum.setText(text);
-            if (mKeytStaffNum.length() > 0) {
+//            if (mKeytStaffNum.length() > 0) {
                 mRefreshState = ON_REFRESH_DATA;
                 loadData();
-            }
+//            }
         }
     };
 

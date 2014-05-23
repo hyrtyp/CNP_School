@@ -47,6 +47,6 @@ public class SchoolinfoRequest extends NotNeedLoginBaseRequest{
     }
 
     public String getcachekey(){
-        return "Schoolinfo"+mSid;
+        return "Schoolinfo"+mSid+System.currentTimeMillis();
     }
 }

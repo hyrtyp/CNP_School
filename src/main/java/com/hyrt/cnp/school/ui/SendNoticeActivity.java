@@ -30,9 +30,8 @@ import java.util.Date;
  * Created by Zoe on 2014-05-20.
  */
 public class SendNoticeActivity extends BaseActivity{
-    TextView tv_cancle, tv_send, tv_notice_postman, tv_notice_posttime;
+    TextView tv_cancle, tv_send;
     EditText et_notice_title, et_notice_content;
-    LinearLayout layout_notice_alter_span;
 
     private Notice mNotice;
     private int type = 0;//0:发布公告;1.修改公告
@@ -48,18 +47,12 @@ public class SendNoticeActivity extends BaseActivity{
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 0);
         if(type == 0){
-            layout_notice_alter_span.setVisibility(View.GONE);
             setSendEnabled(false);
         }else{
             mNotice = (Notice) intent.getSerializableExtra("notice");
             et_notice_title.setText(mNotice.getTitle());
             et_notice_title.setSelection(mNotice.getTitle().length());
             et_notice_content.setText(mNotice.getContent());
-            tv_notice_postman.setText(AppContext.getInstance().mUserDetail.getRenname());
-            Calendar mCalendar = Calendar.getInstance();
-            Date now = mCalendar.getTime();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            tv_notice_posttime.setText(sdf.format(now));
             setSendEnabled(true);
         }
     }
@@ -120,11 +113,8 @@ public class SendNoticeActivity extends BaseActivity{
     private void findView(){
         tv_cancle = (TextView) findViewById(R.id.tv_cancle);
         tv_send = (TextView) findViewById(R.id.tv_send);
-        tv_notice_postman = (TextView) findViewById(R.id.tv_notice_postman);
-        tv_notice_posttime = (TextView) findViewById(R.id.tv_notice_posttime);
         et_notice_title = (EditText) findViewById(R.id.et_notice_title);
         et_notice_content = (EditText) findViewById(R.id.et_notice_content);
-        layout_notice_alter_span = (LinearLayout) findViewById(R.id.layout_notice_alter_span);
     }
 
     public void setListener(){

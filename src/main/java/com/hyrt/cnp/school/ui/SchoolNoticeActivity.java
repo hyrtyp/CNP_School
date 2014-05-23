@@ -279,9 +279,11 @@ public class SchoolNoticeActivity extends BaseActivity {
             linearLayout.setVisibility(View.VISIBLE);
             TextView bottom_num = (TextView) findViewById(R.id.bottom_num);
             bottom_num.setText("暂无信息");
+            noticefirst.setVisibility(View.GONE);
         } else if (model == null) {
             Toast.makeText(SchoolNoticeActivity.this, "已经全部加载", Toast.LENGTH_SHORT).show();
         } else {
+            noticefirst.setVisibility(View.VISIBLE);
             if (STATE.equals(REFRESH)) {//如果正在刷新就清空
                 notices.clear();
             }
